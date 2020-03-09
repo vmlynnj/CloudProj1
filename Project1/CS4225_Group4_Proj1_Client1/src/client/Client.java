@@ -24,13 +24,11 @@ public class Client {
 
 	private static final String HOST = "localhost";
 	private static final int PORT = 4225;
+	
+	public static Socket socket = null;
 
-	/**
-	 * Main entry point of client.
-	 * 
-	 * @param args not used
-	 */
-	public static void main(String[] args) {
+	public static void startConnection()
+	{	
 		Socket clientSocket = null;
 		InputStream incomingMessages = null;
 		OutputStream outgoingMessages = null;
@@ -38,6 +36,7 @@ public class Client {
 
 		try {
 			clientSocket = new Socket(HOST, PORT);
+			Client.socket = clientSocket;
 			outgoingMessages = clientSocket.getOutputStream();
 			incomingMessages = clientSocket.getInputStream();
 

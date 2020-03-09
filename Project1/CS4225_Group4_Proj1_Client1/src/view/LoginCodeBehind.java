@@ -1,5 +1,6 @@
 package view;
 
+import client.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,7 +21,8 @@ public class LoginCodeBehind {
 	}
     @FXML
     void btnSubmit_Click(ActionEvent event) {
-
+    	Client client = new Client();
+    	client.startConnection();
     }
 
 }
