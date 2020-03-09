@@ -40,6 +40,17 @@ public class HangmanCodeBehind {
     @FXML
     private TextField txtBoxChatBox;
 
+    
+	@FXML
+	private void initialize() {
+		this.head.setVisible(false);
+		this.body.setVisible(false);
+		this.rightArm.setVisible(false);
+		this.leftArm.setVisible(false);
+		this.rigthLeg.setVisible(false);
+		this.leftLeg.setVisible(false);
+	}
+	
     @FXML
     void btnQuit_Click(ActionEvent event) {
 
