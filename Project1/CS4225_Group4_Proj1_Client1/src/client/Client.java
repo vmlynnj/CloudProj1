@@ -30,15 +30,15 @@ public class Client {
 	public static void startConnection()
 	{	
 		Socket clientSocket = null;
-		InputStream incomingMessages = null;
-		OutputStream outgoingMessages = null;
-		OutputWriter writer = new OutputWriter();
 
 		try {
 			clientSocket = new Socket(HOST, PORT);
 			Client.socket = clientSocket;
-			outgoingMessages = clientSocket.getOutputStream();
-			incomingMessages = clientSocket.getInputStream();
+			
+			ListenThread listen = new ListenThread(clientSocket);
+			listen.start();
+			WriteThread write = new WriteThread(clientSocket);
+			write.start();
 
 		} catch (UnknownHostException e) {
 			System.err.println("Problem with the host.");
