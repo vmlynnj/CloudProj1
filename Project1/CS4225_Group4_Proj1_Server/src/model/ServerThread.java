@@ -48,15 +48,15 @@ public class ServerThread extends Thread {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(this.input));
 			String username = reader.readLine();
 			UserThread user = new UserThread(socket, username);
-			if(Server.usernames.contains(username)) {
-				while (Server.usernames.contains(username)) {
+			if(GameThread.usernames.contains(username)) {
+				while (GameThread.usernames.contains(username)) {
 					user.sendMessage("This username has been taken. Please try another one");
 					username = reader.readLine();
 				}
 			}
 			user.setUserName(username);
-			Server.usernames.add(username);
-			Server.AddUser(user);
+			GameThread.usernames.add(username);
+			GameThread.AddUser(user);
 			user.start();
 
 

@@ -38,15 +38,15 @@ public class UserThread extends Thread {
 	 */
 	public void run() {
 		try {
-			this.sendMessage(Server.AllUsers());
-			this.sendMessage(Server.GAME_INSTRUCTIONS);
+			this.sendMessage(GameThread.AllUsers());
+			this.sendMessage(GameThread.GAME_INSTRUCTIONS);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(this.incomingMessages));
 			
 			String userMessage = null;
 			while(!userMessage.equals("Quit")) {
 				userMessage = reader.readLine();
 				//TODO CHECK TO SEE IF IT IS CORRECT
-				Server.broadcastMessage(this.toString() + ":  " + userMessage, this);
+				GameThread.broadcastMessage(this.toString() + ":  " + userMessage, this);
 			}
 			
 
