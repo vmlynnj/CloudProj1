@@ -1,0 +1,50 @@
+Computer Science
+Computer
+Hardware
+Software
+Program
+Code
+Programming
+Central Processing Unit
+Main Memory
+Network
+Random Access Memory
+Data
+Compiler
+Translator
+Java
+Python
+Asynchronous
+Binary
+Integer
+Double
+Long
+Array List
+Array
+Collection
+Character
+Paradigm
+Functional
+Procedural
+Imperative
+Object-Oriented
+Integrated Development Environment
+Debugger
+Runtime Environment
+Execution
+Source File
+Source Code
+Root
+Executable
+Compilation
+Polymorhpism
+Abstraction
+Unit Test
+Library
+Variable
+Static
+Data Binding
+Reference Variable
+Vector
+Command-line
+Recursion
