@@ -3,7 +3,11 @@ package server;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+import java.util.List;
+
 import model.ServerThread;
+import model.UserThread;
 
 import java.net.ServerSocket;
 
@@ -15,8 +19,12 @@ import java.net.ServerSocket;
  */
 public class Server {
 
+	//TODO MORE DETAILS
+	public static final String GAME_INSTRUCTIONS ="Hangman Enter Quit to leave";
+	
 	private static final int PORT = 4225;
-
+	public static List<String> usernames;
+	public static List<UserThread> users;
 	/**
 	 * Main entry point of server; must run this program first.
 	 * 
@@ -28,6 +36,9 @@ public class Server {
 
 		serverSocket = start(serverSocket);
 		try {
+			Server.usernames = new ArrayList<String>();
+			Server.users = new ArrayList<UserThread>();
+			
 			while (true) {
 				clientSocket = serverSocket.accept();
 				new ServerThread(clientSocket).start();
@@ -61,6 +72,33 @@ public class Server {
 			System.exit(-1);
 		}
 		return serverSocket;
+	}
+	
+	public static String AddUser(UserThread user) {
+		if(Server.users.size() < 4) {
+			Server.users.add(user);
+			Server.broadcastMessage("A new player has joined: " + user.getUserName(), null);
+			return "Success";
+		}
+		else {
+			return "";
+		}
+	}
+	
+	public static void broadcastMessage(String message, UserThread user) {
+		for(UserThread currUser : Server.users) {
+			if(currUser != user) {
+				
+			}
+		}
+	}
+	
+	public static String AllUsers() {
+		String output = "Current Players: "+ System.lineSeparator();
+		for(UserThread currUser : Server.users) {
+			output += currUser.toString() +System.lineSeparator();
+		}
+		return output;
 	}
 
 }

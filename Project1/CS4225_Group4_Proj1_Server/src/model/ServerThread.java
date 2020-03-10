@@ -1,14 +1,13 @@
 package model;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
+import server.Server;
 
 /**
  * A thread for the server
@@ -18,6 +17,9 @@ import java.util.Map;
 public class ServerThread extends Thread {
 
 	private Socket socket;
+	
+	private InputStream input;
+	private OutputStream output;
 
 	/**
 	 * Creates a thread to handle the passed in socket
@@ -28,6 +30,12 @@ public class ServerThread extends Thread {
 	 */
 	public ServerThread(Socket clientSocket) {
 		this.socket = clientSocket;
+		try {
+			this.input = this.socket.getInputStream();
+			this.output = this.socket.getOutputStream();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -36,14 +44,20 @@ public class ServerThread extends Thread {
 	 * Runs the application
 	 */
 	public void run() {
-		InputStream incomingMessages = null;
-		OutputStream outgoingMessages = null;
 		try {
-			incomingMessages = this.socket.getInputStream();
-			outgoingMessages = this.socket.getOutputStream();
-
-			var objIn = new ObjectInputStream(incomingMessages);
-			var objOut = new ObjectOutputStream(outgoingMessages);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(this.input));
+			String username = reader.readLine();
+			UserThread user = new UserThread(socket, username);
+			if(Server.usernames.contains(username)) {
+				while (Server.usernames.contains(username)) {
+					user.sendMessage("This username has been taken. Please try another one");
+					username = reader.readLine();
+				}
+			}
+			user.setUserName(username);
+			Server.usernames.add(username);
+			Server.AddUser(user);
+			user.start();
 
 
 		} catch (IOException e1) {
@@ -52,8 +66,8 @@ public class ServerThread extends Thread {
 
 		try {
 			this.socket.close();
-			incomingMessages.close();
-			outgoingMessages.close();
+			this.input.close();
+			this.output.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
