@@ -1,5 +1,6 @@
 package model;
 
+import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,11 +16,13 @@ public class GameThread extends Thread {
 	public static BlockingQueue<UserThread> users;
 	
 	private HangmanGame game;
+	private ServerSocket serverSocket;
 	
-	public GameThread() {
+	public GameThread(ServerSocket serverSocket) {
 		GameThread.usernames = Collections.synchronizedList(new ArrayList<String>());
 		GameThread.users = new LinkedBlockingQueue<UserThread>();
 		this.game = new HangmanGame();
+		this.serverSocket = serverSocket;
 	}
 	
 	@Override

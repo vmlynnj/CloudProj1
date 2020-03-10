@@ -57,7 +57,6 @@ public class ServerThread extends Thread {
 			user.setUserName(username);
 			GameThread.usernames.add(username);
 			GameThread.AddUser(user);
-			user.start();
 
 
 		} catch (IOException e1) {
