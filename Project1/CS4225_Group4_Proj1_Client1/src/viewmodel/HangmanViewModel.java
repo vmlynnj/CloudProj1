@@ -3,6 +3,8 @@
  */
 package viewmodel;
 
+import java.io.IOException;
+
 import client.Client;
 import client.WriteThread;
 import javafx.scene.control.SingleSelectionModel;
@@ -34,7 +36,12 @@ public class HangmanViewModel {
 		System.out.println("Submit chat button clicked");
 		var socket = Client.socket;
 		var writeThread = new WriteThread(socket);
-		writeThread.sendMessage(text);
+		try {
+			writeThread.sendMessage(text);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

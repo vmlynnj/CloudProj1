@@ -8,13 +8,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-<<<<<<< HEAD
-public class UserThread extends Thread {
-=======
-import server.Server;
-
 public class UserThread {
->>>>>>> branch 'master' of https://github.com/vmlynnj/CloudProj1.git
 	private String username;
 	private Socket socket;
 
