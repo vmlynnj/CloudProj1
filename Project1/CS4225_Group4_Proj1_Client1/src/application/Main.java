@@ -12,8 +12,14 @@ import javafx.scene.layout.Pane;
 
 
 public class Main extends Application {
-	private static final String WINDOW_TITLE = "Hangman";
+	private static final String WINDOW_TITLE = "Hangman by M'lynn Jenkins, Aaron Merrell, and Justin Smith";
 	private static final String GUI_FXML = "./view/Login.fxml";
+	
+	
+	public static void main(String[] args) {
+		launch(args);
+	}
+	
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -30,6 +36,7 @@ public class Main extends Application {
 		}
 	}
 	
+	
 	/**
 	 * Loads the GUI from the given FXML file.
 	 * 
@@ -41,7 +48,5 @@ public class Main extends Application {
 		loader.setLocation(getClass().getResource("./view/Login.fxml"));
 		return (Pane) loader.load();
 	}
-	public static void main(String[] args) {
-		launch(args);
-	}
+
 }

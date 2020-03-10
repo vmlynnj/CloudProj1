@@ -26,6 +26,8 @@ public class Client {
 	private static final int PORT = 4225;
 	
 	public static Socket socket = null;
+	public static ListenThread listen;
+	public static WriteThread write;
 
 	public static void startConnection()
 	{	
@@ -35,10 +37,11 @@ public class Client {
 			clientSocket = new Socket(HOST, PORT);
 			Client.socket = clientSocket;
 			
-			ListenThread listen = new ListenThread(clientSocket);
+			listen = new ListenThread(clientSocket);
 			listen.start();
-			WriteThread write = new WriteThread(clientSocket);
+			write = new WriteThread(clientSocket);
 			write.start();
+			System.out.println("Client started on port " + PORT);
 
 		} catch (UnknownHostException e) {
 			System.err.println("Problem with the host.");
@@ -48,6 +51,15 @@ public class Client {
 			System.out.println(
 					"Error parsing file - Ensure input matrices have correct columns/row values and no values are missing"
 							+ System.lineSeparator() + e.getMessage());
+		}
+	}
+	
+	public static void sendChat(String message) {
+		try {
+			write.sendMessage(message);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

@@ -27,16 +27,16 @@ public class LoginCodeBehind {
 	}
     @FXML
     void btnSubmit_Click(ActionEvent event) {
-    	Client client = new Client();
-    	//client.startConnection();
+    	//Client client = new Client();
+    	//Client.startConnection();
     	Stage stage = (Stage) this.btnSubmit.getScene().getWindow();
+    	
         try {
 			Parent root = FXMLLoader.load(getClass().getResource("Hangman.fxml"));
 			Scene scene = new Scene(root);
 	        stage.setScene(scene);
 	        stage.show();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }

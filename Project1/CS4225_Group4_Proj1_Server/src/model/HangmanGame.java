@@ -88,6 +88,7 @@ public class HangmanGame {
 			result = true;
 			this.hiddenWord = sb.toString();
 		} else {
+			this.incorrectGuesses++;
 			result = false;
 		}
 		

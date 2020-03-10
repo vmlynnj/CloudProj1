@@ -28,15 +28,15 @@ public class WriteThread extends Thread {
 	
 	public void run() {
 		while (true) {
-			Console console = System.console();
+//			Console console = System.console();
 			 
-	        String message = console.readLine("\nEnter Something: ");
-	        try {
-				this.sendMessage(message);
-			} catch (IOException e) {
+//	        String message = console.readLine("\nEnter Something: ");
+//	        try {
+//				this.sendMessage(message);
+//			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//				e.printStackTrace();
+//			}
 		}
 	}
 	
@@ -44,6 +44,7 @@ public class WriteThread extends Thread {
 	public void sendMessage(String message) throws IOException {
 		var objOut = new ObjectOutputStream(this.output);
 		objOut.write(message.getBytes());
+		System.out.println("Message sent: " + message);
 		objOut.flush();
 	}
 	

@@ -1,12 +1,15 @@
 package view;
 
+import client.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import viewmodel.HangmanViewModel;
 
 public class HangmanCodeBehind {
 
@@ -40,25 +43,33 @@ public class HangmanCodeBehind {
     @FXML
     private TextField txtBoxChatBox;
 
+    @FXML
+    private ComboBox<?> guessComboBox;
+
+    @FXML
+    private Button submitGuessButton;
+    
+    private HangmanViewModel viewmodel;
+
     
 	@FXML
 	private void initialize() {
-		this.head.setVisible(false);
-		this.body.setVisible(false);
-		this.rightArm.setVisible(false);
-		this.leftArm.setVisible(false);
-		this.rigthLeg.setVisible(false);
-		this.leftLeg.setVisible(false);
+		this.viewmodel = new HangmanViewModel();
 	}
 	
     @FXML
     void btnQuit_Click(ActionEvent event) {
-
+    	System.exit(0);
     }
 
     @FXML
     void btnSubmit_Click(ActionEvent event) {
-
+    	this.viewmodel.sendChat(txtBoxChatBox.getText());
+    }
+    
+    @FXML
+    void btnGuess_Click(ActionEvent event) {
+    	this.viewmodel.sendGuess(guessComboBox.getSelectionModel());
     }
 
 }

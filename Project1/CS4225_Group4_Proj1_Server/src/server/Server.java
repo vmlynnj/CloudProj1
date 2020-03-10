@@ -36,6 +36,7 @@ public class Server {
 		try {
 			
 			while (isGameOver == false) {
+				System.out.println("Listening to connections...");
 				clientSocket = serverSocket.accept();
 				new ServerThread(clientSocket).start();
 			}
@@ -61,6 +62,7 @@ public class Server {
 	private static ServerSocket start(ServerSocket serverSocket) {
 		try {
 			serverSocket = new ServerSocket(PORT);
+			serverSocket.setSoTimeout(1000 * 30);
 		} catch (Exception e) {
 			System.err.println("IOException:  " + e + " -- most probably the server is already started.");
 			System.exit(-1);
