@@ -8,71 +8,51 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
+<<<<<<< HEAD
 public class UserThread extends Thread {
+=======
+import server.Server;
+
+public class UserThread {
+>>>>>>> branch 'master' of https://github.com/vmlynnj/CloudProj1.git
 	private String username;
 	private Socket socket;
-	
+
 	private InputStream incomingMessages = null;
 	private OutputStream output;
-	
+
+	BufferedReader reader;
+
 	public UserThread(Socket socket, String userName) {
 		this.socket = socket;
 		try {
 			this.incomingMessages = this.socket.getInputStream();
 			this.output = this.socket.getOutputStream();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		this.username = userName;
-	}
-	
-	
-
-	@SuppressWarnings("unchecked")
-	@Override
-	/**
-	 * Runs the application
-	 */
-	public void run() {
-		try {
+			reader = new BufferedReader(new InputStreamReader(this.incomingMessages));
+			this.username = userName;
 			this.sendMessage(GameThread.AllUsers());
 			this.sendMessage(GameThread.GAME_INSTRUCTIONS);
-			BufferedReader reader = new BufferedReader(new InputStreamReader(this.incomingMessages));
-			
-			String userMessage = null;
-			while(!userMessage.equals("Quit")) {
-				userMessage = reader.readLine();
-				//TODO CHECK TO SEE IF IT IS CORRECT
-				GameThread.broadcastMessage(this.toString() + ":  " + userMessage, this);
-			}
-			
-
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-
-		try {
-			this.socket.close();
-			this.incomingMessages.close();
-			this.output.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
-	
+
+	public String getMessage() throws IOException {
+		String message = this.reader.readLine();
+		return message;
+	}
+
 	public void sendMessage(String message) throws IOException {
 		var objOut = new ObjectOutputStream(this.output);
 		objOut.write(message.getBytes());
 		objOut.flush();
 	}
-	
+
 	public String getUserName() {
 		return this.username;
 	}
-	
-	public void setUserName(String name) 
-	{
+
+	public void setUserName(String name) {
 		this.username = name;
 	}
 
@@ -80,6 +60,15 @@ public class UserThread extends Thread {
 	public String toString() {
 		return "Player: " + username;
 	}
-	
-	
+
+	public void disconnect() {
+		try {
+			this.socket.close();
+			this.incomingMessages.close();
+			this.output.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 }
