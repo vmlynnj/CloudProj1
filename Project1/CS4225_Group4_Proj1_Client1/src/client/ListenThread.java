@@ -15,7 +15,8 @@ public class ListenThread extends Thread{
 	private Socket socket;
 	
 	private InputStream input;
-	private OutputStream output;
+	
+	private BufferedReader reader;
 	
 	public static String MESSAGE = null;
 	
@@ -24,7 +25,7 @@ public class ListenThread extends Thread{
 		
 		try {
 			this.input = this.socket.getInputStream();
-			this.output = this.socket.getOutputStream();
+			this.reader = new BufferedReader(new InputStreamReader(this.input));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -37,10 +38,8 @@ public class ListenThread extends Thread{
 		while(true)
 		{
 			System.out.println("In listener");
-			ObjectInputStream reader;
 			try {
-				reader = new ObjectInputStream(this.input);
-				String message = (String) reader.readObject();
+				String message = this.reader.readLine();
 				HangmanViewModel.addMessage(message);
 				
 				//TODO HANDLE SERVER MESSAGES
@@ -48,10 +47,7 @@ public class ListenThread extends Thread{
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} 
 
 		}
 	} 

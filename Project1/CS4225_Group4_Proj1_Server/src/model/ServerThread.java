@@ -18,6 +18,7 @@ public class ServerThread extends Thread {
 	private InputStream input;
 	private OutputStream output;
 
+	
 	/**
 	 * Creates a thread to handle the passed in socket
 	 * 
@@ -43,7 +44,7 @@ public class ServerThread extends Thread {
 	public void run() {
 		System.out.println("Starting serverThread.run() method.");
 		try {
-			
+			/*
 			System.out.println("Inside try block of the serverThread.run() method.");
 			ObjectInputStream reader = new ObjectInputStream(this.input);
 			System.out.println("Created reader inside of the serverThread.run() method.");
@@ -62,13 +63,13 @@ public class ServerThread extends Thread {
 			GameThread.AddUser(user);
 			//user.start();
 			//user.sendMessage(GameThread.AddUser(user));
-			
+			*/
 //			while (true) {
 //				
 //			}
 
-		} catch (IOException | ClassNotFoundException e1) {
-			System.out.println(e1.getMessage());
+		} catch(Exception e) {
+			
 		}
 
 //		try {

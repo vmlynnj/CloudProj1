@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 public class WriteThread extends Thread {
@@ -11,15 +12,14 @@ public class WriteThread extends Thread {
 	private Socket socket;
 	private InputStream input;
 	private OutputStream output;
-	private ObjectOutputStream objOut;
+	private PrintWriter writer;
 	
 	public WriteThread(Socket socket) {
 		this.socket = socket;
 		
 		try {
-			this.input = this.socket.getInputStream();
 			this.output = this.socket.getOutputStream();
-			this.objOut = new ObjectOutputStream(this.output);
+			this.writer = new PrintWriter(this.output, true);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -40,16 +40,14 @@ public class WriteThread extends Thread {
 		}
 	}
 	
-	public void sendUsername(String message) throws IOException {
-		this.objOut.writeObject(message);
+	public void sendUsername(String message) {
 		System.out.println("Username sent: " + message);
-		this.objOut.flush();
+		this.writer.println(message);
 	}
 	
-	public void sendChat(String message) throws IOException {
-		this.objOut.writeObject(message);
+	public void sendChat(String message) {
 		System.out.println("Chat sent: " + message);
-		this.objOut.flush();
+		this.writer.println(message);
 	}
 	
 }

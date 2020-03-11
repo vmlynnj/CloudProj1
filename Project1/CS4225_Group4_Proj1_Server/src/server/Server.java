@@ -30,53 +30,28 @@ public class Server {
 	 * @param args not used
 	 */
 	public static void main(String[] args) {
-		ServerSocket serverSocket = null;
-		Socket clientSocket = null;
-
-		serverSocket = start(serverSocket);
-		var gameThread = new GameThread();
-		try {
-			System.out.println("Listening to connections...");			
-			while (isGameOver == false) {
-				clientSocket = serverSocket.accept();
-				System.out.println("Client accepted from port: " + clientSocket.getPort());
-				var serverthread = new ServerThread(clientSocket);
-				serverthread.start();
-			}
+		Server server = new Server();
+		server.run();
+		
+		
+	}
+	
+	public void run () {
+		try (ServerSocket server = new ServerSocket(PORT)){
+			Socket clientSocket;
 			
+			while(true) {
+				clientSocket = server.accept();
+				System.out.println("Connected to server");
+				UserThread user = new UserThread(clientSocket, this);
+				user.start();
+				
+			}
 		} catch (IOException e) {
-
-		}
-
-		try {
-			serverSocket.close();
-		} catch (IOException e) {
-			System.err.println(e);
+			e.printStackTrace();
 		}
 	}
 
-	/**
-	 * Starts the server. Server will timeout after 100 seconds.
-	 * 
-	 * @param serverSocket the server socket
-	 * 
-	 * @return the server socket
-	 */
-	private static ServerSocket start(ServerSocket serverSocket) {
-		try {
-			serverSocket = new ServerSocket(PORT);
-			serverSocket.setSoTimeout(1000 * 30);
-		} catch (Exception e) {
-			System.err.println("IOException:  " + e + " -- most probably the server is already started.");
-			System.exit(-1);
-		}
-		return serverSocket;
-	}
-	
-	
-	
-	public void setIsGameOver(boolean isGameOver) {
-		Server.isGameOver = isGameOver;
-	}
+
 
 }

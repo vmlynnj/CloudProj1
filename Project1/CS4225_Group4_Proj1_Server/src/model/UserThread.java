@@ -1,64 +1,58 @@
 package model;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.concurrent.TimeUnit;
+
+import server.Server;
 
 
 public class UserThread extends Thread {
 	private String username;
 	private Socket socket;
 
-	private InputStream incomingMessages;
-	private OutputStream output;
+	private Server server;
+	private PrintWriter writer;
 	
-	ObjectInputStream reader;
+	private BufferedReader reader;
 	
-	public UserThread(Socket socket, String userName) {
+	public UserThread(Socket socket,Server server) {
 		this.socket = socket;
-		try {
-			this.incomingMessages = this.socket.getInputStream();
-			this.output = this.socket.getOutputStream();
-			this.reader = new ObjectInputStream(this.incomingMessages);
-			this.username = userName;
-			System.out.println("userThread username is " + this.username);
-			this.sendMessage(GameThread.GAME_INSTRUCTIONS);
-			//GameThread.AddUser(this);
-			this.sendMessage(GameThread.AllUsers());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
+		this.server = server;
 	}
 	
 	public void run() {
-		while (true) {
-			try {
-				String message = (String)this.reader.readObject();
-				GameThread.broadcastMessage(message, this);
-			} catch (ClassNotFoundException | IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		try {
+			InputStream input = this.socket.getInputStream();
+			this.reader = new BufferedReader(new InputStreamReader(input));
+			OutputStream output = this.socket.getOutputStream();
+			this.writer = new PrintWriter(output, true);
+			System.out.println("USER THREAD");
+			String userName = reader.readLine();
+			System.out.println("USERName: "+ userName);
+			this.username = userName;
+			/*
+            GameThread.AddUser(this);
+            GameThread.broadcastMessage("New player added: " + this.username, this);
+            */
+			
+			
+		}catch(IOException e)
+		{
+			e.printStackTrace();
 		}
-		
-//		while (true) {
-//			try {
-//				TimeUnit.SECONDS.sleep(3);
-//				this.getMessage();
-//			} catch (IOException | InterruptedException e) {
-//			}
-//		}
 	}
 
 	public void sendMessage(String message) throws IOException {
-		System.out.println("USer message : "+ message);
-		var objOut = new ObjectOutputStream(this.output);
-		objOut.writeObject(message);
-		objOut.flush();
+		this.writer.println(message);
 	}
 
 	public String getUserName() {
@@ -74,14 +68,6 @@ public class UserThread extends Thread {
 		return "Player: " + username;
 	}
 
-	public void disconnect() {
-		try {
-			this.socket.close();
-			this.incomingMessages.close();
-			this.output.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+
 
 }

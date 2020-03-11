@@ -35,13 +35,13 @@ public class Client {
 
 		try {
 			clientSocket = new Socket(HOST, PORT);
+			System.out.println("Connected to server");
 			Client.socket = clientSocket;
 			
-			//listen = new ListenThread(clientSocket);
-			//listen.start();
+			listen = new ListenThread(clientSocket);
+			listen.start();
 			write = new WriteThread(clientSocket);
 			write.start();
-			System.out.println("Client started on port " + PORT);
 
 		} catch (UnknownHostException e) {
 			System.err.println("Problem with the host.");
@@ -55,20 +55,11 @@ public class Client {
 	}
 	
 	public static void sendUsername(String username) {
-		try {
-			write.sendUsername(username);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		write.sendUsername(username);
 	}
 	
 	public static void sendChat(String message) {
-		try {
-			write.sendChat(message);
-			System.out.println("Client sent message: " + message);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		write.sendChat(message);
 	}
 
 }
