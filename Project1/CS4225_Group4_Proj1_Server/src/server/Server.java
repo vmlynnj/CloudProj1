@@ -78,7 +78,7 @@ public class Server {
 				if (user == null) {
 					currUser.sendMessage(message);
 				} else {
-					currUser.sendMessage(user.getName() + ": " + message);
+					currUser.sendMessage(user.getUserName() + ": " + message);
 				}
 			} catch(Exception e) {
 				e.printStackTrace();
