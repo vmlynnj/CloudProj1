@@ -19,16 +19,16 @@ import javafx.scene.control.SingleSelectionModel;
  */
 public class HangmanViewModel {
 
-	private ListProperty<String> messages;
+	private static ListProperty<String> messages;
 	
 	public HangmanViewModel(ListProperty<String> listProperty) {
 		Client.startConnection();
-		this.messages = listProperty;
+		HangmanViewModel.messages = listProperty;
 	}
 	
 	
-	public void addMessage(String message) {
-		this.messages.add(message);
+	public static void addMessage(String message) {
+		HangmanViewModel.messages.add(message);
 	}
 	/**
 	 * @param selectionModel
@@ -44,8 +44,8 @@ public class HangmanViewModel {
 	 */
 	public void sendChat(String text) {
 		System.out.println("Submit chat button clicked");
-		Client.sendChat(text);
-		this.messages.add(text);
+		//Client.sendChat(text);
+		//this.messages.add(text);
 		var socket = Client.socket;
 		var writeThread = new WriteThread(socket);
 		try {

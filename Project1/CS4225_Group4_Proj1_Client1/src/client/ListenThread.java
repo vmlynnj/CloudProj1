@@ -8,6 +8,8 @@ import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
+import viewmodel.HangmanViewModel;
+
 public class ListenThread extends Thread{
 
 	private Socket socket;
@@ -39,7 +41,7 @@ public class ListenThread extends Thread{
 			try {
 				reader = new ObjectInputStream(this.input);
 				String message = (String) reader.readObject();
-				ListenThread.MESSAGE = message;
+				HangmanViewModel.addMessage(message);
 				
 				//TODO HANDLE SERVER MESSAGES
 				System.out.println("server Said: "+message);

@@ -49,34 +49,35 @@ public class ServerThread extends Thread {
 			System.out.println("Created reader inside of the serverThread.run() method.");
 			String username = (String) reader.readObject();
 			System.out.println("Server thread has received username: " + username);
-			UserThread user = new UserThread(socket, username);
-			if(GameThread.usernames.contains(username)) {
-				while (GameThread.usernames.contains(username)) {
-					user.sendMessage("This username has been taken. Please try another one");
-					username = (String) reader.readObject();
-				}
-			}
+			UserThread user = new UserThread(socket, username); // TODO It's hanging here
+//			if(GameThread.usernames.contains(username)) {
+//				while (GameThread.usernames.contains(username)) {
+//					user.sendMessage("This username has been taken. Please try another one");
+//					username = (String) reader.readObject();
+//				}
+//			}
 			user.setUserName(username);
 
 			GameThread.usernames.add(username);
 			GameThread.AddUser(user);
-			user.sendMessage(GameThread.AddUser(user));
+			//user.start();
+			//user.sendMessage(GameThread.AddUser(user));
 			
-			while (true) {
-				
-			}
+//			while (true) {
+//				
+//			}
 
 		} catch (IOException | ClassNotFoundException e1) {
 			System.out.println(e1.getMessage());
 		}
 
-		try {
-			this.socket.close();
-			this.input.close();
-			this.output.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			this.socket.close();
+//			this.input.close();
+//			this.output.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 
 	}
 

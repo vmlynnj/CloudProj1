@@ -41,7 +41,7 @@ public class Server {
 				clientSocket = serverSocket.accept();
 				System.out.println("Client accepted from port: " + clientSocket.getPort());
 				var serverthread = new ServerThread(clientSocket);
-				serverthread.run();
+				serverthread.start();
 			}
 			
 		} catch (IOException e) {
