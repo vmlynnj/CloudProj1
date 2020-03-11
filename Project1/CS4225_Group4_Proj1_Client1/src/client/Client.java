@@ -54,11 +54,19 @@ public class Client {
 		}
 	}
 	
+	public static void sendUsername(String username) {
+		try {
+			write.sendUsername(username);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static void sendChat(String message) {
 		try {
-			write.sendMessage(message);
+			write.sendChat(message);
+			System.out.println("Client sent message: " + message);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

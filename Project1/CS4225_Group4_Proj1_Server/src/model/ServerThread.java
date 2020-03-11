@@ -48,7 +48,7 @@ public class ServerThread extends Thread {
 			ObjectInputStream reader = new ObjectInputStream(this.input);
 			System.out.println("Created reader inside of the serverThread.run() method.");
 			String username = (String) reader.readObject();
-			System.out.println("Server thread has received username: " + username); //TODO DOESNT GET HERE
+			System.out.println("Server thread has received username: " + username);
 			UserThread user = new UserThread(socket, username);
 			if(GameThread.usernames.contains(username)) {
 				while (GameThread.usernames.contains(username)) {
@@ -57,8 +57,13 @@ public class ServerThread extends Thread {
 				}
 			}
 			user.setUserName(username);
+
 			GameThread.usernames.add(username);
 			GameThread.AddUser(user);
+			
+			while (true) {
+				
+			}
 
 		} catch (IOException | ClassNotFoundException e1) {
 			System.out.println(e1.getMessage());

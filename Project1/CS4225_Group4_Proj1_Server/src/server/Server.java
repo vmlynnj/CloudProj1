@@ -36,9 +36,8 @@ public class Server {
 		serverSocket = start(serverSocket);
 		var gameThread = new GameThread();
 		try {
-			
+			System.out.println("Listening to connections...");			
 			while (isGameOver == false) {
-				System.out.println("Listening to connections...");
 				clientSocket = serverSocket.accept();
 				System.out.println("Client accepted from port: " + clientSocket.getPort());
 				var serverthread = new ServerThread(clientSocket);

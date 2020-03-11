@@ -20,5 +20,6 @@
          </font>
       </Label>
       <Label layoutX="221.0" layoutY="221.0" text="Enter a display name to begin" />
+      <Label fx:id="nameErrorLabel" layoutX="239.0" layoutY="275.0" text="Must enter a username" textFill="RED" visible="false" />
    </children>
 </AnchorPane>

@@ -1,6 +1,5 @@
 package client;
 
-import java.io.Console;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
@@ -12,6 +11,7 @@ public class WriteThread extends Thread {
 	private Socket socket;
 	private InputStream input;
 	private OutputStream output;
+	private ObjectOutputStream objOut;
 	
 	public WriteThread(Socket socket) {
 		this.socket = socket;
@@ -19,8 +19,8 @@ public class WriteThread extends Thread {
 		try {
 			this.input = this.socket.getInputStream();
 			this.output = this.socket.getOutputStream();
+			this.objOut = new ObjectOutputStream(this.output);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -40,12 +40,16 @@ public class WriteThread extends Thread {
 		}
 	}
 	
+	public void sendUsername(String message) throws IOException {
+		this.objOut.writeObject(message);
+		System.out.println("Username sent: " + message);
+		this.objOut.flush();
+	}
 	
-	public void sendMessage(String message) throws IOException {
-		var objOut = new ObjectOutputStream(this.output);
-		objOut.writeObject(message);
-		System.out.println("Message sent: " + message);
-		objOut.flush();
+	public void sendChat(String message) throws IOException {
+		this.objOut.writeObject(message);
+		System.out.println("Chat sent: " + message);
+		this.objOut.flush();
 	}
 	
 }

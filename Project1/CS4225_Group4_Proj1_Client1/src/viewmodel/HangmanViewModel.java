@@ -32,16 +32,8 @@ public class HangmanViewModel {
 	 * @param text
 	 */
 	public void sendChat(String text) {
-		// TODO Auto-generated method stub
 		System.out.println("Submit chat button clicked");
-		var socket = Client.socket;
-		var writeThread = new WriteThread(socket);
-		try {
-			writeThread.sendMessage(text);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Client.sendChat(text);
 	}
 
 }

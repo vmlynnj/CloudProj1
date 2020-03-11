@@ -65,6 +65,7 @@ public class HangmanCodeBehind {
     @FXML
     void btnSubmit_Click(ActionEvent event) {
     	this.viewmodel.sendChat(txtBoxChatBox.getText());
+    	this.txtBoxChatBox.setText("");
     }
     
     @FXML
