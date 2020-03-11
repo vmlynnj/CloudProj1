@@ -24,6 +24,7 @@ public class UserThread {
 			this.output = this.socket.getOutputStream();
 			reader = new BufferedReader(new InputStreamReader(this.incomingMessages));
 			this.username = userName;
+			System.out.println("userThread username is " + this.username);
 			this.sendMessage(GameThread.AllUsers());
 			this.sendMessage(GameThread.GAME_INSTRUCTIONS);
 		} catch (IOException e) {

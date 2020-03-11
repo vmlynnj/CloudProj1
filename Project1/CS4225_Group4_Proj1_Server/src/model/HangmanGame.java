@@ -46,9 +46,9 @@ public class HangmanGame {
 	private void setupGame() {
 		var words = FileReader.readFileWords("words.txt");
 		Random randomGenerator = new Random();
-		var randomWordNumber = randomGenerator.nextInt(words.length);
+		var randomWordNumber = randomGenerator.nextInt(words.size());
 		
-		this.wordToGuess = words[randomWordNumber];
+		this.wordToGuess = words.get(randomWordNumber);
 		this.hiddenWord = wordToGuess.replaceAll("[a-zA-Z]", "_");
 	}
 	

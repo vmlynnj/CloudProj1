@@ -35,6 +35,7 @@ public class LoginCodeBehind {
 			Parent root = FXMLLoader.load(getClass().getResource("Hangman.fxml"));
 			Scene scene = new Scene(root);
 	        stage.setScene(scene);
+	        Client.sendChat(txtBoxUsername.getText());
 	        stage.show();
 		} catch (IOException e) {
 			e.printStackTrace();

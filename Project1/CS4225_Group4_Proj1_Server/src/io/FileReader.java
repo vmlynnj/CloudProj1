@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 public class FileReader {
 	
-	public static String[] readFileWords(String fileName) {
+	public static ArrayList<String> readFileWords(String fileName) {
 		ArrayList<String> words = new ArrayList<String>();
 		
 		try {
@@ -32,6 +32,6 @@ public class FileReader {
 			e.printStackTrace();
 		}
 		
-		return (String[]) words.toArray();
+		return words;
 	}
 }

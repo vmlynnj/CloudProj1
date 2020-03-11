@@ -1,13 +1,10 @@
 package model;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-
-import server.Server;
 
 /**
  * A thread for the server
@@ -33,34 +30,38 @@ public class ServerThread extends Thread {
 		try {
 			this.input = this.socket.getInputStream();
 			this.output = this.socket.getOutputStream();
+			System.out.println("ServerThread created.");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	@Override
 	/**
 	 * Runs the application
 	 */
 	public void run() {
+		System.out.println("Starting serverThread.run() method.");
 		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(this.input));
-			String username = reader.readLine();
+			
+			System.out.println("Inside try block of the serverThread.run() method.");
+			ObjectInputStream reader = new ObjectInputStream(this.input);
+			System.out.println("Created reader inside of the serverThread.run() method.");
+			String username = (String) reader.readObject();
+			System.out.println("Server thread has received username: " + username); //TODO DOESNT GET HERE
 			UserThread user = new UserThread(socket, username);
 			if(GameThread.usernames.contains(username)) {
 				while (GameThread.usernames.contains(username)) {
 					user.sendMessage("This username has been taken. Please try another one");
-					username = reader.readLine();
+					username = (String) reader.readObject();
 				}
 			}
 			user.setUserName(username);
 			GameThread.usernames.add(username);
 			GameThread.AddUser(user);
 
-
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		} catch (IOException | ClassNotFoundException e1) {
+			System.out.println(e1.getMessage());
 		}
 
 		try {

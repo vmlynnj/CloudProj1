@@ -43,7 +43,7 @@ public class WriteThread extends Thread {
 	
 	public void sendMessage(String message) throws IOException {
 		var objOut = new ObjectOutputStream(this.output);
-		objOut.write(message.getBytes());
+		objOut.writeObject(message);
 		System.out.println("Message sent: " + message);
 		objOut.flush();
 	}

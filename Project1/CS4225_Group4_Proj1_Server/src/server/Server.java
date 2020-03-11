@@ -6,6 +6,7 @@ import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.GameThread;
 import model.ServerThread;
 import model.UserThread;
 
@@ -33,12 +34,15 @@ public class Server {
 		Socket clientSocket = null;
 
 		serverSocket = start(serverSocket);
+		var gameThread = new GameThread();
 		try {
 			
 			while (isGameOver == false) {
 				System.out.println("Listening to connections...");
 				clientSocket = serverSocket.accept();
-				new ServerThread(clientSocket).start();
+				System.out.println("Client accepted from port: " + clientSocket.getPort());
+				var serverthread = new ServerThread(clientSocket);
+				serverthread.run();
 			}
 			
 		} catch (IOException e) {

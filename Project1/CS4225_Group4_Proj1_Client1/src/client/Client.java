@@ -37,8 +37,8 @@ public class Client {
 			clientSocket = new Socket(HOST, PORT);
 			Client.socket = clientSocket;
 			
-			listen = new ListenThread(clientSocket);
-			listen.start();
+			//listen = new ListenThread(clientSocket);
+			//listen.start();
 			write = new WriteThread(clientSocket);
 			write.start();
 			System.out.println("Client started on port " + PORT);
