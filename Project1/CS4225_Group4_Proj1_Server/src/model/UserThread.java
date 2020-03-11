@@ -37,7 +37,7 @@ public class UserThread extends Thread {
 			this.writer = new PrintWriter(output, true);
 			System.out.println("USER THREAD");
 			String message = reader.readLine();
-			System.out.println("USERName: "+ message);
+			System.out.println("Username: "+ message);
 			
 			this.username = message;
 			Server.AddUser(this);

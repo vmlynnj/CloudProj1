@@ -35,8 +35,6 @@ public class LoginCodeBehind {
     		this.nameErrorLabel.setVisible(true);
     		return;
     	}
-    	//Client client = new Client();
-    	//Client.startConnection();
     	
     	Stage stage = (Stage) this.btnSubmit.getScene().getWindow();
     	

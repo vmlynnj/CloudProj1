@@ -44,8 +44,6 @@ public class HangmanViewModel {
 	 */
 	public void sendChat(String text) {
 		System.out.println("Submit chat button clicked");
-		//Client.sendChat(text);
-		HangmanViewModel.messages.add(text);
 		Client.sendChat(text);
 	}
 

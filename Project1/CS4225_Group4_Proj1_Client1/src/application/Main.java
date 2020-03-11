@@ -24,9 +24,10 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
+		Client.startConnection();
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/view/Hangman.fxml"));
+			loader.setLocation(getClass().getResource("/view/Login.fxml"));
 			Scene scene = new Scene((Pane) loader.load());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(WINDOW_TITLE);
