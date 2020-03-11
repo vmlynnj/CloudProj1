@@ -3,6 +3,7 @@ package view;
 import java.io.IOException;
 
 import client.Client;
+import client.ListenThread;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +30,7 @@ public class LoginCodeBehind {
     void btnSubmit_Click(ActionEvent event) {
     	//Client client = new Client();
     	//Client.startConnection();
+    	
     	Stage stage = (Stage) this.btnSubmit.getScene().getWindow();
     	
         try {
@@ -40,6 +42,10 @@ public class LoginCodeBehind {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+    }
+    
+    private void gotToHangman() {
+
     }
 
 }

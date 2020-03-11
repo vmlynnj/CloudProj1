@@ -4,9 +4,12 @@
 package viewmodel;
 
 import java.io.IOException;
+import java.util.List;
 
 import client.Client;
 import client.WriteThread;
+import javafx.beans.property.ListProperty;
+import javafx.collections.FXCollections;
 import javafx.scene.control.SingleSelectionModel;
 
 /**
@@ -16,15 +19,23 @@ import javafx.scene.control.SingleSelectionModel;
  */
 public class HangmanViewModel {
 
-	public HangmanViewModel() {
+	private ListProperty<String> messages;
+	
+	public HangmanViewModel(ListProperty<String> listProperty) {
 		Client.startConnection();
+		this.messages = listProperty;
 	}
 	
+	
+	public void addMessage(String message) {
+		this.messages.add(message);
+	}
 	/**
 	 * @param selectionModel
 	 */
 	public void sendGuess(SingleSelectionModel<?> selectionModel) {
 		//TODO
+		
 		System.out.println("Submit guess button clicked");
 	}
 
@@ -34,6 +45,7 @@ public class HangmanViewModel {
 	public void sendChat(String text) {
 		// TODO Auto-generated method stub
 		System.out.println("Submit chat button clicked");
+		this.messages.add(text);
 		var socket = Client.socket;
 		var writeThread = new WriteThread(socket);
 		try {

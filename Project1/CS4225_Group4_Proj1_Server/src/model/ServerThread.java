@@ -58,7 +58,7 @@ public class ServerThread extends Thread {
 			}
 			user.setUserName(username);
 			GameThread.usernames.add(username);
-			GameThread.AddUser(user);
+			user.sendMessage(GameThread.AddUser(user));
 
 		} catch (IOException | ClassNotFoundException e1) {
 			System.out.println(e1.getMessage());
