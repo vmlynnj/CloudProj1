@@ -3,7 +3,6 @@ package view;
 import java.io.IOException;
 
 import client.Client;
-import client.ListenThread;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

@@ -25,7 +25,6 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Client.startConnection();
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/view/Login.fxml"));
 			Scene scene = new Scene((Pane) loader.load());
