@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
-import model.GameThread;
 import model.ServerThread;
 import model.UserThread;
 
