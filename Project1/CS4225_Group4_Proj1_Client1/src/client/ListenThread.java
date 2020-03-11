@@ -37,18 +37,23 @@ public class ListenThread extends Thread{
 	public void run() {
 		while(true)
 		{
-			System.out.println("In listener");
-			try {
-				String message = this.reader.readLine();
-				HangmanViewModel.addMessage(message);
-				
-				//TODO HANDLE SERVER MESSAGES
-				System.out.println("server Said: "+message);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
+			System.out.println("In listener 0");
+			this.read();
 
 		}
 	} 
+	
+	public void read() {
+		try {
+			System.out.println("In listener 01");
+			String message = this.reader.readLine();
+			System.out.println("In listener 02");
+			HangmanViewModel.addMessage(message);
+			System.out.println("In listener 03");
+			System.out.println("server Said: "+message);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	}
 }

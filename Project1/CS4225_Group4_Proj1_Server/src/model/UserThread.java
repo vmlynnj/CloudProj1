@@ -36,14 +36,16 @@ public class UserThread extends Thread {
 			OutputStream output = this.socket.getOutputStream();
 			this.writer = new PrintWriter(output, true);
 			System.out.println("USER THREAD");
-			String userName = reader.readLine();
-			System.out.println("USERName: "+ userName);
-			this.username = userName;
-			/*
-            GameThread.AddUser(this);
-            GameThread.broadcastMessage("New player added: " + this.username, this);
-            */
+			String message = reader.readLine();
+			System.out.println("USERName: "+ message);
 			
+			this.username = message;
+			Server.AddUser(this);
+			do {
+				message = reader.readLine();
+				Server.broadcastMessage(message, this);
+				System.out.println("MESSAGE: "+ message);
+			} while (message != "QUIT");
 			
 		}catch(IOException e)
 		{
@@ -52,6 +54,7 @@ public class UserThread extends Thread {
 	}
 
 	public void sendMessage(String message) throws IOException {
+		System.out.println("Server sends: "+ message);
 		this.writer.println(message);
 	}
 

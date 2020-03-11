@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
 
 import model.GameThread;
 import model.ServerThread;
@@ -19,6 +21,11 @@ import java.net.ServerSocket;
  * @author Victoria Jenkins, Justin Smith, Aaron Merrell
  */
 public class Server {
+	
+	public static final String GAME_INSTRUCTIONS = "Hangman Enter Quit to leave";
+
+	public static List<String> usernames;
+	public static ArrayList<UserThread> users;
 	
 	private static boolean isGameOver;
 	
@@ -37,12 +44,14 @@ public class Server {
 	}
 	
 	public void run () {
+		Server.users = new ArrayList<UserThread>();
+		Server.usernames = new ArrayList<String>();
 		try (ServerSocket server = new ServerSocket(PORT)){
 			Socket clientSocket;
 			
 			while(true) {
 				clientSocket = server.accept();
-				System.out.println("Connected to server");
+				System.out.println("Connected to Client");
 				UserThread user = new UserThread(clientSocket, this);
 				user.start();
 				
@@ -52,6 +61,38 @@ public class Server {
 		}
 	}
 
+	
+	public synchronized static String AddUser(UserThread user) {
+		if (Server.users.size() < 4) {
+			Server.users.add(user);
+			Server.broadcastMessage("A new player has joined: " + user.getUserName(), null);
+			return "Success";
+		} else {
+			return "";
+		}
+	}
+
+	public static void broadcastMessage(String message, UserThread user) {
+		for(UserThread currUser : Server.users) {
+			try {
+				if (user == null) {
+					currUser.sendMessage(message);
+				} else {
+					currUser.sendMessage(user.getName() + ": " + message);
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public static String AllUsers() {
+		String output = "Current Players: " + System.lineSeparator();
+		for (UserThread currUser : Server.users) {
+			output += currUser.toString() + System.lineSeparator();
+		}
+		return output;
+	}
 
 
 }

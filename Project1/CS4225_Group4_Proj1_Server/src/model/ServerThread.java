@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.List;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * A thread for the server
@@ -17,6 +19,11 @@ public class ServerThread extends Thread {
 	
 	private InputStream input;
 	private OutputStream output;
+	
+	public static final String GAME_INSTRUCTIONS = "Hangman Enter Quit to leave";
+
+	public static List<String> usernames;
+	public static BlockingQueue<UserThread> users;
 
 	
 	/**
