@@ -1,6 +1,12 @@
 package view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import client.Client;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -32,7 +38,7 @@ public class HangmanCodeBehind {
     private Line rigthLeg;
 
     @FXML
-    private ListView<?> chatView;
+    private ListView<String> chatView;
 
     @FXML
     private Button btnQuit;
@@ -52,9 +58,16 @@ public class HangmanCodeBehind {
     private HangmanViewModel viewmodel;
 
     
+    protected ListProperty<String> listProperty = new SimpleListProperty<>();
+    
+    protected List<String> messages = new ArrayList<String>();
+    
 	@FXML
 	private void initialize() {
-		this.viewmodel = new HangmanViewModel();
+		this.messages.add("code behind message");
+		listProperty.set(FXCollections.observableArrayList(this.messages));
+		chatView.itemsProperty().bind(listProperty);
+		this.viewmodel = new HangmanViewModel(this.listProperty);
 	}
 	
     @FXML

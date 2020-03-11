@@ -3,6 +3,7 @@ package application;
 import java.awt.BorderLayout;
 import java.io.IOException;
 
+import client.Client;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -24,6 +25,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			Client.startConnection();
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/view/Login.fxml"));
 			Scene scene = new Scene((Pane) loader.load());

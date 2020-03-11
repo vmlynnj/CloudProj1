@@ -60,6 +60,7 @@ public class ServerThread extends Thread {
 
 			GameThread.usernames.add(username);
 			GameThread.AddUser(user);
+			user.sendMessage(GameThread.AddUser(user));
 			
 			while (true) {
 				

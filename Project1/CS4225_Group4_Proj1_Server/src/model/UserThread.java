@@ -55,6 +55,7 @@ public class UserThread extends Thread {
 	}
 
 	public void sendMessage(String message) throws IOException {
+		System.out.println("USer message : "+ message);
 		var objOut = new ObjectOutputStream(this.output);
 		objOut.write(message.getBytes());
 		objOut.flush();

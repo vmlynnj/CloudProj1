@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
@@ -13,6 +14,8 @@ public class ListenThread extends Thread{
 	
 	private InputStream input;
 	private OutputStream output;
+	
+	public static String MESSAGE = null;
 	
 	public ListenThread(Socket socket) {
 		this.socket = socket;
@@ -31,17 +34,23 @@ public class ListenThread extends Thread{
 	public void run() {
 		while(true)
 		{
-			BufferedReader reader = new BufferedReader(new InputStreamReader(this.input));
-			String serverMessage = "";
+			System.out.println("In listener");
+			ObjectInputStream reader;
 			try {
-				serverMessage = reader.readLine();
+				reader = new ObjectInputStream(this.input);
+				String message = (String) reader.readObject();
+				ListenThread.MESSAGE = message;
+				
+				//TODO HANDLE SERVER MESSAGES
+				System.out.println("server Said: "+message);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			
-			//TODO HANDLE SERVER MESSAGES
-			System.out.println(serverMessage);
+
 		}
 	} 
 }
