@@ -134,6 +134,12 @@ public class Server {
 		else {
 			//TODO HANDLE INCORRECT GUESS
 		}
+		if(Server.game.isGameLost()) {
+			Server.broadcastMessage(ServerActions.LOSE, "The game is lost", null);
+		}
+		if(Server.game.isGameWon()) {
+			Server.broadcastMessage(ServerActions.LOSE, "The game is lost", null);
+		}
 		Server.takeTurn(user);
 		
 		

@@ -14,6 +14,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
 import util.ClientActions;
 import viewmodel.HangmanViewModel;
 
@@ -66,6 +67,21 @@ public class HangmanCodeBehind {
     @FXML
     private Button btnUsername;
     
+    @FXML
+    private Text deadLeftEye;
+
+    @FXML
+    private Text deadRightEye;
+
+    @FXML
+    private Line deadMouth;
+
+    @FXML
+    private Label lblLost;
+
+    @FXML
+    private Label lblWin;
+    
     private String userName;
     
     private HangmanViewModel viewmodel;
@@ -105,7 +121,6 @@ public class HangmanCodeBehind {
 		this.btnGuess.setDisable(false);
 		this.btnQuit.setDisable(false);
 		this.guessComboBox.setDisable(false);
-		//Eventually add back in
 		this.disableUntilTurn();
 		
 	}
@@ -120,7 +135,6 @@ public class HangmanCodeBehind {
     void btnGuess_Click(ActionEvent event) {
     	System.out.println(ClientActions.GUESS+"="+this.guessComboBox.getValue());
     	this.viewmodel.sendMessage(ClientActions.GUESS,this.guessComboBox.getValue());
-    	//TODO SERVER FUNC
     	this.disableUntilTurn();
     }
     
@@ -149,6 +163,19 @@ public class HangmanCodeBehind {
     
     public void updateWord(String word) {
     	this.lblWord.setText(word);
+    }
+    
+    public void gameLost() {
+    	this.lblLost.setVisible(true);
+    	this.disableUntilTurn();
+    	this.deadLeftEye.setVisible(true);
+    	this.deadRightEye.setVisible(true);
+    	this.deadMouth.setVisible(true);
+    }
+    
+    public void gameWon() {
+    	this.lblWin.setVisible(true);
+    	this.disableUntilTurn();
     }
 
 }

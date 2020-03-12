@@ -63,15 +63,7 @@ public class ListenThread extends Thread{
 		if(messages[0].equals(ServerActions.USERNAMEERROR.toString())) {
 			HangmanViewModel.userNameError();
 		}
-		if(messages[0].equals(ServerActions.MESSAGE.toString())){
-			HangmanViewModel.addMessage(messages[1]);
-		}
-		if(messages[0].equals(ServerActions.PLAYER.toString())) {
-			HangmanViewModel.addMessage(messages[1]);
-		}
-		
-		if(messages[0].equals(ServerActions.PRINTUSERS.toString())) {
-			//TODO EVENTUALLY ONLY START IN START ONCE TIMER IS SET UP
+		if(messages[0].equals(ServerActions.MESSAGE.toString()) || messages[0].equals(ServerActions.PLAYER.toString()) || messages[0].equals(ServerActions.PRINTUSERS.toString())) {
 			HangmanViewModel.addMessage(messages[1]);
 		}
 		if(messages[0].equals(ServerActions.WORD.toString())) {
@@ -86,6 +78,13 @@ public class ListenThread extends Thread{
 		}
 		if (messages[0].equals(ServerActions.REMOVELETTEROPTION.toString())) {
 			HangmanViewModel.removeLetterOption(messages[1]);
+		}
+		
+		if (messages[0].equals(ServerActions.LOSE.toString())) {
+			HangmanViewModel.gameLost();
+		}
+		if (messages[0].equals(ServerActions.WIN.toString())) {
+			HangmanViewModel.gameLost();
 		}
 		
 	}
