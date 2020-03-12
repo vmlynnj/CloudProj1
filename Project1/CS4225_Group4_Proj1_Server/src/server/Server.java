@@ -18,7 +18,7 @@ import java.net.ServerSocket;
  */
 public class Server {
 	
-	public static final String ACTION_SPLIT = "=";
+
 	
 	public static final String GAME_INSTRUCTIONS = "Hangman Enter Quit to leave";
 

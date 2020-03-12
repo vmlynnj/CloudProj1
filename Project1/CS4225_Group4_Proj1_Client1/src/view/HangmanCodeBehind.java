@@ -2,8 +2,6 @@ package view;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import client.Client;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;

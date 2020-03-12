@@ -14,7 +14,7 @@ import utility.ServerActions;
 
 public class UserThread extends Thread {
 	
-	
+	private static final String ACTION_SPLIT = "=";
 	private String username;
 	private Socket socket;
 
@@ -35,12 +35,12 @@ public class UserThread extends Thread {
 			System.out.println("USER THREAD");
 		
 			String inputMessage = reader.readLine();
-			String username = inputMessage.split(Server.ACTION_SPLIT)[1];
+			String username = inputMessage.split(ACTION_SPLIT)[1];
 			while(Server.usernames.contains(username)) {
 				System.out.println("Username already taken. Please try another one.");
 				this.sendMessage(ServerActions.USERNAMEERROR, "Username already taken. Please try another one.");
 				inputMessage = reader.readLine();
-				username = inputMessage.split(Server.ACTION_SPLIT)[1];
+				username = inputMessage.split(ACTION_SPLIT)[1];
 			}
 			this.username = username;
 			Server.usernames.add(this.username);
@@ -50,8 +50,8 @@ public class UserThread extends Thread {
 			
 			do {
 				inputMessage = reader.readLine();
-				action = inputMessage.split(Server.ACTION_SPLIT)[0];
-				message = inputMessage.split(Server.ACTION_SPLIT)[1];
+				action = inputMessage.split(ACTION_SPLIT)[0];
+				message = inputMessage.split(ACTION_SPLIT)[1];
 				this.handleInput(action, message);
 				Server.broadcastMessage(ServerActions.MESSAGE, inputMessage, this);
 			} while (inputMessage != "QUIT");
@@ -70,8 +70,8 @@ public class UserThread extends Thread {
 		//handles it
 	}
 	public void sendMessage(ServerActions action, String message) throws IOException {
-		System.out.println(action.toString()+Server.ACTION_SPLIT+message);
-		this.writer.println(action.toString()+Server.ACTION_SPLIT+message);
+		System.out.println(action.toString()+ACTION_SPLIT+message);
+		this.writer.println(action.toString()+ACTION_SPLIT+message);
 	}
 
 	public String getUserName() {
