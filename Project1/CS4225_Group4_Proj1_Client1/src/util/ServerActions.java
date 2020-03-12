@@ -6,6 +6,7 @@ public enum ServerActions {
 	USERNAMEERROR("USERNAMEERROR"),
 	PRINTUSERS("PRINTUSERS"),
 	WORD("WORD"),
+	START("START"),
 	TURN("TURN");
 	
     private String action;

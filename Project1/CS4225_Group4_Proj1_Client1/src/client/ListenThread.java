@@ -71,6 +71,7 @@ public class ListenThread extends Thread{
 		}
 		
 		if(messages[0].equals(ServerActions.PRINTUSERS.toString())) {
+			//TODO EVENTUALLY ONLY START IN START ONCE TIMER IS SET UP
 			HangmanViewModel.startGame();
 			HangmanViewModel.addMessage(messages[1]);
 		}
@@ -79,6 +80,10 @@ public class ListenThread extends Thread{
 		}
 		if(messages[0].equals(ServerActions.TURN.toString())) {
 			HangmanViewModel.enableTurn();
+		}
+		
+		if(messages[0].equals(ServerActions.START.toString())) {
+			HangmanViewModel.startGame();
 		}
 		
 	}
