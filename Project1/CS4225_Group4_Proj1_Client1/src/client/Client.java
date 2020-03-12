@@ -12,8 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import util.OutputWriter;
-
 /**
  * Represents a client in a Client/Server setup. For our class, the port number
  * is 4225.

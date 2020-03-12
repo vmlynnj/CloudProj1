@@ -12,6 +12,7 @@ import java.net.Socket;
 import java.util.concurrent.TimeUnit;
 
 import server.Server;
+import utility.ServerActions;
 
 
 public class UserThread extends Thread {
@@ -37,21 +38,27 @@ public class UserThread extends Thread {
 			this.writer = new PrintWriter(output, true);
 			System.out.println("USER THREAD");
 		
-			String message = reader.readLine();
-			while(Server.usernames.contains(message)) {
+			String inputMessage = reader.readLine();
+			String username = inputMessage.split("=")[1];
+			while(Server.usernames.contains(username)) {
 				System.out.println("Username already taken. Please try another one.");
-				this.sendMessage("USERNAMEERROR=", "Username already taken. Please try another one.");
-				message = reader.readLine();
+				this.sendMessage(ServerActions.USERNAMEERROR, "Username already taken. Please try another one.");
+				inputMessage = reader.readLine();
+				username = inputMessage.split("=")[1];
 			}
-			System.out.println("Username: "+ message);
-			
-			this.username = message;
+			this.username = username;
 			Server.usernames.add(this.username);
 			Server.AddUser(this);
+			String action = "";
+			String message = "";
+			
 			do {
-				message = reader.readLine();
-				Server.broadcastMessage("Message=", message, this);
-			} while (message != "QUIT");
+				inputMessage = reader.readLine();
+				action = inputMessage.split("=")[0];
+				message = inputMessage.split("=")[1];
+				this.handleInput(action, message);
+				Server.broadcastMessage(ServerActions.MESSAGE, inputMessage, this);
+			} while (inputMessage != "QUIT");
 			
 			Server.users.remove(this);
 			Server.usernames.remove(this.getUserName());
@@ -62,9 +69,13 @@ public class UserThread extends Thread {
 		}
 	}
 
-	public void sendMessage(String type, String message) throws IOException {
-		System.out.println(type+message);
-		this.writer.println(type+message);
+	
+	public void handleInput(String action, String message) {
+		//handles it
+	}
+	public void sendMessage(ServerActions action, String message) throws IOException {
+		System.out.println(action.toString()+"="+message);
+		this.writer.println(action.toString()+"="+message);
 	}
 
 	public String getUserName() {

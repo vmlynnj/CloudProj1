@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
+import util.ServerActions;
 import viewmodel.HangmanViewModel;
 
 public class ListenThread extends Thread{
@@ -60,17 +61,17 @@ public class ListenThread extends Thread{
 			HangmanViewModel.addMessage(message);
 		}
 		String[] messages = message.split("=");
-		if(messages[0].equals("USERNAMEERROR")) {
+		if(messages[0].equals(ServerActions.USERNAMEERROR.toString())) {
 			HangmanViewModel.userNameError();
 		}
-		if(messages[0].equals("Message")){
+		if(messages[0].equals(ServerActions.MESSAGE.toString())){
 			HangmanViewModel.addMessage(messages[1]);
 		}
-		if(messages[0].equals("PLAYER")) {
+		if(messages[0].equals(ServerActions.PLAYER.toString())) {
 			HangmanViewModel.addMessage(messages[1]);
 		}
 		
-		if(messages[0].equals("PRINTUSERS")) {
+		if(messages[0].equals(ServerActions.PRINTUSERS.toString())) {
 			HangmanViewModel.startGame();
 			HangmanViewModel.addMessage(messages[1]);
 		}

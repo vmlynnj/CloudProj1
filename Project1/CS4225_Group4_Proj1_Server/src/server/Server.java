@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
 import model.UserThread;
+import utility.ServerActions;
 
 import java.net.ServerSocket;
 
@@ -63,9 +64,9 @@ public class Server {
 	public synchronized static String AddUser(UserThread user) {
 		if (Server.users.size() < 4) {
 			Server.users.add(user);
-			Server.broadcastMessage("PLAYER=","A new player has joined: " + user.getUserName(), null);
+			Server.broadcastMessage(ServerActions.PLAYER,"A new player has joined: " + user.getUserName(), null);
 			try {
-				user.sendMessage("PRINTUSERS=", Server.AllUsers());
+				user.sendMessage(ServerActions.PRINTUSERS, Server.AllUsers());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -75,13 +76,13 @@ public class Server {
 		}
 	}
 
-	public static void broadcastMessage(String type, String message, UserThread user) {
+	public static void broadcastMessage(ServerActions action, String message, UserThread user) {
 		for(UserThread currUser : Server.users) {
 			try {
 				if (user == null) {
-					currUser.sendMessage(type,message);
+					currUser.sendMessage(action,message);
 				} else {
-					currUser.sendMessage(type,user.getUserName() + ": " + message);
+					currUser.sendMessage(action,user.getUserName() + ": " + message);
 				}
 			} catch(Exception e) {
 				e.printStackTrace();

@@ -11,6 +11,7 @@ import client.WriteThread;
 import javafx.beans.property.ListProperty;
 import javafx.collections.FXCollections;
 import javafx.scene.control.SingleSelectionModel;
+import util.ClientActions;
 import view.HangmanCodeBehind;
 
 /**
@@ -20,6 +21,9 @@ import view.HangmanCodeBehind;
  */
 public class HangmanViewModel {
 
+
+	
+	
 	private static ListProperty<String> messages;
 	private static HangmanCodeBehind controller;
 	
@@ -40,9 +44,8 @@ public class HangmanViewModel {
 	/**
 	 * @param text
 	 */
-	public void sendMessage(String text) {
-		System.out.println("Submit chat button clicked");
-		Client.sendChat(text);
+	public void sendMessage(ClientActions action, String text) {
+		Client.sendChat(action.toString()+"="+text);
 	}
 	
 	public static void startGame() {
