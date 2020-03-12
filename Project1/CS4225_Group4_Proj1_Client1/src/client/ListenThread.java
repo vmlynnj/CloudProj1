@@ -88,6 +88,16 @@ public class ListenThread extends Thread{
 			HangmanViewModel.removeLetterOption(messages[1]);
 		}
 		
+<<<<<<< HEAD
+=======
+		if (messages[0].equals(ServerActions.LOSE.toString())) {
+			HangmanViewModel.gameLost();
+		}
+		if (messages[0].equals(ServerActions.WIN.toString())) {
+			HangmanViewModel.gameWon();
+		}
+		
+>>>>>>> branch 'master' of https://github.com/vmlynnj/CloudProj1.git
 	}
 	
 
