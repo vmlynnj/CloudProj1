@@ -1,8 +1,6 @@
 package client;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -10,7 +8,6 @@ import java.net.Socket;
 public class WriteThread extends Thread {
 
 	private Socket socket;
-	private InputStream input;
 	private OutputStream output;
 	private PrintWriter writer;
 	
@@ -27,17 +24,7 @@ public class WriteThread extends Thread {
 	
 	
 	public void run() {
-		while (true) {
-//			Console console = System.console();
-			 
-//	        String message = console.readLine("\nEnter Something: ");
-//	        try {
-//				this.sendMessage(message);
-//			} catch (IOException e) {
-				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-		}
+
 	}
 	
 	public void sendUsername(String message) {

@@ -2,11 +2,8 @@ package server;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
 
 import model.UserThread;
 import utility.ServerActions;
@@ -21,12 +18,13 @@ import java.net.ServerSocket;
  */
 public class Server {
 	
+	public static final String ACTION_SPLIT = "=";
+	
 	public static final String GAME_INSTRUCTIONS = "Hangman Enter Quit to leave";
 
 	public static List<String> usernames;
 	public static ArrayList<UserThread> users;
 	
-	private static boolean isGameOver;
 	
 	private static final int PORT = 4225;
 	
@@ -51,7 +49,7 @@ public class Server {
 			while(true) {
 				clientSocket = server.accept();
 				System.out.println("Connected to Client");
-				UserThread user = new UserThread(clientSocket, this);
+				UserThread user = new UserThread(clientSocket);
 				user.start();
 				
 			}

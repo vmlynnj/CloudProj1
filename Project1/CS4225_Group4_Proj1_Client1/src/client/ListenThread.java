@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.OutputStream;
 import java.net.Socket;
 
 import util.ServerActions;
@@ -13,6 +11,8 @@ import viewmodel.HangmanViewModel;
 
 public class ListenThread extends Thread{
 
+	public static final String ACTION_SPLIT = "=";
+	
 	private Socket socket;
 	
 	private InputStream input;
@@ -60,7 +60,7 @@ public class ListenThread extends Thread{
 		if(message.contains("Player: " )) {
 			HangmanViewModel.addMessage(message);
 		}
-		String[] messages = message.split("=");
+		String[] messages = message.split(ListenThread.ACTION_SPLIT);
 		if(messages[0].equals(ServerActions.USERNAMEERROR.toString())) {
 			HangmanViewModel.userNameError();
 		}

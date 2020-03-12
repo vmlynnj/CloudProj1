@@ -3,14 +3,8 @@
  */
 package viewmodel;
 
-import java.io.IOException;
-import java.util.List;
-
 import client.Client;
-import client.WriteThread;
 import javafx.beans.property.ListProperty;
-import javafx.collections.FXCollections;
-import javafx.scene.control.SingleSelectionModel;
 import util.ClientActions;
 import view.HangmanCodeBehind;
 
