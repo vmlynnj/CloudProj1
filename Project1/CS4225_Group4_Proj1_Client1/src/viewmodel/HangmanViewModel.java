@@ -65,5 +65,8 @@ public class HangmanViewModel {
 	public static void gameLost() {
 		HangmanViewModel.controller.gameLost();
 	}
+	public static void gameWon() {
+		HangmanViewModel.controller.gameWon();
+	}
 
 }

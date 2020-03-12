@@ -84,7 +84,7 @@ public class ListenThread extends Thread{
 			HangmanViewModel.gameLost();
 		}
 		if (messages[0].equals(ServerActions.WIN.toString())) {
-			HangmanViewModel.gameLost();
+			HangmanViewModel.gameWon();
 		}
 		
 	}
