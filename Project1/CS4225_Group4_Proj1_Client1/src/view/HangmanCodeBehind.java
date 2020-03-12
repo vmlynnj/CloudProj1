@@ -72,7 +72,6 @@ public class HangmanCodeBehind {
     private String userName;
     
     private HangmanViewModel viewmodel;
-
     
     protected ListProperty<String> listProperty = new SimpleListProperty<>();
     
@@ -87,11 +86,13 @@ public class HangmanCodeBehind {
 		this.btnSubmit.setDisable(true);
 		this.btnQuit.setDisable(true);
 		
-
-		this.guessComboBox = new ComboBox<String>();
-		this.guessComboBox.setDisable(true);
-		this.populateComboBox(new ArrayList<String>());
-		
+		this.guessComboBox.itemsProperty().set(FXCollections.observableArrayList(new ArrayList<String>()));		
+   		this.guessComboBox.getItems().addAll("A", "B", "C",
+				"D", "E", "F", "G", "H", "I", "J", "K", "L",
+				"M", "N", "O", "P", "Q", "R", "S", "T", "U",
+				"V", "W", "X", "Y", "Z");
+   		
+   		this.guessComboBox.setDisable(true);
 	}
 	
 	public void userNameError() {
@@ -110,7 +111,6 @@ public class HangmanCodeBehind {
 		
 	}
 	
-	
     @FXML
     void btnQuit_Click(ActionEvent event) {
     	System.exit(0);
@@ -127,7 +127,6 @@ public class HangmanCodeBehind {
     	this.viewmodel.sendMessage(guessComboBox.getSelectionModel().toString());
     }
     
-
     @FXML
     void btnUsername_Click(ActionEvent event) {
     	HangmanViewModel.USERNAME = this.userName;
@@ -136,7 +135,6 @@ public class HangmanCodeBehind {
     }
     
     public void populateComboBox(ArrayList<String> exclude) {
-
     	ArrayList<String> combo = new ArrayList<String>();
     	String[] englishAlpha = new String[] {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
     	for(int i = 0; i<englishAlpha.length; i++) {
@@ -145,8 +143,6 @@ public class HangmanCodeBehind {
     		}
     	}
     	this.guessComboBox.setItems( FXCollections.observableArrayList(combo));
-    	
-    	
     }
 
 }
