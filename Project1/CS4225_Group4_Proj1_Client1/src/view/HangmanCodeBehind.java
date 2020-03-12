@@ -2,6 +2,10 @@ package view;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -90,6 +94,7 @@ public class HangmanCodeBehind {
 				"V", "W", "X", "Y", "Z");
    		
    		this.guessComboBox.setDisable(true);
+   		this.lblWord.setText("test");
 	}
 	
 	public void userNameError() {
@@ -148,7 +153,17 @@ public class HangmanCodeBehind {
     }
     
     public void updateWord(String word) {
-    	this.lblWord.setText(word);
+    	System.out.println("MADE IT TO UPDATE WORD: " + word + " Visibility: " + this.lblWord.isVisible());
+    	
+		Runnable task = () -> {
+			this.lblWord = new Label();
+			this.lblWord.setText(word);
+			System.out.println("LABEL WORD IS: " + this.lblWord.getText());
+		};
+		
+		ExecutorService service = Executors.newSingleThreadExecutor();
+		service.execute(task);
+		service.shutdown();
     }
 
 }

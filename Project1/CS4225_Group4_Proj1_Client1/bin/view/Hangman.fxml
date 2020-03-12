@@ -28,7 +28,7 @@
       <TextField fx:id="txtBoxUserName" layoutX="108.0" layoutY="508.0" />
       <Line endX="590.9999389648438" layoutX="82.0" layoutY="446.0" startX="-82.0" />
       <Label layoutX="14.0" layoutY="36.0" text="Game Room" />
-      <Label fx:id="lblWord" layoutX="342.0" layoutY="306.0" text="WORD" visible="false" />
+      <Label fx:id="lblWord" layoutX="19.0" layoutY="360.0" prefHeight="46.0" prefWidth="609.0" textAlignment="CENTER" visible="true" />
       <Label layoutX="33.0" layoutY="462.0" text="Enter username to begin game:" />
       <Label layoutX="33.0" layoutY="512.0" text="Username: " />
       <Button fx:id="btnUsername" layoutX="291.0" layoutY="508.0" mnemonicParsing="false" onAction="#btnUsername_Click" text="Begin" />
