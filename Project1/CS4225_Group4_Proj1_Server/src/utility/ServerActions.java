@@ -3,6 +3,8 @@ package utility;
 public enum ServerActions {
 	MESSAGE("MESSAGE"),
 	PLAYER("PLAYER"),
+	VALID_PLAYER("VALID"),
+	GAME_STARTED("STARTED"),
 	USERNAMEERROR("USERNAMEERROR"),
 	PRINTUSERS("PRINTUSERS"),
 	WORD("WORD"),
@@ -12,7 +14,8 @@ public enum ServerActions {
 	CORRECTGUESS("CORRECT"),
 	REMOVELETTEROPTION("REMOVEOPTION"),
 	WIN("WIN"),
-	LOSE("LOSE");
+	LOSE("LOSE"),
+	FULL_ROOM("FULL");
 	
     private String action;
 

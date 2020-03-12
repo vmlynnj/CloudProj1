@@ -43,6 +43,10 @@ public class HangmanViewModel {
 		HangmanViewModel.controller.startGame();
 	}
 	
+	public static void login() {
+		HangmanViewModel.controller.login();
+	}
+	
 	public static void userNameError() {
 		HangmanViewModel.controller.userNameError();
 	}
@@ -67,6 +71,14 @@ public class HangmanViewModel {
 	}
 	public static void gameWon() {
 		HangmanViewModel.controller.gameWon();
+	}
+	
+	public static void fullRoom() {
+		HangmanViewModel.controller.fullRoom();
+	}
+	
+	public static void gameStarted() {
+		HangmanViewModel.controller.gameStarted();
 	}
 
 }

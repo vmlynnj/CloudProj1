@@ -39,6 +39,14 @@ public class HangmanCodeBehind {
     private Line rigthLeg;
 
     @FXML
+    private Text deadLeftEye;
+
+    @FXML
+    private Text deadRightEye;
+
+    @FXML
+    private Line deadMouth;
+    @FXML
     private ListView<String> chatView;
 
     @FXML
@@ -66,21 +74,17 @@ public class HangmanCodeBehind {
     
     @FXML
     private Button btnUsername;
-    
-    @FXML
-    private Text deadLeftEye;
-
-    @FXML
-    private Text deadRightEye;
-
-    @FXML
-    private Line deadMouth;
-
     @FXML
     private Label lblLost;
 
     @FXML
     private Label lblWin;
+    
+
+    @FXML
+    private Label lblFullRoom;
+    @FXML
+    private Label lblGameStarted;
     
     private String userName;
     
@@ -114,15 +118,17 @@ public class HangmanCodeBehind {
 	}
 	
 	public void startGame() {
-		this.txtBoxUserName.setDisable(true);
-		this.btnUsername.setDisable(true);
-		this.lblusernameError.setVisible(false);
-		
+
 		this.btnGuess.setDisable(false);
 		this.btnQuit.setDisable(false);
 		this.guessComboBox.setDisable(false);
 		this.disableUntilTurn();
 		
+	}
+	public void login() {
+		this.txtBoxUserName.setDisable(true);
+		this.btnUsername.setDisable(true);
+		this.lblusernameError.setVisible(false);
 	}
 	
     @FXML
@@ -176,6 +182,17 @@ public class HangmanCodeBehind {
     public void gameWon() {
     	this.lblWin.setVisible(true);
     	this.disableUntilTurn();
+    }
+    
+    public void fullRoom() {
+    	this.lblFullRoom.setVisible(true);
+    	this.disableUntilTurn();
+    	this.login();
+    }
+    public void gameStarted() {
+    	this.lblGameStarted.setVisible(true);
+    	this.disableUntilTurn();
+    	this.login();
     }
 
 }
