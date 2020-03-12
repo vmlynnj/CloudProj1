@@ -52,7 +52,7 @@ public class HangmanCodeBehind {
     private TextField txtBoxChatBox;
 
     @FXML
-    private ComboBox<EnglishAlphabet> guessComboBox;
+    private ComboBox<String> guessComboBox;
 
     @FXML
     private Button submitGuessButton;
@@ -88,8 +88,9 @@ public class HangmanCodeBehind {
 		this.btnQuit.setDisable(true);
 		
 
+		this.guessComboBox = new ComboBox<String>();
 		this.guessComboBox.setDisable(true);
-		
+		this.populateComboBox(new ArrayList<String>());
 		
 	}
 	
@@ -107,8 +108,6 @@ public class HangmanCodeBehind {
 		this.btnQuit.setDisable(false);
 		this.guessComboBox.setDisable(false);
 		
-		this.guessComboBox = new ComboBox<EnglishAlphabet>();
-		this.guessComboBox.setItems( FXCollections.observableArrayList( EnglishAlphabet.values()));
 	}
 	
 	
@@ -134,6 +133,20 @@ public class HangmanCodeBehind {
     	HangmanViewModel.USERNAME = this.userName;
     	this.userName = txtBoxUserName.getText();
     	this.viewmodel.sendMessage(this.userName);
+    }
+    
+    public void populateComboBox(ArrayList<String> exclude) {
+
+    	ArrayList<String> combo = new ArrayList<String>();
+    	String[] englishAlpha = new String[] {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
+    	for(int i = 0; i<englishAlpha.length; i++) {
+    		if(!exclude.contains(englishAlpha[i])) {
+    			combo.add(englishAlpha[i]);
+    		}
+    	}
+    	this.guessComboBox.setItems( FXCollections.observableArrayList(combo));
+    	
+    	
     }
 
 }
