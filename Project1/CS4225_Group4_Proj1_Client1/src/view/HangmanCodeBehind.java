@@ -18,6 +18,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
 import util.ClientActions;
 import viewmodel.HangmanViewModel;
 
@@ -57,7 +58,21 @@ public class HangmanCodeBehind {
     @FXML
     private ComboBox<String> guessComboBox;
 
+    @FXML
+    private Text deadLeftEye;
 
+    @FXML
+    private Text deadRightEye;
+
+    @FXML
+    private Line deadMouth;
+
+    @FXML
+    private Label lblLost;
+
+    @FXML
+    private Label lblWin;
+    
     @FXML
     private Label lblWord;
     
@@ -150,6 +165,19 @@ public class HangmanCodeBehind {
 		this.btnGuess.setDisable(false);
 		this.btnQuit.setDisable(false);
 		this.guessComboBox.setDisable(false);
+    }
+    
+    public void gameLost() {
+    	this.lblLost.setVisible(true);
+    	this.disableUntilTurn();
+    	this.deadLeftEye.setVisible(true);
+    	this.deadRightEye.setVisible(true);
+    	this.deadMouth.setVisible(true);
+    }
+
+    public void gameWon() {
+    	this.lblWin.setVisible(true);
+    	this.disableUntilTurn();
     }
     
     public void updateWord(String word) {

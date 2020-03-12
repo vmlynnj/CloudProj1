@@ -8,6 +8,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="673.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.HangmanCodeBehind">
    <children>
@@ -33,5 +35,18 @@
       <Label layoutX="33.0" layoutY="512.0" text="Username: " />
       <Button fx:id="btnUsername" layoutX="291.0" layoutY="508.0" mnemonicParsing="false" onAction="#btnUsername_Click" text="Begin" />
       <Label fx:id="lblusernameError" layoutX="291.0" layoutY="547.0" text="That user name has been taken. Please try again" textFill="RED" visible="false" />
+      <Text fx:id="deadLeftEye" layoutX="452.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X" visible="false" />
+      <Text fx:id="deadRightEye" layoutX="474.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X" visible="false" />
+      <Line fx:id="deadMouth" endX="89.5" endY="-0.9070892333984375" layoutX="388.0" layoutY="122.0" startX="63.8499755859375" startY="-0.9070892333984375" visible="false" />
+      <Label fx:id="lblLost" layoutX="382.0" layoutY="339.0" text="You Lost" textFill="#ff0808" visible="false">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblWin" layoutX="382.0" layoutY="375.0" text="You Won!" textFill="#0eff0a" visible="false">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>      
    </children>
 </AnchorPane>

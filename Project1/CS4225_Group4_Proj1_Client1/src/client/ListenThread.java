@@ -63,16 +63,7 @@ public class ListenThread extends Thread{
 		if(messages[0].equals(ServerActions.USERNAMEERROR.toString())) {
 			HangmanViewModel.userNameError();
 		}
-		if(messages[0].equals(ServerActions.MESSAGE.toString())){
-			HangmanViewModel.addMessage(messages[1]);
-		}
-		if(messages[0].equals(ServerActions.PLAYER.toString())) {
-			HangmanViewModel.addMessage(messages[1]);
-		}
-		
-		if(messages[0].equals(ServerActions.PRINTUSERS.toString())) {
-			//TODO EVENTUALLY ONLY START IN START ONCE TIMER IS SET UP
-			HangmanViewModel.addMessage(messages[1]);
+		if(messages[0].equals(ServerActions.MESSAGE.toString()) || messages[0].equals(ServerActions.PLAYER.toString()) || messages[0].equals(ServerActions.PRINTUSERS.toString())) {
 		}
 		if(messages[0].equals(ServerActions.WORD.toString())) {
 			HangmanViewModel.updateWord(messages[1]);
@@ -88,16 +79,12 @@ public class ListenThread extends Thread{
 			HangmanViewModel.removeLetterOption(messages[1]);
 		}
 		
-<<<<<<< HEAD
-=======
 		if (messages[0].equals(ServerActions.LOSE.toString())) {
 			HangmanViewModel.gameLost();
 		}
 		if (messages[0].equals(ServerActions.WIN.toString())) {
 			HangmanViewModel.gameWon();
 		}
-		
->>>>>>> branch 'master' of https://github.com/vmlynnj/CloudProj1.git
 	}
 	
 
