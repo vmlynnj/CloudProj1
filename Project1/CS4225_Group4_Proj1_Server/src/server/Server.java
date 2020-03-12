@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
-import model.ServerThread;
 import model.UserThread;
 
 import java.net.ServerSocket;
@@ -64,20 +63,25 @@ public class Server {
 	public synchronized static String AddUser(UserThread user) {
 		if (Server.users.size() < 4) {
 			Server.users.add(user);
-			Server.broadcastMessage("A new player has joined: " + user.getUserName(), null);
+			Server.broadcastMessage("PLAYER=","A new player has joined: " + user.getUserName(), null);
+			try {
+				user.sendMessage("PRINTUSERS=", Server.AllUsers());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			return "Success";
 		} else {
 			return "";
 		}
 	}
 
-	public static void broadcastMessage(String message, UserThread user) {
+	public static void broadcastMessage(String type, String message, UserThread user) {
 		for(UserThread currUser : Server.users) {
 			try {
 				if (user == null) {
-					currUser.sendMessage(message);
+					currUser.sendMessage(type,message);
 				} else {
-					currUser.sendMessage(user.getUserName() + ": " + message);
+					currUser.sendMessage(type,user.getUserName() + ": " + message);
 				}
 			} catch(Exception e) {
 				e.printStackTrace();

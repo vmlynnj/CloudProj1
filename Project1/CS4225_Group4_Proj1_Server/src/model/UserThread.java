@@ -36,16 +36,25 @@ public class UserThread extends Thread {
 			OutputStream output = this.socket.getOutputStream();
 			this.writer = new PrintWriter(output, true);
 			System.out.println("USER THREAD");
+		
 			String message = reader.readLine();
+			while(Server.usernames.contains(message)) {
+				System.out.println("Username already taken. Please try another one.");
+				this.sendMessage("USERNAMEERROR=", "Username already taken. Please try another one.");
+				message = reader.readLine();
+			}
 			System.out.println("Username: "+ message);
 			
 			this.username = message;
+			Server.usernames.add(this.username);
 			Server.AddUser(this);
 			do {
 				message = reader.readLine();
-				Server.broadcastMessage(message, this);
-				System.out.println("MESSAGE: "+ message);
+				Server.broadcastMessage("Message=", message, this);
 			} while (message != "QUIT");
+			
+			Server.users.remove(this);
+			Server.usernames.remove(this.getUserName());
 			
 		}catch(IOException e)
 		{
@@ -53,9 +62,9 @@ public class UserThread extends Thread {
 		}
 	}
 
-	public void sendMessage(String message) throws IOException {
-		System.out.println("Server sends: "+ message);
-		this.writer.println(message);
+	public void sendMessage(String type, String message) throws IOException {
+		System.out.println(type+message);
+		this.writer.println(type+message);
 	}
 
 	public String getUserName() {

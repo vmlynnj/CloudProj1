@@ -11,10 +11,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import util.EnglishAlphabet;
 import viewmodel.HangmanViewModel;
 
 public class HangmanCodeBehind {
@@ -50,10 +52,24 @@ public class HangmanCodeBehind {
     private TextField txtBoxChatBox;
 
     @FXML
-    private ComboBox<?> guessComboBox;
+    private ComboBox<EnglishAlphabet> guessComboBox;
 
     @FXML
     private Button submitGuessButton;
+
+    @FXML
+    private Label lblWord;
+    
+    @FXML
+    private Label lblusernameError;
+    
+    @FXML
+    private TextField txtBoxUserName;
+    
+    @FXML
+    private Button btnUsername;
+    
+    private String userName;
     
     private HangmanViewModel viewmodel;
 
@@ -64,11 +80,37 @@ public class HangmanCodeBehind {
     
 	@FXML
 	private void initialize() {
-		this.messages.add("code behind message");
 		listProperty.set(FXCollections.observableArrayList(this.messages));
 		chatView.itemsProperty().bind(listProperty);
-		this.viewmodel = new HangmanViewModel(this.listProperty);
+		this.viewmodel = new HangmanViewModel(this.listProperty, this);
+		
+		this.btnSubmit.setDisable(true);
+		this.btnQuit.setDisable(true);
+		
+
+		this.guessComboBox.setDisable(true);
+		
+		
 	}
+	
+	public void userNameError() {
+		this.txtBoxUserName.clear();
+		this.lblusernameError.setVisible(true);
+	}
+	
+	public void startGame() {
+		this.txtBoxUserName.setDisable(true);
+		this.btnUsername.setDisable(true);
+		this.lblusernameError.setVisible(false);
+		
+		this.btnSubmit.setDisable(false);
+		this.btnQuit.setDisable(false);
+		this.guessComboBox.setDisable(false);
+		
+		this.guessComboBox = new ComboBox<EnglishAlphabet>();
+		this.guessComboBox.setItems( FXCollections.observableArrayList( EnglishAlphabet.values()));
+	}
+	
 	
     @FXML
     void btnQuit_Click(ActionEvent event) {
@@ -77,13 +119,21 @@ public class HangmanCodeBehind {
 
     @FXML
     void btnSubmit_Click(ActionEvent event) {
-    	this.viewmodel.sendChat(txtBoxChatBox.getText());
+    	this.viewmodel.sendMessage(txtBoxChatBox.getText());
     	this.txtBoxChatBox.setText("");
     }
     
     @FXML
     void btnGuess_Click(ActionEvent event) {
-    	this.viewmodel.sendGuess(guessComboBox.getSelectionModel());
+    	this.viewmodel.sendMessage(guessComboBox.getSelectionModel().toString());
+    }
+    
+
+    @FXML
+    void btnUsername_Click(ActionEvent event) {
+    	HangmanViewModel.USERNAME = this.userName;
+    	this.userName = txtBoxUserName.getText();
+    	this.viewmodel.sendMessage(this.userName);
     }
 
 }

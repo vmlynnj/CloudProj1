@@ -45,15 +45,37 @@ public class ListenThread extends Thread{
 	
 	public void read() {
 		try {
-			System.out.println("In listener 01");
 			String message = this.reader.readLine();
-			System.out.println("In listener 02");
-			HangmanViewModel.addMessage(message);
-			System.out.println("In listener 03");
-			System.out.println("server Said: "+message);
+			this.handleMessages(message);
+			System.out.println(message);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
+		
 	}
+	
+	public void handleMessages(String message) {
+		if(message.contains("Player: " )) {
+			HangmanViewModel.addMessage(message);
+		}
+		String[] messages = message.split("=");
+		if(messages[0].equals("USERNAMEERROR")) {
+			HangmanViewModel.userNameError();
+		}
+		if(messages[0].equals("Message")){
+			HangmanViewModel.addMessage(messages[1]);
+		}
+		if(messages[0].equals("PLAYER")) {
+			HangmanViewModel.addMessage(messages[1]);
+		}
+		
+		if(messages[0].equals("PRINTUSERS")) {
+			HangmanViewModel.startGame();
+			HangmanViewModel.addMessage(messages[1]);
+		}
+		
+	}
+	
+
 }

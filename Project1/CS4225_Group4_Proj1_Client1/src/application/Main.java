@@ -27,7 +27,7 @@ public class Main extends Application {
 		Client.startConnection();
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/view/Login.fxml"));
+			loader.setLocation(getClass().getResource("/view/Hangman.fxml"));
 			Scene scene = new Scene((Pane) loader.load());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(WINDOW_TITLE);

@@ -11,6 +11,7 @@ import client.WriteThread;
 import javafx.beans.property.ListProperty;
 import javafx.collections.FXCollections;
 import javafx.scene.control.SingleSelectionModel;
+import view.HangmanCodeBehind;
 
 /**
  * @author jsmit124
@@ -20,31 +21,36 @@ import javafx.scene.control.SingleSelectionModel;
 public class HangmanViewModel {
 
 	private static ListProperty<String> messages;
+	private static HangmanCodeBehind controller;
 	
-	public HangmanViewModel(ListProperty<String> listProperty) {
+	public static String USERNAME;
+	
+	public HangmanViewModel(ListProperty<String> listProperty, HangmanCodeBehind codeBehind) {
 		Client.startConnection();
 		HangmanViewModel.messages = listProperty;
+		HangmanViewModel.controller = codeBehind;
 	}
 	
 	
 	public static void addMessage(String message) {
 		HangmanViewModel.messages.add(message);
 	}
-	/**
-	 * @param selectionModel
-	 */
-	public void sendGuess(SingleSelectionModel<?> selectionModel) {
-		//TODO
-		
-		System.out.println("Submit guess button clicked");
-	}
+
 
 	/**
 	 * @param text
 	 */
-	public void sendChat(String text) {
+	public void sendMessage(String text) {
 		System.out.println("Submit chat button clicked");
 		Client.sendChat(text);
+	}
+	
+	public static void startGame() {
+		HangmanViewModel.controller.startGame();
+	}
+	
+	public static void userNameError() {
+		HangmanViewModel.controller.userNameError();
 	}
 
 }
