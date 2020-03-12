@@ -14,9 +14,6 @@ import view.HangmanCodeBehind;
  * @version 1.0
  */
 public class HangmanViewModel {
-
-
-	
 	
 	private static ListProperty<String> messages;
 	private static HangmanCodeBehind controller;

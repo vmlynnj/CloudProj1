@@ -48,8 +48,6 @@ public class Client {
 		}
 	}
 	
-	
-	
 	public static void sendMessage(ClientActions action,String message) {
 		write.sendMessage(action, message);
 	}

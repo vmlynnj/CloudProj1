@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import model.HangmanGame;
 import model.UserThread;
@@ -26,6 +28,7 @@ public class Server {
 
 	public static List<String> usernames;
 	public static ArrayList<UserThread> users;
+	private boolean gameOpen;
 	
 	
 	public static HangmanGame game;
@@ -49,22 +52,34 @@ public class Server {
 		
 		Server.users = new ArrayList<UserThread>();
 		Server.usernames = new ArrayList<String>();
+		
+		this.gameOpen = true;
+		
+		
 		try (ServerSocket server = new ServerSocket(PORT)){
 			Socket clientSocket;
-			
-			while(true) {
+			while(this.gameOpen) {
 				clientSocket = server.accept();
 				System.out.println("Connected to Client");
+				this.startTimer();
 				UserThread user = new UserThread(clientSocket);
 				user.start();
-				
-				//TODO ADD 15 SEC timer to wait for the game to begin
-				
-
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void startTimer() {
+		ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+		
+		Runnable task = () -> {
+			this.gameOpen = false;
+			Server.broadcastMessage(ServerActions.START, "The game has begun", null);
+			Server.broadcastMessage(ServerActions.WORD, Server.game.getHiddenWord(), null);
+		};
+		
+		service.schedule(task, 15, TimeUnit.SECONDS);
 	}
 
 	
