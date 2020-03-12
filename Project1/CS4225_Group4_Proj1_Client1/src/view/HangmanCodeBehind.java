@@ -105,6 +105,8 @@ public class HangmanCodeBehind {
 		this.btnGuess.setDisable(false);
 		this.btnQuit.setDisable(false);
 		this.guessComboBox.setDisable(false);
+		//Eventually add back in
+		//this.disableUntilTurn();
 		
 	}
 	
@@ -116,7 +118,10 @@ public class HangmanCodeBehind {
 
     @FXML
     void btnGuess_Click(ActionEvent event) {
-    	this.viewmodel.sendMessage(ClientActions.GUESS,txtBoxChatBox.getText());
+    	System.out.println(ClientActions.GUESS+"="+this.guessComboBox.getValue());
+    	this.viewmodel.sendMessage(ClientActions.GUESS,this.guessComboBox.getValue());
+    	//TODO SERVER FUNC
+    	this.disableUntilTurn();
     }
     
     @FXML
@@ -128,6 +133,22 @@ public class HangmanCodeBehind {
     
     public void removeLetter(String letter) {
     	this.guessComboBox.getItems().remove(letter);
+    }
+    
+    public void disableUntilTurn() {
+    	this.btnGuess.setDisable(true);
+		this.btnQuit.setDisable(true);
+		this.guessComboBox.setDisable(true);
+    }
+    
+    public void enableTurn() {
+		this.btnGuess.setDisable(false);
+		this.btnQuit.setDisable(false);
+		this.guessComboBox.setDisable(false);
+    }
+    
+    public void updateWord(String word) {
+    	this.lblWord.setText(word);
     }
 
 }

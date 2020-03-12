@@ -5,6 +5,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.HangmanGame;
 import model.UserThread;
 import utility.ServerActions;
 
@@ -26,6 +27,8 @@ public class Server {
 	public static ArrayList<UserThread> users;
 	
 	
+	public static HangmanGame game;
+	
 	private static final int PORT = 4225;
 	
 	/**
@@ -41,6 +44,8 @@ public class Server {
 	}
 	
 	public void run () {
+		Server.game = new HangmanGame();
+		
 		Server.users = new ArrayList<UserThread>();
 		Server.usernames = new ArrayList<String>();
 		try (ServerSocket server = new ServerSocket(PORT)){
@@ -52,6 +57,9 @@ public class Server {
 				UserThread user = new UserThread(clientSocket);
 				user.start();
 				
+				//TODO ADD 15 SEC timer to wait for the game to begin
+				
+
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -62,7 +70,9 @@ public class Server {
 	public synchronized static String AddUser(UserThread user) {
 		if (Server.users.size() < 4) {
 			Server.users.add(user);
+			Server.takeTurn(user);
 			Server.broadcastMessage(ServerActions.PLAYER,"A new player has joined: " + user.getUserName(), null);
+
 			try {
 				user.sendMessage(ServerActions.PRINTUSERS, Server.AllUsers());
 			} catch (IOException e) {
@@ -94,6 +104,35 @@ public class Server {
 			output += currUser.toString() + System.lineSeparator();
 		}
 		return output;
+	}
+	
+	public static void Guess(String guess, UserThread user) {
+		
+		Server.broadcastMessage(ServerActions.MESSAGE, guess, user);
+		boolean correct = Server.game.guessLetter(guess);
+		if(correct) {
+			Server.broadcastMessage(ServerActions.WORD, Server.game.hiddenWord, null);
+		}
+		else {
+			//TODO HANDLE INCORRECT GUESS
+		}
+		Server.takeTurn(user);
+		
+		
+	}
+	
+	public static void takeTurn(UserThread user) {
+		
+		System.out.println("Server take turn");
+		UserThread currUser = Server.users.remove(0);
+		try {
+			currUser.sendMessage(ServerActions.TURN, "your turn");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Server.users.add(user);
+		
 	}
 
 

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import util.ClientActions;
+
 /**
  * Represents a client in a Client/Server setup. For our class, the port number
  * is 4225.
@@ -12,6 +14,8 @@ import java.net.UnknownHostException;
  */
 public class Client {
 
+	public static final String ACTION_SPLIT = "=";
+	
 	private static final String HOST = "localhost";
 	private static final int PORT = 4225;
 	
@@ -44,12 +48,10 @@ public class Client {
 		}
 	}
 	
-	public static void sendUsername(String username) {
-		write.sendUsername(username);
-	}
 	
-	public static void sendChat(String message) {
-		write.sendChat(message);
+	
+	public static void sendMessage(ClientActions action,String message) {
+		write.sendMessage(action, message);
 	}
 
 }

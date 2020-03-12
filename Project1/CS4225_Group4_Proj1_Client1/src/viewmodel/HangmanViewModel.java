@@ -39,7 +39,7 @@ public class HangmanViewModel {
 	 * @param text
 	 */
 	public void sendMessage(ClientActions action, String text) {
-		Client.sendChat(action.toString()+"="+text);
+		Client.sendMessage(action, text);
 	}
 	
 	public static void startGame() {
@@ -48,6 +48,15 @@ public class HangmanViewModel {
 	
 	public static void userNameError() {
 		HangmanViewModel.controller.userNameError();
+	}
+	
+	
+	
+	public static void enableTurn() {
+		HangmanViewModel.controller.enableTurn();
+	}
+	public static void updateWord(String word) {
+		HangmanViewModel.controller.updateWord(word);
 	}
 
 }

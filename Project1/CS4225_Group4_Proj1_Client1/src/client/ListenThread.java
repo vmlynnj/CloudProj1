@@ -11,7 +11,6 @@ import viewmodel.HangmanViewModel;
 
 public class ListenThread extends Thread{
 
-	private static final String ACTION_SPLIT = "=";
 	
 	private Socket socket;
 	
@@ -60,7 +59,7 @@ public class ListenThread extends Thread{
 		if(message.contains("Player: " )) {
 			HangmanViewModel.addMessage(message);
 		}
-		String[] messages = message.split(ACTION_SPLIT);
+		String[] messages = message.split(Client.ACTION_SPLIT);
 		if(messages[0].equals(ServerActions.USERNAMEERROR.toString())) {
 			HangmanViewModel.userNameError();
 		}
@@ -74,6 +73,12 @@ public class ListenThread extends Thread{
 		if(messages[0].equals(ServerActions.PRINTUSERS.toString())) {
 			HangmanViewModel.startGame();
 			HangmanViewModel.addMessage(messages[1]);
+		}
+		if(messages[0].equals(ServerActions.WORD.toString())) {
+			HangmanViewModel.updateWord(messages[1]);
+		}
+		if(messages[0].equals(ServerActions.TURN.toString())) {
+			HangmanViewModel.enableTurn();
 		}
 		
 	}

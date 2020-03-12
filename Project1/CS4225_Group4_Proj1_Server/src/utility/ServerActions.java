@@ -4,8 +4,9 @@ public enum ServerActions {
 	MESSAGE("MESSAGE"),
 	PLAYER("PLAYER"),
 	USERNAMEERROR("USERNAMEERROR"),
-	PRINTUSERS("PRINTUSERS");
-	
+	PRINTUSERS("PRINTUSERS"),
+	WORD("WORD"),
+	TURN("TURN");
     private String action;
 
     

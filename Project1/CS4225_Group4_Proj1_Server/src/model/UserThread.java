@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import server.Server;
+import utility.ClientActions;
 import utility.ServerActions;
 
 
@@ -53,7 +54,6 @@ public class UserThread extends Thread {
 				action = inputMessage.split(ACTION_SPLIT)[0];
 				message = inputMessage.split(ACTION_SPLIT)[1];
 				this.handleInput(action, message);
-				Server.broadcastMessage(ServerActions.MESSAGE, inputMessage, this);
 			} while (inputMessage != "QUIT");
 			
 			Server.users.remove(this);
@@ -68,6 +68,10 @@ public class UserThread extends Thread {
 	
 	public void handleInput(String action, String message) {
 		//handles it
+		if(action.toString().equals(ClientActions.GUESS.toString())) {
+			Server.Guess(message,this);
+		}
+		
 	}
 	public void sendMessage(ServerActions action, String message) throws IOException {
 		System.out.println(action.toString()+ACTION_SPLIT+message);

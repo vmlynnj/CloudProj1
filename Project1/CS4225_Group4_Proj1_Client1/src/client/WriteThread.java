@@ -5,6 +5,8 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import util.ClientActions;
+
 public class WriteThread extends Thread {
 
 	private Socket socket;
@@ -27,14 +29,11 @@ public class WriteThread extends Thread {
 
 	}
 	
-	public void sendUsername(String message) {
-		System.out.println("Username sent: " + message);
-		this.writer.println(message);
-	}
+
 	
-	public void sendChat(String message) {
-		System.out.println("Chat sent: " + message);
-		this.writer.println(message);
+	public void sendMessage(ClientActions action, String message ) {
+		System.out.println(action.toString()+ message);
+		this.writer.println(action.toString() +Client.ACTION_SPLIT + message);
 	}
 	
 }

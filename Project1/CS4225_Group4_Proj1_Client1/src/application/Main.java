@@ -37,16 +37,5 @@ public class Main extends Application {
 	}
 	
 	
-	/**
-	 * Loads the GUI from the given FXML file.
-	 * 
-	 * @return the pane to be loaded
-	 * @throws IOException
-	 */
-	private Pane loadGui() throws IOException {
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("./view/Login.fxml"));
-		return (Pane) loader.load();
-	}
 
 }
