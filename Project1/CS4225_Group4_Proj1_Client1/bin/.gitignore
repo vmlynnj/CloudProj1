@@ -1,5 +1,9 @@
-/view/
-/util/
-/viewmodel/
-/client/
 /application/
+/client/
+<<<<<<< HEAD
+/application/
+=======
+/util/
+/view/
+/viewmodel/
+>>>>>>> branch 'master' of https://github.com/vmlynnj/CloudProj1.git
