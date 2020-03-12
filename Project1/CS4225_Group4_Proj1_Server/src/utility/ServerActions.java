@@ -7,7 +7,11 @@ public enum ServerActions {
 	PRINTUSERS("PRINTUSERS"),
 	WORD("WORD"),
 	START("WORD"),
-	TURN("TURN");
+	TURN("TURN"),
+	INCORRECTGUESS("INCORRECT"),
+	CORRECTGUESS("CORRECT"),
+	REMOVELETTEROPTION("REMOVEOPTION");
+	
     private String action;
 
     

@@ -106,7 +106,7 @@ public class HangmanCodeBehind {
 		this.btnQuit.setDisable(false);
 		this.guessComboBox.setDisable(false);
 		//Eventually add back in
-		//this.disableUntilTurn();
+		this.disableUntilTurn();
 		
 	}
 	

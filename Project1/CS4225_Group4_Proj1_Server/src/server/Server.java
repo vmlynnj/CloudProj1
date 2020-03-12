@@ -126,6 +126,8 @@ public class Server {
 		
 		Server.broadcastMessage(ServerActions.MESSAGE, guess, user);
 		boolean correct = Server.game.guessLetter(guess);
+		Server.broadcastMessage(ServerActions.REMOVELETTEROPTION, guess, null);
+		
 		if(correct) {
 			Server.broadcastMessage(ServerActions.WORD, Server.game.hiddenWord, null);
 		}

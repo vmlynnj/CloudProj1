@@ -47,13 +47,19 @@ public class HangmanViewModel {
 		HangmanViewModel.controller.userNameError();
 	}
 	
-	
-	
 	public static void enableTurn() {
 		HangmanViewModel.controller.enableTurn();
 	}
 	public static void updateWord(String word) {
 		HangmanViewModel.controller.updateWord(word);
+	}
+
+
+	/**
+	 * @param string
+	 */
+	public static void removeLetterOption(String string) {
+		HangmanViewModel.controller.removeLetter(string);
 	}
 
 }

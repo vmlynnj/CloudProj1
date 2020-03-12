@@ -91,6 +91,4 @@ public class UserThread extends Thread {
 		return "Player: " + username;
 	}
 
-
-
 }

@@ -9,7 +9,8 @@ public enum ServerActions {
 	START("START"),
 	TURN("TURN"),
 	INCORRECTGUESS("INCORRECT"),
-	CORRECTGUESS("CORRECT");
+	CORRECTGUESS("CORRECT"),
+	REMOVELETTEROPTION("REMOVEOPTION");
 	
     private String action;
 

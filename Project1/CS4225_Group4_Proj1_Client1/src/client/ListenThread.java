@@ -84,6 +84,9 @@ public class ListenThread extends Thread{
 		if(messages[0].equals(ServerActions.START.toString())) {
 			HangmanViewModel.startGame();
 		}
+		if (messages[0].equals(ServerActions.REMOVELETTEROPTION.toString())) {
+			HangmanViewModel.removeLetterOption(messages[1]);
+		}
 		
 	}
 	
