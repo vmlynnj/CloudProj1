@@ -116,13 +116,13 @@ public class UserThread extends Thread {
 				try {
 					this.sendMessage(ServerActions.USERNAMEERROR, "Username already taken. Please try another one.");
 				
-				String inputMessage = this.reader.readLine();
-				String[] clientMessage = inputMessage.split(ACTION_SPLIT);
-				if(clientMessage.length >= 2) {
-					String login = clientMessage[0];
-					String username = clientMessage[1];
-					this.login(login,username);
-				}
+					String inputMessage = this.reader.readLine();
+					String[] clientMessage = inputMessage.split(ACTION_SPLIT);
+					if(clientMessage.length >= 2) {
+						String login = clientMessage[0];
+						String username = clientMessage[1];
+						this.login(login,username);
+					}
 				} 
 				catch (IOException e) {
 					e.printStackTrace();

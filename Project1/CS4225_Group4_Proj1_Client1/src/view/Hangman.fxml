@@ -56,5 +56,7 @@
             <Font size="17.0" />
          </font>
       </Label>
+      <Label fx:id="lblWarning" layoutX="295.0" layoutY="330.0" text="If you do not take your turn within 15 seconds you will be removed." textFill="RED" visible="false" />
+      <Label fx:id="lblRemvoed" layoutX="295.0" layoutY="366.0" text="You waited too long you have been removed" textFill="RED" visible="false" />
    </children>
 </AnchorPane>

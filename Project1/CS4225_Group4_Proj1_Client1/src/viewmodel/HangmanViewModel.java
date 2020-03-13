@@ -73,17 +73,28 @@ public class HangmanViewModel {
 	
 	public static void enableTurn() {
 		ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-		
-		Runnable task = () -> {
-			if(!takenTurn) {
-				HangmanViewModel.controller.disableUntilTurn();
-				Client.sendMessage(ClientActions.TURN_END, "turn ended");
-			}
-			
+		Runnable removeTask = () -> {
+			HangmanViewModel.showRemove();
 		};
+		Runnable task = () -> {
+			HangmanViewModel.showWarning();
+			service.schedule(removeTask, 15, TimeUnit.SECONDS);
+		};
+		
+
 		HangmanViewModel.controller.enableTurn();
 		service.schedule(task, 15, TimeUnit.SECONDS);
 		
+		
+	}
+	
+	public static void showWarning() {
+		HangmanViewModel.controller.showWarning();
+	}
+	
+	public static void showRemove() {
+		Client.sendMessage(ClientActions.QUIT, " quit");
+		HangmanViewModel.controller.showRemove();
 	}
 	public static void updateWord(String word) {
 		HangmanViewModel.controller.updateWord(word);

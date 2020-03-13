@@ -97,6 +97,11 @@ public class HangmanCodeBehind {
     private Button btnUsername;
     @FXML
     private Button btnRetry;
+    @FXML
+    private Label lblWarning;
+
+    @FXML
+    private Label lblRemvoed;
     
     private String userName;
     
@@ -286,6 +291,16 @@ public class HangmanCodeBehind {
 		this.lblLost.setVisible(false);
 		this.lblWin.setVisible(false);
 		this.lblWord.setVisible(false);
+	}
+	
+	public void showWarning() {
+		this.lblWarning.setVisible(true);
+	}
+	
+	public void showRemove() {
+		this.lblRemvoed.setVisible(true);
+		this.disableUntilTurn();
+		
 	}
 
 }
