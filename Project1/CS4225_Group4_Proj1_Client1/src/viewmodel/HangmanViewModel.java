@@ -3,13 +3,11 @@
  */
 package viewmodel;
 
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import client.Client;
-import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import util.ClientActions;
 import view.HangmanCodeBehind;
@@ -28,59 +26,79 @@ public class HangmanViewModel {
 	private static boolean takenTurn = false;
 	private static String username;
 	
+	/**
+	 * The view model for the gui.
+	 * 
+	 * @param listProperty The list property to display chat.
+	 * @param codeBehind The gui code behind
+	 */
 	public HangmanViewModel(ListProperty<String> listProperty, HangmanCodeBehind codeBehind) {
 		Client.startConnection();
 		HangmanViewModel.messages = listProperty;
 		HangmanViewModel.controller = codeBehind;
 	}
 	
-	
+	/**
+	 * Adds a message to the message box.
+	 * 
+	 * @param message The message to add
+	 */
 	public static void addMessage(String message) {
 		HangmanViewModel.controller.addMessage(message);
-		/*
-		Runnable task = () -> {
-			Platform.runLater(() ->
-			  HangmanViewModel.messages.add(message));
-		};
-		
-		ExecutorService service = Executors.newSingleThreadExecutor();
-		service.execute(task);
-		service.shutdown();
-		*/
 
 	}
 
+	/**
+	 * Sends a message to the server.
+	 * 
+	 * @param action The enum to tell the server how to handle the message
+	 * @param text The text portion of the message 
+	 */
 	public void sendMessage(ClientActions action, String text) {
 		Client.sendMessage(action, text);
 	}
 	
-
+	/**
+	 * Retry's the connection.
+	 */
 	public static void retry() {
 		Client.sendMessage(ClientActions.RETRY, "retry");
 	}
 	
+	/**
+	 * Starts the game.
+	 */
 	public static void startGame() {
 		HangmanViewModel.controller.startGame();
 	}
 	
+	/**
+	 * Logs the player in
+	 */
 	public static void login() {
 		HangmanViewModel.controller.login();
 	}
 	
+	/**
+	 * Handles errors with the player's username.
+	 */
 	public static void userNameError() {
 		HangmanViewModel.controller.userNameError();
 	}
 	
+	/**
+	 * Enables the player to take a turn by enabling the UI.
+	 */
 	public static void enableTurn() {
 		ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
 		Runnable removeTask = () -> {
-			if(!takenTurn) {
+			if (!takenTurn) {
 				HangmanViewModel.showRemove();
 			}
 			
 		};
 		Runnable task = () -> {
-			if(!takenTurn) {
+			if (!takenTurn) {
 				HangmanViewModel.showWarning();
 				service.schedule(removeTask, 15, TimeUnit.SECONDS);
 			}
@@ -93,18 +111,35 @@ public class HangmanViewModel {
 		
 	}
 	
+	/**
+	 * Shows warning label.
+	 */
 	public static void showWarning() {
 		HangmanViewModel.controller.showWarning();
 	}
 	
+	/**
+	 * Shows that the player has been removed
+	 */
 	public static void showRemove() {
 		Client.sendMessage(ClientActions.QUIT, "quit");
 		HangmanViewModel.controller.showRemove();
 	}
+	
+	/**
+	 * Updates the word to guess.
+	 * 
+	 * @param word The word to update.
+	 */
 	public static void updateWord(String word) {
 		HangmanViewModel.controller.updateWord(word);
 	}
 
+	/**
+	 * Removes the letter from the combo box if it has been guessed.
+	 * 
+	 * @param string The letter
+	 */
 	public static void removeLetterOption(String string) {
 		HangmanViewModel.controller.removeLetter(string);
 	}
