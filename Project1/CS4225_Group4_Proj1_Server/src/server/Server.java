@@ -191,6 +191,12 @@ public class Server {
 			Server.users.add(currUser);
 		}
 	}
+	
+	public static void retry() {
+		Server.users.clear();
+		Server.usernames.clear();
+		Server.gameOpen = true;
+	}
 	/**
 	 * Gets the usernames currently in use
 	 * @return the usernames

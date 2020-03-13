@@ -51,6 +51,11 @@ public class HangmanViewModel {
 		Client.sendMessage(action, text);
 	}
 	
+
+	public static void retry() {
+		Client.sendMessage(ClientActions.RETRY, "retry");
+	}
+	
 	public static void startGame() {
 		HangmanViewModel.controller.startGame();
 	}

@@ -53,6 +53,7 @@ public class ListenThread extends Thread {
 	public void read() {
 		try {
 			String message = this.reader.readLine();
+			
 			this.handleMessages(message);
 			System.out.println(message);
 		} catch (IOException e) {
@@ -67,7 +68,6 @@ public class ListenThread extends Thread {
 	 */
 	public void handleMessages(String message) {
 		String[] messages = message.split(Client.ACTION_SPLIT);
-		System.out.println("Client receives: " + message);
 		if(messages.length >= 2) {
 			String action = messages[0];
 			String serverMessage = messages[1];

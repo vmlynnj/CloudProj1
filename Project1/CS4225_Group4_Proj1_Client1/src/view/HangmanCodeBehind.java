@@ -137,7 +137,6 @@ public class HangmanCodeBehind {
 		
 	}
 	public void login() {
-		System.out.println("LOGGED IN");
 		this.txtBoxUserName.setDisable(true);
 		this.btnUsername.setDisable(true);
 		this.lblusernameError.setVisible(false);
@@ -177,11 +176,13 @@ public class HangmanCodeBehind {
     
     @FXML
     void btnRetryClick(ActionEvent event) {
+    	HangmanViewModel.retry();
 		this.txtBoxUserName.setDisable(false);
 		this.btnUsername.setDisable(false);
 		this.lblusernameError.setVisible(false);
-		
+		this.clearLastGame();
 		this.disableUntilTurn();
+		this.btnRetry.setDisable(true);
     }
     
     public void removeLetter(String letter) {
@@ -262,6 +263,22 @@ public class HangmanCodeBehind {
 
 	public void showRightArm() {
 		this.rightArm.setVisible(true);
+	}
+	
+	private void clearLastGame() {
+		this.head.setVisible(false);
+		this.body.setVisible(false);
+		this.leftLeg.setVisible(false);
+		this.rightLeg.setVisible(false);
+		this.leftArm.setVisible(false);
+		this.rightArm.setVisible(false);
+		this.deadLeftEye.setVisible(false);
+		this.deadRightEye.setVisible(false);
+		this.deadMouth.setVisible(false);
+		this.listProperty.clear();
+		this.lblLost.setVisible(false);
+		this.lblWin.setVisible(false);
+		this.lblWord.setVisible(false);
 	}
 
 }

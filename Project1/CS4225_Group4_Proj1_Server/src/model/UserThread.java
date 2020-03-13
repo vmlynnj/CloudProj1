@@ -56,17 +56,7 @@ public class UserThread extends Thread {
 				return;
 			}
 			String inputMessage = this.reader.readLine();
-			String username = inputMessage.split(ACTION_SPLIT)[1];
-			while (Server.getUsernames().contains(username)) {
-				System.out.println("Username already taken. Please try another one.");
-				this.sendMessage(ServerActions.USERNAMEERROR, "Username already taken. Please try another one.");
-				inputMessage = this.reader.readLine();
-				username = inputMessage.split(ACTION_SPLIT)[1];
-			}
-			this.username = username;
-			Server.getUsernames().add(this.username);
-			Server.addUser(this);
-			this.listenForInput();
+			this.login(inputMessage.split(ACTION_SPLIT)[0], inputMessage.split(ACTION_SPLIT)[1]);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -79,11 +69,21 @@ public class UserThread extends Thread {
 			String inputMessage = "";
 			do {
 				inputMessage = this.reader.readLine();
+				System.out.println("Server receives: "+ inputMessage);
 				String[] clientMessage = inputMessage.split(ACTION_SPLIT);
 				if(clientMessage.length >= 2) {
 					String action = clientMessage[0];
 					String message = clientMessage[1];
-					this.handleInput(action, message);
+					if(action.equals(ClientActions.RETRY.toString())) {
+						Server.retry();
+					}
+					if(action.equals(ClientActions.LOGIN.toString())) {
+						this.login(action, message);
+					}
+					else {
+						this.handleInput(action, message);
+					}
+					
 				}
 
 			} while (!inputMessage.equals(ClientActions.QUIT.toString()));
@@ -108,6 +108,33 @@ public class UserThread extends Thread {
 	public void handleInput(String action, String message) {
 		if (action.toString().equals(ClientActions.GUESS.toString())) {
 			Server.guess(message, this);
+		}
+
+	}
+	
+	private void login(String action, String message) {
+		if (action.toString().equals(ClientActions.LOGIN.toString())) {
+			while (Server.getUsernames().contains(message)) {
+				System.out.println("Username already taken. Please try another one.");
+				try {
+					this.sendMessage(ServerActions.USERNAMEERROR, "Username already taken. Please try another one.");
+				
+				String inputMessage = this.reader.readLine();
+				String[] clientMessage = inputMessage.split(ACTION_SPLIT);
+				if(clientMessage.length >= 2) {
+					String login = clientMessage[0];
+					String username = clientMessage[1];
+					this.login(login,username);
+				}
+				} 
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			this.username = message;
+			Server.getUsernames().add(this.username);
+			Server.addUser(this);
+			this.listenForInput();
 		}
 	}
 	

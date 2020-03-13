@@ -7,6 +7,7 @@ package utility;
 public enum ClientActions {
 	QUIT("QUIT"),
 	GUESS("GUESS"),
+	RETRY("RETRY"),
 	LOGIN("LOGIN");
 	
     private String action;
