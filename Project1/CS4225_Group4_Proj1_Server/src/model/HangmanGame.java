@@ -78,7 +78,7 @@ public class HangmanGame {
 			var currLetterIndex = 0;
 			var answerLetters = this.wordToGuess.split("");
 			for (var currLetter : answerLetters) {
-				if (currLetter.equals(letter)) {
+				if (currLetter.toLowerCase().equals(letter.toLowerCase())) {
 					sb.append(letter);
 				} else {
 					sb.append(this.hiddenWord.charAt(currLetterIndex));
@@ -102,7 +102,7 @@ public class HangmanGame {
 	 * 		   false otherwise
 	 */
 	private void checkForWinLoss() {
-		if (this.hiddenWord.equals(this.wordToGuess)) {
+		if (this.hiddenWord.toLowerCase().equals(this.wordToGuess.toLowerCase())) {
 			this.gameWon = true;
 		} else if (this.incorrectGuesses == 6) {
 			this.gameLost = true;

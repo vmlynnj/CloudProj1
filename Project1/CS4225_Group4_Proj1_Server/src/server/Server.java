@@ -150,7 +150,7 @@ public class Server {
 			Server.broadcastMessage(ServerActions.LOSE, "The game is lost", null);
 		}
 		if(Server.game.isGameWon()) {
-			Server.broadcastMessage(ServerActions.LOSE, "The game is lost", null);
+			Server.broadcastMessage(ServerActions.WIN, "The game is won", null);
 		}
 		Server.takeTurn(user);
 		
