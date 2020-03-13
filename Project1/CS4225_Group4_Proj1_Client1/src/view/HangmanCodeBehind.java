@@ -42,7 +42,7 @@ public class HangmanCodeBehind {
     private Line leftLeg;
 
     @FXML
-    private Line rigthLeg;
+    private Line rightLeg;
 
     @FXML
     private Text deadLeftEye;
@@ -214,5 +214,29 @@ public class HangmanCodeBehind {
 		service.execute(task);
 		service.shutdown();
     }
+    
+    public void showHead() {
+		this.head.setVisible(true);
+	}
+
+	public void showBody() {
+		this.body.setVisible(true);
+	}
+
+	public void showLeftLeg() {
+		this.leftLeg.setVisible(true);
+	}
+
+	public void showRightLeg() {
+		this.rightLeg.setVisible(true);
+	}
+
+	public void showLeftArm() {
+		this.leftArm.setVisible(true);
+	}
+
+	public void showRightArm() {
+		this.rightArm.setVisible(true);
+	}
 
 }

@@ -21,7 +21,7 @@
       <Line fx:id="leftArm" endX="264.5" endY="99.19998168945312" layoutX="199.0" layoutY="60.0" startX="228.199951171875" startY="85.60000610351562" visible="false" />
       <Line fx:id="rightArm" endX="12.199951171875" endY="-15.199981689453125" layoutX="487.0" layoutY="160.0" startX="-22.5" startY="-3.0517578125E-5" visible="false" />
       <Line fx:id="leftLeg" endX="-18.0" endY="-7.899993896484375" layoutX="482.0" layoutY="230.0" startX="-54.0" startY="35.600006103515625" visible="false" />
-      <Line fx:id="rigthLeg" endX="0.8929443359375" endY="19.999969482421875" layoutX="500.0" layoutY="244.0" startX="-35.50006103515625" startY="-21.899993896484375" visible="false" />
+      <Line fx:id="rightLeg" endX="0.8929443359375" endY="19.999969482421875" layoutX="500.0" layoutY="244.0" startX="-35.50006103515625" startY="-21.899993896484375" visible="false" />
       <ListView fx:id="chatView" layoutX="14.0" layoutY="60.0" prefHeight="202.0" prefWidth="205.0" />
       <Button fx:id="btnQuit" layoutX="619.0" layoutY="412.0" mnemonicParsing="false" onAction="#btnQuit_Click" text="Quit" />
       <Button fx:id="btnGuess" layoutX="174.0" layoutY="281.0" mnemonicParsing="false" onAction="#btnGuess_Click" text="Guess!" />

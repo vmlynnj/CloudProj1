@@ -95,6 +95,9 @@ public class ListenThread extends Thread{
 		if (messages[0].equals(ServerActions.GAME_STARTED.toString())) {
 			HangmanViewModel.gameStarted();
 		}
+		if (messages[0].equals(ServerActions.WRONG.toString())) {
+			HangmanViewModel.showHangman(Integer.parseInt(messages[1]));
+		}
 
 	}
 	

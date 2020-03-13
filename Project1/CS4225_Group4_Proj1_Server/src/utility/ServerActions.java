@@ -15,7 +15,8 @@ public enum ServerActions {
 	REMOVELETTEROPTION("REMOVEOPTION"),
 	WIN("WIN"),
 	LOSE("LOSE"),
-	FULL_ROOM("FULL");
+	FULL_ROOM("FULL"),
+	WRONG("WRONG");
 	
     private String action;
 

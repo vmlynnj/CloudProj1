@@ -153,6 +153,7 @@ public class Server {
 			Server.broadcastMessage(ServerActions.WIN, "The game is won", null);
 		}
 		Server.takeTurn(user);
+		Server.broadcastMessage(ServerActions.WRONG, ""+Server.game.getIncorrectGuesses(), null);
 		
 		
 	}

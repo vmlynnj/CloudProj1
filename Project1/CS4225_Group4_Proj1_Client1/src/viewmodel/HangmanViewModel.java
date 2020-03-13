@@ -77,5 +77,26 @@ public class HangmanViewModel {
 	public static void gameStarted() {
 		HangmanViewModel.controller.gameStarted();
 	}
+	
+	public static void showHangman(int wrongGuesses) {
+		if (wrongGuesses >= 1) {
+			HangmanViewModel.controller.showHead();
+		}
+		if (wrongGuesses >= 2) {
+			HangmanViewModel.controller.showBody();
+		}
+		if (wrongGuesses >= 3) {
+			HangmanViewModel.controller.showLeftLeg();
+		}
+		if (wrongGuesses >= 4) {
+			HangmanViewModel.controller.showRightLeg();
+		}
+		if (wrongGuesses >= 5) {
+			HangmanViewModel.controller.showLeftArm();
+		}
+		if (wrongGuesses >= 6) {
+			HangmanViewModel.controller.showRightArm();
+		}
+	}
 
 }
