@@ -9,6 +9,7 @@ import util.ClientActions;
 import view.HangmanCodeBehind;
 
 /**
+ * Stores information for the HangmanViewModel class
  * @author jsmit124
  *
  * @version 1.0
@@ -31,10 +32,6 @@ public class HangmanViewModel {
 		HangmanViewModel.messages.add(message);
 	}
 
-
-	/**
-	 * @param text
-	 */
 	public void sendMessage(ClientActions action, String text) {
 		Client.sendMessage(action, text);
 	}

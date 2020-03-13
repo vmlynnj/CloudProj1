@@ -31,9 +31,9 @@ public class WriteThread extends Thread {
 	
 
 	
-	public void sendMessage(ClientActions action, String message ) {
-		System.out.println(action.toString()+ message);
-		this.writer.println(action.toString() +Client.ACTION_SPLIT + message);
+	public void sendMessage(ClientActions action, String message) {
+		System.out.println(action.toString() + message);
+		this.writer.println(action.toString() + Client.ACTION_SPLIT + message);
 	}
 	
 }

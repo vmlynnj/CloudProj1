@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -101,8 +100,8 @@ public class HangmanCodeBehind {
     
 	@FXML
 	private void initialize() {
-		listProperty.set(FXCollections.observableArrayList(this.messages));
-		chatView.itemsProperty().bind(listProperty);
+		this.listProperty.set(FXCollections.observableArrayList(this.messages));
+		this.chatView.itemsProperty().bind(this.listProperty);
 		this.viewmodel = new HangmanViewModel(this.listProperty, this);
 		
 		this.btnGuess.setDisable(true);
@@ -128,7 +127,6 @@ public class HangmanCodeBehind {
 		this.btnGuess.setDisable(false);
 		this.btnQuit.setDisable(false);
 		this.guessComboBox.setDisable(false);
-		//Eventually add back in
 		this.disableUntilTurn();
 		
 	}
@@ -150,29 +148,28 @@ public class HangmanCodeBehind {
     }
 	
     @FXML
-    void btnQuit_Click(ActionEvent event) {
+    void btnQuitClick(ActionEvent event) {
     	this.viewmodel.sendMessage(ClientActions.QUIT, "");
     	System.exit(0);
     }
 
     @FXML
-    void btnGuess_Click(ActionEvent event) {
-    	System.out.println(ClientActions.GUESS+"="+this.guessComboBox.getValue());
-    	this.viewmodel.sendMessage(ClientActions.GUESS,this.guessComboBox.getValue());
-    	//TODO SERVER FUNC
+    void btnGuessClick(ActionEvent event) {
+    	System.out.println(ClientActions.GUESS + "=" + this.guessComboBox.getValue());
+    	this.viewmodel.sendMessage(ClientActions.GUESS, this.guessComboBox.getValue());
     	this.disableUntilTurn();
     }
     
     @FXML
-    void btnUsername_Click(ActionEvent event) {
+    void btnUsernameClick(ActionEvent event) {
     	HangmanViewModel.USERNAME = this.userName;
-    	this.userName = txtBoxUserName.getText();
-    	this.viewmodel.sendMessage(ClientActions.LOGIN,this.userName);
+    	this.userName = this.txtBoxUserName.getText();
+    	this.viewmodel.sendMessage(ClientActions.LOGIN, this.userName);
     }
     
     public void removeLetter(String letter) {
     	this.guessComboBox.getItems().remove(letter);
-    	this.guessComboBox.valueProperty().set(null);;
+    	this.guessComboBox.valueProperty().set(null);
     }
     
     public void disableUntilTurn() {
@@ -205,7 +202,7 @@ public class HangmanCodeBehind {
     	
 		Runnable task = () -> {
 			Platform.runLater(() ->
-			this.lblWord.setText(word));
+			  this.lblWord.setText(word));
 			System.out.println("LABEL WORD IS: " + this.lblWord.getText());
 		};
 		

@@ -23,8 +23,7 @@ public class Client {
 	public static ListenThread listen;
 	public static WriteThread write;
 
-	public static void startConnection()
-	{	
+	public static void startConnection() {	
 		Socket clientSocket = null;
 
 		try {
@@ -48,7 +47,7 @@ public class Client {
 		}
 	}
 	
-	public static void sendMessage(ClientActions action,String message) {
+	public static void sendMessage(ClientActions action, String message) {
 		write.sendMessage(action, message);
 	}
 

@@ -7,11 +7,9 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
 import model.HangmanGame;
 import model.UserThread;
 import utility.ServerActions;
-
 import java.net.ServerSocket;
 
 /**
@@ -89,7 +87,7 @@ public class Server {
 			Server.broadcastMessage(ServerActions.WORD, Server.game.getHiddenWord(), null);
 		};
 		
-		service.schedule(task, 10, TimeUnit.SECONDS);
+		service.schedule(task, 30, TimeUnit.SECONDS);
 	}
 
 	
@@ -166,7 +164,6 @@ public class Server {
 		try {
 			currUser.sendMessage(ServerActions.TURN, "your turn");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Server.users.add(user);
