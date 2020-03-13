@@ -68,7 +68,7 @@ public class ListenThread extends Thread {
 	 */
 	public void handleMessages(String message) {
 		String[] messages = message.split(Client.ACTION_SPLIT);
-		if(messages.length >= 2) {
+		if (messages.length >= 2) {
 			String action = messages[0];
 			String serverMessage = messages[1];
 			this.handleLogin(action, serverMessage);
