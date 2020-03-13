@@ -43,6 +43,9 @@ public class UserThread extends Thread {
 	
 	/**
 	 * Runs the application
+	 * 
+	 * @precondition none
+	 * @postcondition none
 	 */
 	public void run() {
 		try {
@@ -70,18 +73,17 @@ public class UserThread extends Thread {
 			String action = "";
 			do {
 				inputMessage = this.reader.readLine();
-				System.out.println("Server receives: "+ inputMessage);
+				System.out.println("Server receives: " +  inputMessage);
 				String[] clientMessage = inputMessage.split(ACTION_SPLIT);
-				if(clientMessage.length >= 2) {
+				if (clientMessage.length >= 2) {
 					action = clientMessage[0];
 					String message = clientMessage[1];
-					if(action.equals(ClientActions.RETRY.toString())) {
+					if (action.equals(ClientActions.RETRY.toString())) {
 						Server.restart();
 					}
-					if(action.equals(ClientActions.LOGIN.toString())) {
+					if (action.equals(ClientActions.LOGIN.toString())) {
 						this.login(action, message);
-					}
-					else {
+					} else {
 						this.handleInput(action, message);
 					}
 					
@@ -97,6 +99,10 @@ public class UserThread extends Thread {
 	
 	/**
 	 * Handles the user input
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
 	 * @param action the action the user takes
 	 * @param message the message the user sends
 	 */
@@ -104,7 +110,7 @@ public class UserThread extends Thread {
 		if (action.toString().equals(ClientActions.GUESS.toString())) {
 			Server.guess(message, this);
 		}
-		if(action.toString().equals(ClientActions.TURN_END.toString())) {
+		if (action.toString().equals(ClientActions.TURN_END.toString())) {
 			Server.takeTurn(this);
 		}
 	}
@@ -118,23 +124,21 @@ public class UserThread extends Thread {
 				
 					String inputMessage = this.reader.readLine();
 					String[] clientMessage = inputMessage.split(ACTION_SPLIT);
-					if(clientMessage.length >= 2) {
+					if (clientMessage.length >= 2) {
 						String login = clientMessage[0];
 						String username = clientMessage[1];
-						this.login(login,username);
+						this.login(login, username);
 					}
-				} 
-				catch (IOException e) {
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
-			if(Server.getGameOpen()) {
+			if (Server.getGameOpen()) {
 				this.username = message;
 				Server.getUsernames().add(this.username);
 				Server.addUser(this);
 				this.listenForInput();
-			}
-			else {
+			} else {
 				try {
 					this.sendMessage(ServerActions.GAME_STARTED, "game has started");
 					this.listenForInput();
@@ -148,8 +152,13 @@ public class UserThread extends Thread {
 	
 	/**
 	 * Sends the message to the user thread
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
 	 * @param action the action the server is sending
 	 * @param message the message the server sends
+	 * 
 	 * @throws IOException throws an exceptions if streams are corrupted
 	 */
 	public void sendMessage(ServerActions action, String message) throws IOException {
@@ -159,6 +168,10 @@ public class UserThread extends Thread {
 
 	/**
 	 * Gets the user name of the user
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
 	 * @return the user name of the user
 	 */
 	public String getUserName() {
@@ -167,6 +180,10 @@ public class UserThread extends Thread {
 
 	/**
 	 * Sets the user name of the user
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
 	 * @param name the name of the username
 	 */
 	public void setUserName(String name) {
@@ -175,7 +192,7 @@ public class UserThread extends Thread {
 
 	@Override
 	public String toString() {
-		return "Player: " + username;
+		return "Player: " + this.username;
 	}
 
 }

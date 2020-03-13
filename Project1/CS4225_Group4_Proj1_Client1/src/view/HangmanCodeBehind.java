@@ -70,7 +70,6 @@ public class HangmanCodeBehind {
     @FXML
     private ComboBox<String> guessComboBox;
 
-
     @FXML
     private Label lblLost;
 
@@ -95,8 +94,10 @@ public class HangmanCodeBehind {
     
     @FXML
     private Button btnUsername;
+    
     @FXML
     private Button btnRetry;
+    
     @FXML
     private Label lblWarning;
 
@@ -148,7 +149,6 @@ public class HangmanCodeBehind {
 		this.lblusernameError.setVisible(false);
 		
 		this.disableUntilTurn();
-		
 	}
 	
     public void fullRoom() {
@@ -159,8 +159,6 @@ public class HangmanCodeBehind {
     public void gameStarted() {
     	this.lblGameStarted.setVisible(true);
     	this.disableUntilTurn();
-    	
-    	
     }
 	
     @FXML
@@ -232,8 +230,6 @@ public class HangmanCodeBehind {
     	this.deadMouth.setVisible(true);
     	
     	this.btnRetry.setDisable(false);
-    	
-
     }
 
     public void gameWon() {
@@ -301,7 +297,6 @@ public class HangmanCodeBehind {
 	public void showRemove() {
 		this.lblRemvoed.setVisible(true);
 		this.disableUntilTurn();
-		
 	}
 
 }
