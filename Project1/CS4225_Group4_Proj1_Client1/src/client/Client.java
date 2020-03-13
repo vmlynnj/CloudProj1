@@ -19,10 +19,17 @@ public class Client {
 	private static final String HOST = "localhost";
 	private static final int PORT = 4225;
 	
-	public static Socket socket = null;
-	public static ListenThread listen;
-	public static WriteThread write;
+	private static Socket socket = null;
+	private static ListenThread listen;
+	private static WriteThread write;
 
+	/**
+	 * Starts the client connect to the server
+	 * 
+	 * @precondition none
+     * @postcondition none
+     * 
+	 */
 	public static void startConnection() {	
 		Socket clientSocket = null;
 
@@ -47,8 +54,70 @@ public class Client {
 		}
 	}
 	
+	/**
+	 * Sends a client message to the server
+	 * 
+	 * @precondition none
+     * @postcondition none
+     * 
+	 * @param action
+	 * 		the action to be sent
+	 * @param message
+	 * 		the message to be sent
+	 */
 	public static void sendMessage(ClientActions action, String message) {
 		write.sendMessage(action, message);
+	}
+	
+	/**
+	 * Returns the client socket
+	 * 
+	 * @return the socket
+	 */
+	public static Socket getSocket() {
+		return Client.socket;
+	}
+
+	/**
+	 * Sets the client socket
+	 * @param socket the socket to set
+	 */
+	public static void setSocket(Socket socket) {
+		Client.socket = socket;
+	}
+
+	/**
+	 * Returns the client listenThread
+	 * @return the listen
+	 */
+	public static ListenThread getListen() {
+		return Client.listen;
+	}
+
+	/**
+	 * Sets the client listenThread
+	 * @param listen the listen to set
+	 */
+	public static void setListen(ListenThread listen) {
+		Client.listen = listen;
+	}
+
+	/**
+	 * Gets the client write thread
+	 * 
+	 * @return the write
+	 */
+	public static WriteThread getWrite() {
+		return Client.write;
+	}
+
+	/**
+	 * Sets the client writeThread
+	 * 
+	 * @param write the write to set
+	 */
+	public static void setWrite(WriteThread write) {
+		Client.write = write;
 	}
 
 }

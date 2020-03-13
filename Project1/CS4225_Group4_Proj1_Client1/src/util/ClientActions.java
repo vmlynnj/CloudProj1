@@ -12,10 +12,13 @@ public enum ClientActions {
 	LOGIN("LOGIN");
 	
     private String action;
-
     
     /**
      * Creates a client action
+     * 
+     * @precondition none
+     * @postcondition none
+     * 
      * @param action the action
      */
     ClientActions(String action) {
@@ -24,9 +27,14 @@ public enum ClientActions {
 
     /**
      * Returns the action as a string
+     * 
+     * @precondition none
+     * @postcondition none
+     * 
      * @return the action as a string
      */
     public String toString() {
         return this.action;
     }
+    
 }
