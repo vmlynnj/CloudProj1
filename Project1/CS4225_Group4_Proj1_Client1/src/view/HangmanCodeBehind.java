@@ -70,7 +70,6 @@ public class HangmanCodeBehind {
     @FXML
     private ComboBox<String> guessComboBox;
 
-
     @FXML
     private Label lblLost;
 
@@ -95,8 +94,10 @@ public class HangmanCodeBehind {
     
     @FXML
     private Button btnUsername;
+    
     @FXML
     private Button btnRetry;
+    
     @FXML
     private Label lblWarning;
 

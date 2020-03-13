@@ -55,7 +55,7 @@ public class Server {
 		Server.users = new LinkedList<UserThread>();
 		Server.usernames = new ArrayList<String>();
 		
-		this.gameOpen = true;
+		Server.gameOpen = true;
 		
 		
 		try (ServerSocket server = new ServerSocket(PORT)) {
@@ -125,14 +125,14 @@ public class Server {
 	public static synchronized  void deleteUser(UserThread user) {
 		System.out.println("DELETE USER _________________________");
 		
-		if (Server.getUsers().toArray()[Server.getUsers().size()-1] == user && Server.getUsers().size() > 0) {
+		if (Server.getUsers().toArray()[Server.getUsers().size() - 1] == user && Server.getUsers().size() > 0) {
 			Server.getUsers().remove(user);
 			Server.getUsernames().remove(user.getUserName());
 			Server.takeTurn(null);
 		}
 		Server.getUsers().remove(user);
 		Server.getUsernames().remove(user.getUserName());
-		Server.broadcastMessage(ServerActions.MESSAGE, "server: "+user.getUserName()+" has left the game", null);
+		Server.broadcastMessage(ServerActions.MESSAGE, "server: " + user.getUserName() + " has left the game", null);
 		if (Server.users.size() <= 0) {
 			Server.restart();
 		}
@@ -165,7 +165,7 @@ public class Server {
 	public static String allUsers() {
 		String output = "Current Players: " + System.lineSeparator();
 		for (UserThread currUser : Server.users) {
-			output += ServerActions.LISTPLAYERS + ACTION_SPLIT+currUser.toString() + System.lineSeparator();
+			output += ServerActions.LISTPLAYERS + ACTION_SPLIT + currUser.toString() + System.lineSeparator();
 		}
 		return output;
 	}
