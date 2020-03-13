@@ -43,6 +43,9 @@ public class UserThread extends Thread {
 	
 	/**
 	 * Runs the application
+	 * 
+	 * @precondition none
+	 * @postcondition none
 	 */
 	public void run() {
 		try {
@@ -96,6 +99,10 @@ public class UserThread extends Thread {
 	
 	/**
 	 * Handles the user input
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
 	 * @param action the action the user takes
 	 * @param message the message the user sends
 	 */
@@ -145,8 +152,13 @@ public class UserThread extends Thread {
 	
 	/**
 	 * Sends the message to the user thread
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
 	 * @param action the action the server is sending
 	 * @param message the message the server sends
+	 * 
 	 * @throws IOException throws an exceptions if streams are corrupted
 	 */
 	public void sendMessage(ServerActions action, String message) throws IOException {
@@ -156,6 +168,10 @@ public class UserThread extends Thread {
 
 	/**
 	 * Gets the user name of the user
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
 	 * @return the user name of the user
 	 */
 	public String getUserName() {
@@ -164,6 +180,10 @@ public class UserThread extends Thread {
 
 	/**
 	 * Sets the user name of the user
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
 	 * @param name the name of the username
 	 */
 	public void setUserName(String name) {

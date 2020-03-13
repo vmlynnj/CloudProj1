@@ -23,6 +23,8 @@ public class HangmanViewModel {
 	private static ListProperty<String> messages;
 	private static HangmanCodeBehind controller;
 	
+	private static ScheduledExecutorService service;
+	
 	private static boolean takenTurn = false;
 	private static String username;
 	
@@ -33,6 +35,7 @@ public class HangmanViewModel {
 	 * @param codeBehind The gui code behind
 	 */
 	public HangmanViewModel(ListProperty<String> listProperty, HangmanCodeBehind codeBehind) {
+		service = Executors.newSingleThreadScheduledExecutor();
 		Client.startConnection();
 		HangmanViewModel.messages = listProperty;
 		HangmanViewModel.controller = codeBehind;
@@ -56,6 +59,11 @@ public class HangmanViewModel {
 	 */
 	public void sendMessage(ClientActions action, String text) {
 		Client.sendMessage(action, text);
+	}
+	
+	public void sendGuess(String text) {
+		service.shutdownNow();
+		Client.sendMessage(ClientActions.GUESS, text);
 	}
 	
 	/**
@@ -90,7 +98,7 @@ public class HangmanViewModel {
 	 * Enables the player to take a turn by enabling the UI.
 	 */
 	public static void enableTurn() {
-		ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+		service = Executors.newSingleThreadScheduledExecutor();
 		Runnable removeTask = () -> {
 			if (!takenTurn) {
 				HangmanViewModel.showRemove();

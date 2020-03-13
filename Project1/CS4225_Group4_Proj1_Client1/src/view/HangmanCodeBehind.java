@@ -159,7 +159,6 @@ public class HangmanCodeBehind {
 		this.lblusernameError.setVisible(false);
 		
 		this.disableUntilTurn();
-		
 	}
 	
 	/**
@@ -177,8 +176,6 @@ public class HangmanCodeBehind {
     public void gameStarted() {
     	this.lblGameStarted.setVisible(true);
     	this.disableUntilTurn();
-    	
-    	
     }
 	
     @FXML
@@ -191,7 +188,7 @@ public class HangmanCodeBehind {
     void btnGuessClick(ActionEvent event) {
     	HangmanViewModel.setTakenTurn(true);
     	System.out.println(ClientActions.GUESS + "=" + this.guessComboBox.getValue());
-    	this.viewmodel.sendMessage(ClientActions.GUESS, this.guessComboBox.getValue());
+    	this.viewmodel.sendGuess(this.guessComboBox.getValue());
     	this.disableUntilTurn();
     }
     
@@ -230,6 +227,7 @@ public class HangmanCodeBehind {
     	this.lblTurn.setVisible(false);
     	this.btnGuess.setDisable(true);
 		this.guessComboBox.setDisable(true);
+		HangmanViewModel.setTakenTurn(false);
     }
     
     /**
@@ -268,8 +266,6 @@ public class HangmanCodeBehind {
     	this.deadMouth.setVisible(true);
     	
     	this.btnRetry.setDisable(false);
-    	
-
     }
 
     /**
@@ -369,7 +365,6 @@ public class HangmanCodeBehind {
 	public void showRemove() {
 		this.lblRemvoed.setVisible(true);
 		this.disableUntilTurn();
-		
 	}
 
 }
