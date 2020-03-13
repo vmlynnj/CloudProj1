@@ -68,6 +68,8 @@ public class Server {
 					user.start();
 				}
 				clientSocket = server.accept();
+				System.out.println("Connected to Client");
+				this.startTimer();=
 				UserThread user = new UserThread(clientSocket, false);
 				user.start();
 
@@ -96,17 +98,18 @@ public class Server {
 		try {
 			if (Server.users.size() < 4) {
 				Server.users.add(user);
-	
+
 				Server.broadcastMessage(ServerActions.PLAYER,"A new player has joined: " + user.getUserName(), null);
-	
+
 					user.sendMessage(ServerActions.VALID_PLAYER, "");
 					user.sendMessage(ServerActions.PRINTUSERS, Server.AllUsers());
 			} else {
 				user.sendMessage(ServerActions.FULL_ROOM, "");
+
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
-		}
+				e.printStackTrace();
+			}
 	}
 
 	public static void broadcastMessage(ServerActions action, String message, UserThread user) {

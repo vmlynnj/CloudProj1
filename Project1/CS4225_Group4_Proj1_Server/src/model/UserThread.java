@@ -24,7 +24,7 @@ public class UserThread extends Thread {
 	private BufferedReader reader;
 	
 	private boolean canJoin;
-	
+
 	public UserThread(Socket socket, boolean canJoin) {
 		this.socket = socket;
 		this.canJoin = canJoin;
@@ -41,6 +41,7 @@ public class UserThread extends Thread {
 				this.sendMessage(ServerActions.GAME_STARTED, "Room is full");
 				return;
 			}
+
 			String inputMessage = reader.readLine();
 			String username = inputMessage.split(ACTION_SPLIT)[1];
 			while(Server.usernames.contains(username)) {

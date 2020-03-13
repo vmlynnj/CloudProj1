@@ -58,10 +58,6 @@ public class HangmanViewModel {
 		HangmanViewModel.controller.updateWord(word);
 	}
 
-
-	/**
-	 * @param string
-	 */
 	public static void removeLetterOption(String string) {
 		HangmanViewModel.controller.removeLetter(string);
 	}
@@ -74,10 +70,15 @@ public class HangmanViewModel {
 		HangmanViewModel.controller.gameWon();
 	}
 	
+
+	public static void login() {
+		HangmanViewModel.controller.login();
+	}
+	
 	public static void fullRoom() {
 		HangmanViewModel.controller.fullRoom();
 	}
-	
+
 	public static void gameStarted() {
 		HangmanViewModel.controller.gameStarted();
 	}

@@ -66,7 +66,7 @@ public class ListenThread extends Thread{
 		if(messages[0].equals(ServerActions.VALID_PLAYER.toString())) {
 			HangmanViewModel.login();
 		}
-		
+
 		if(messages[0].equals(ServerActions.MESSAGE.toString()) || messages[0].equals(ServerActions.PLAYER.toString()) || messages[0].equals(ServerActions.PRINTUSERS.toString())) {
 		}
 		if(messages[0].equals(ServerActions.WORD.toString())) {
@@ -95,6 +95,7 @@ public class ListenThread extends Thread{
 		if (messages[0].equals(ServerActions.GAME_STARTED.toString())) {
 			HangmanViewModel.gameStarted();
 		}
+
 	}
 	
 
