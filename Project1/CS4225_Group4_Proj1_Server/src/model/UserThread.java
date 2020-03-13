@@ -126,10 +126,21 @@ public class UserThread extends Thread {
 					e.printStackTrace();
 				}
 			}
-			this.username = message;
-			Server.getUsernames().add(this.username);
-			Server.addUser(this);
-			this.listenForInput();
+			if(Server.getGameOpen()) {
+				this.username = message;
+				Server.getUsernames().add(this.username);
+				Server.addUser(this);
+				this.listenForInput();
+			}
+			else {
+				try {
+					this.sendMessage(ServerActions.GAME_STARTED, "game has started");
+					this.listenForInput();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
 		}
 	}
 	

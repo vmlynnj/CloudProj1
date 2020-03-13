@@ -151,7 +151,8 @@ public class HangmanCodeBehind {
     public void gameStarted() {
     	this.lblGameStarted.setVisible(true);
     	this.disableUntilTurn();
-    	this.login();
+    	
+    	
     }
 	
     @FXML

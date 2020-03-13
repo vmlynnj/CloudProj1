@@ -61,16 +61,17 @@ public class Server {
 		try (ServerSocket server = new ServerSocket(PORT)) {
 			Socket clientSocket;
 			while (true) {
+				this.startTimer();
 				while (Server.gameOpen) {
 					clientSocket = server.accept();
 					System.out.println("Connected to Client");
-					this.startTimer();
+					
 
 					UserThread user = new UserThread(clientSocket, true);
 					user.start();
 				}
 				clientSocket = server.accept();
-				System.out.println("Connected to Client");
+				System.out.println("Connected to Client CANT JOIN");
 				this.startTimer();
 				UserThread user = new UserThread(clientSocket, false);
 				user.start();
@@ -86,6 +87,7 @@ public class Server {
 		Runnable task = () -> {
 			Server.gameOpen = false;
 			Server.broadcastMessage(ServerActions.START, "The game has begun", null);
+			System.out.println("TIMer ENDS");
 			Server.takeTurn(Server.users.peek());
 			Server.broadcastMessage(ServerActions.WORD, Server.game.getHiddenWord(), null);
 		};
@@ -177,8 +179,9 @@ public class Server {
 		Server.broadcastMessage(ServerActions.MESSAGE, guess, user);
 		Server.game.guessLetter(guess);
 		if (Server.game.isGameLost()) {
-			Server.broadcastMessage(ServerActions.LOSE, "The game is lost", null);
 			Server.broadcastMessage(ServerActions.WORD, "Your word was: " + Server.game.getWordToGuess().toUpperCase(), null);
+			Server.broadcastMessage(ServerActions.LOSE, "The game is lost", null);
+			
 			Server.gameOpen = true;
 		}
 		if (Server.game.isGameWon()) {
@@ -230,6 +233,14 @@ public class Server {
 	 */
 	public static Queue<UserThread> getUsers() {
 		return users;
+	}
+	
+	/**
+	 * Gets the users currently in play
+	 * @return the users
+	 */
+	public static boolean getGameOpen() {
+		return gameOpen;
 	}
 
 
