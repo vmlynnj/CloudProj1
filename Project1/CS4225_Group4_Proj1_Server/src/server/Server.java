@@ -27,7 +27,11 @@ public class Server {
 	private static List<String> usernames;
 
 	private static Queue<UserThread> users;
+	
+	private static List<UserThread> currentUsers;
 	private static boolean gameOpen;
+	
+	private static UserThread playingUser;
 	
 	
 	private static HangmanGame game;
@@ -54,6 +58,7 @@ public class Server {
 		
 		Server.users = new LinkedList<UserThread>();
 		Server.usernames = new ArrayList<String>();
+		Server.currentUsers = new ArrayList<UserThread>();
 		
 		this.gameOpen = true;
 		
@@ -104,7 +109,7 @@ public class Server {
 		try {
 			if (Server.users.size() < 4) {
 				Server.users.add(user);
-
+				Server.currentUsers.add(user);
 				Server.broadcastMessage(ServerActions.PLAYER, "server: A new player has joined: " + user.getUserName(), null);
 
 				user.sendMessage(ServerActions.VALID_PLAYER, "valid player");
@@ -123,14 +128,12 @@ public class Server {
 	 * @param user the user to add
 	 */
 	public static synchronized  void deleteUser(UserThread user) {
-		System.out.println("DELETE USER _________________________");
 		
-		if (Server.getUsers().toArray()[Server.getUsers().size()-1] == user && Server.getUsers().size() > 0) {
-			Server.getUsers().remove(user);
-			Server.getUsernames().remove(user.getUserName());
+		if (Server.playingUser == user && Server.getUsers().size() > 0) {
 			Server.takeTurn(null);
 		}
 		Server.getUsers().remove(user);
+		Server.getCurrentUsers().remove(user);
 		Server.getUsernames().remove(user.getUserName());
 		Server.broadcastMessage(ServerActions.MESSAGE, "server: "+user.getUserName()+" has left the game", null);
 		if (Server.users.size() <= 0) {
@@ -145,7 +148,7 @@ public class Server {
 	 * @param user the user that is sending the message if any
 	 */
 	public static void broadcastMessage(ServerActions action, String message, UserThread user) {
-		for (UserThread currUser : Server.users) {
+		for (UserThread currUser : Server.currentUsers) {
 			try {
 				if (user == null) {
 					currUser.sendMessage(action, message);
@@ -205,6 +208,7 @@ public class Server {
 		System.out.println("Server take turn");
 		UserThread currUser = Server.users.poll();
 		try {
+			Server.playingUser = currUser;
 			Server.broadcastMessage(ServerActions.WORD, Server.game.getHiddenWord(), null);
 			Server.broadcastMessage(ServerActions.WRONG, "" + Server.game.getIncorrectGuesses(), null);
 			currUser.sendMessage(ServerActions.TURN, "your turn");
@@ -212,8 +216,8 @@ public class Server {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		if (user != null) {
-			Server.users.add(currUser);
+		if (Server.users.size() == 0) {
+			Server.users.addAll(currentUsers);
 		}
 	}
 	
@@ -236,6 +240,14 @@ public class Server {
 	 */
 	public static Queue<UserThread> getUsers() {
 		return users;
+	}
+	
+	/**
+	 * Gets the users currently in play
+	 * @return the users
+	 */
+	public static List<UserThread> getCurrentUsers() {
+		return currentUsers;
 	}
 	
 	/**
