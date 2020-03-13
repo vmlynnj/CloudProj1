@@ -1,5 +1,9 @@
 package util;
-
+/**
+ * Lists all the actions a server can take
+ * @author Victoria Jenkins, Justing Smith, Aaron Merrel
+ *
+ */
 public enum ServerActions {
 	MESSAGE("MESSAGE"),
 	PLAYER("PLAYER"),
@@ -20,11 +24,18 @@ public enum ServerActions {
 	
     private String action;
 
-    
+    /**
+     * Defines a server action
+     * @param action
+     */
     ServerActions(String action) {
         this.action = action;
     }
 
+    /**
+     * Returns the action as a string
+     * @return the action as a string
+     */
     public String toString() {
         return this.action;
     }

@@ -23,7 +23,7 @@ public class HangmanViewModel {
 	private static ListProperty<String> messages;
 	private static HangmanCodeBehind controller;
 	
-	public static String USERNAME;
+	private static String username;
 	
 	public HangmanViewModel(ListProperty<String> listProperty, HangmanCodeBehind codeBehind) {
 		Client.startConnection();
@@ -106,6 +106,24 @@ public class HangmanViewModel {
 		if (wrongGuesses >= 6) {
 			HangmanViewModel.controller.showRightArm();
 		}
+	}
+
+
+	/**
+	 * Gets the username
+	 * @return the username
+	 */
+	public static String getUsername() {
+		return username;
+	}
+
+
+	/**
+	 * Sets the username
+	 * @param name the name to set it to
+	 */
+	public static void setUsername(String name) {
+		username = name;
 	}
 
 }

@@ -21,6 +21,11 @@ import javafx.scene.text.Text;
 import util.ClientActions;
 import viewmodel.HangmanViewModel;
 
+/**
+ * View for hangman
+ * @author Victoria Jenkisn, Justin Smith, Aaron Merrell
+ *
+ */
 public class HangmanCodeBehind {
 
     @FXML
@@ -94,9 +99,9 @@ public class HangmanCodeBehind {
     
     private HangmanViewModel viewmodel;
     
-    protected ListProperty<String> listProperty = new SimpleListProperty<>();
+    private ListProperty<String> listProperty = new SimpleListProperty<>();
     
-    protected List<String> messages = new ArrayList<String>();
+    private List<String> messages = new ArrayList<String>();
     
 	@FXML
 	private void initialize() {
@@ -162,7 +167,7 @@ public class HangmanCodeBehind {
     
     @FXML
     void btnUsernameClick(ActionEvent event) {
-    	HangmanViewModel.USERNAME = this.userName;
+    	HangmanViewModel.setUsername(this.userName);
     	this.userName = this.txtBoxUserName.getText();
     	this.viewmodel.sendMessage(ClientActions.LOGIN, this.userName);
     }
