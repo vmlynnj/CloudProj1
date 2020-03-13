@@ -91,8 +91,6 @@ public class ListenThread extends Thread {
 		if (action.equals(ServerActions.REMOVELETTEROPTION.toString())) {
 			HangmanViewModel.removeLetterOption(message);
 		}
-
-
 		if (action.equals(ServerActions.WRONG.toString())) {
 			HangmanViewModel.showHangman(Integer.parseInt(message));
 		}
@@ -111,8 +109,6 @@ public class ListenThread extends Thread {
 		if (action.equals(ServerActions.GAME_STARTED.toString())) {
 			HangmanViewModel.gameStarted();
 		}
-
-
 		if (action.equals(ServerActions.START.toString())) {
 			HangmanViewModel.startGame();
 		}
