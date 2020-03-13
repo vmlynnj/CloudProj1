@@ -3,13 +3,11 @@
  */
 package viewmodel;
 
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import client.Client;
-import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import util.ClientActions;
 import view.HangmanCodeBehind;

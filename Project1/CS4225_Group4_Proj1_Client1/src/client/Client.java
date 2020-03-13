@@ -19,10 +19,13 @@ public class Client {
 	private static final String HOST = "localhost";
 	private static final int PORT = 4225;
 	
-	public static Socket socket = null;
-	public static ListenThread listen;
-	public static WriteThread write;
+	private static Socket socket = null;
+	private static ListenThread listen;
+	private static WriteThread write;
 
+	/**
+	 * Starts the connection with the server
+	 */
 	public static void startConnection() {	
 		Socket clientSocket = null;
 
@@ -47,8 +50,37 @@ public class Client {
 		}
 	}
 	
+	/**
+	 * Sends messag eto the server
+	 * @param action the action
+	 * @param message the message
+	 */
 	public static void sendMessage(ClientActions action, String message) {
 		write.sendMessage(action, message);
+	}
+	
+	/**
+	 * Gets the socket
+	 * @return the socket
+	 */
+	public static Socket getSocket() {
+		return socket;
+	}
+	
+	/**
+	 * Gets the listener
+	 * @return the listener 
+	 */
+	public static Socket getListen() {
+		return socket;
+	}
+	
+	/**
+	 * Gets writer
+	 * @return
+	 */
+	public static Socket getWrite() {
+		return socket;
 	}
 
 }
