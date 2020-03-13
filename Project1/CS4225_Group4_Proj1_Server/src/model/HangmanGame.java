@@ -109,6 +109,13 @@ public class HangmanGame {
 		}
 	}
 	
+	/**
+	 * Returns the word to guess
+	 * @return this.wordToGuess
+	 */
+	public String getWordToGuess() {
+		return this.wordToGuess;
+	}
 	
 	/**
 	 * Returns the current state of the hidden word

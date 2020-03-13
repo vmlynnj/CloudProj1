@@ -37,7 +37,7 @@ Source Code
 Root
 Executable
 Compilation
-Polymorhpism
+Polymorphism
 Abstraction
 Unit Test
 Library

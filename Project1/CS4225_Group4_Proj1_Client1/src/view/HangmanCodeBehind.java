@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
+import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -21,8 +21,6 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import util.ClientActions;
 import viewmodel.HangmanViewModel;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class HangmanCodeBehind {
 
@@ -117,7 +115,7 @@ public class HangmanCodeBehind {
 				"V", "W", "X", "Y", "Z");
    		
    		this.guessComboBox.setDisable(true);
-   		this.lblWord.setText("test");
+   		this.lblWord.setText("Welcome to Hangman by M'lynn, Aaron, and Justin. Please wait for your game to begin.");
 	}
 	
 	public void userNameError() {
@@ -174,6 +172,7 @@ public class HangmanCodeBehind {
     
     public void removeLetter(String letter) {
     	this.guessComboBox.getItems().remove(letter);
+    	this.guessComboBox.valueProperty().set(null);;
     }
     
     public void disableUntilTurn() {
@@ -205,8 +204,8 @@ public class HangmanCodeBehind {
     	System.out.println("MADE IT TO UPDATE WORD: " + word + " Visibility: " + this.lblWord.isVisible());
     	
 		Runnable task = () -> {
-			this.lblWord = new Label();
-			this.lblWord.setText(word);
+			Platform.runLater(() ->
+			this.lblWord.setText(word));
 			System.out.println("LABEL WORD IS: " + this.lblWord.getText());
 		};
 		
