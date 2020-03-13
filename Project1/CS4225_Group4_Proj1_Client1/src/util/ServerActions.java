@@ -15,8 +15,6 @@ public enum ServerActions {
 	REMOVELETTEROPTION("REMOVEOPTION"),
 	WIN("WIN"),
 	LOSE("LOSE"),
-	VALID_PLAYER("VALID"),
-	GAME_STARTED("STARTED"),
 	FULL_ROOM("FULL");
 	
     private String action;

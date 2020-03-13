@@ -47,7 +47,6 @@
          <font>
             <Font size="19.0" />
          </font>
-
       </Label>
       <Label fx:id="lblFullRoom" layoutX="379.0" layoutY="480.0" text="The room is full please try again another time" textFill="#ff0c0c" visible="false" />
       <Label fx:id="lblGameStarted" layoutX="381.0" layoutY="521.0" text="The game has already begun." textFill="#ff0c0c" visible="false" />

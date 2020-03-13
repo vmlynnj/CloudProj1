@@ -70,11 +70,6 @@ public class HangmanViewModel {
 		HangmanViewModel.controller.gameWon();
 	}
 	
-
-	public static void login() {
-		HangmanViewModel.controller.login();
-	}
-	
 	public static void fullRoom() {
 		HangmanViewModel.controller.fullRoom();
 	}

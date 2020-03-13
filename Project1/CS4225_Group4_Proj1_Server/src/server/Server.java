@@ -69,7 +69,7 @@ public class Server {
 				}
 				clientSocket = server.accept();
 				System.out.println("Connected to Client");
-				this.startTimer();=
+				this.startTimer();
 				UserThread user = new UserThread(clientSocket, false);
 				user.start();
 

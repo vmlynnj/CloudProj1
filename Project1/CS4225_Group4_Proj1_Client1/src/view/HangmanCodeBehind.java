@@ -93,27 +93,6 @@ public class HangmanCodeBehind {
     @FXML
     private Button btnUsername;
     
-    @FXML
-    private Text deadLeftEye;
-
-    @FXML
-    private Text deadRightEye;
-
-    @FXML
-    private Line deadMouth;
-
-    @FXML
-    private Label lblLost;
-
-    @FXML
-    private Label lblWin;
-    
-    @FXML
-    private Label lblFullRoom;
-    
-    @FXML
-    private Label lblGameStarted;
-    
     private String userName;
     
     private HangmanViewModel viewmodel;
@@ -155,12 +134,6 @@ public class HangmanCodeBehind {
 		this.disableUntilTurn();
 		
 	}
-	public void login() {
-		this.txtBoxUserName.setDisable(true);
-		this.btnUsername.setDisable(true);
-		this.lblusernameError.setVisible(false);
-	}
-	
 	public void login() {
 		this.txtBoxUserName.setDisable(true);
 		this.btnUsername.setDisable(true);
@@ -215,20 +188,6 @@ public class HangmanCodeBehind {
 		this.guessComboBox.setDisable(false);
     }
     
-    public void updateWord(String word) {
-    	System.out.println("MADE IT TO UPDATE WORD: " + word + " Visibility: " + this.lblWord.isVisible());
-
-		Runnable task = () -> {
-			this.lblWord = new Label();
-			this.lblWord.setText(word);
-			System.out.println("LABEL WORD IS: " + this.lblWord.getText());
-		};
-
-		ExecutorService service = Executors.newSingleThreadExecutor();
-		service.execute(task);
-		service.shutdown();
-    }
-    
     public void gameLost() {
     	this.lblLost.setVisible(true);
     	this.disableUntilTurn();
@@ -242,16 +201,6 @@ public class HangmanCodeBehind {
     	this.disableUntilTurn();
     }
     
-    public void fullRoom() {
-    	this.lblFullRoom.setVisible(true);
-    	this.disableUntilTurn();
-    	this.login();
-    }
-    public void gameStarted() {
-    	this.lblGameStarted.setVisible(true);
-    	this.disableUntilTurn();
-    	this.login();
-    }
     public void updateWord(String word) {
     	System.out.println("MADE IT TO UPDATE WORD: " + word + " Visibility: " + this.lblWord.isVisible());
     	
