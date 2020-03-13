@@ -92,7 +92,7 @@ public class Server {
 			Server.broadcastMessage(ServerActions.WORD, Server.game.getHiddenWord(), null);
 		};
 		
-		service.schedule(task, 15, TimeUnit.SECONDS);
+		service.schedule(task, 30, TimeUnit.SECONDS);
 	}
 
 	/**
@@ -133,7 +133,7 @@ public class Server {
 		Server.getUsernames().remove(user.getUserName());
 		Server.broadcastMessage(ServerActions.MESSAGE, "server: "+user.getUserName()+" has left the game", null);
 		if (Server.users.size() <= 0) {
-			Server.retry();
+			Server.restart();
 		}
 	}
 
@@ -181,8 +181,7 @@ public class Server {
 		if (Server.game.isGameLost()) {
 			Server.broadcastMessage(ServerActions.WORD, "Your word was: " + Server.game.getWordToGuess().toUpperCase(), null);
 			Server.broadcastMessage(ServerActions.LOSE, "The game is lost", null);
-			
-			Server.gameOpen = true;
+			Server.restart();
 		}
 		if (Server.game.isGameWon()) {
 			Server.broadcastMessage(ServerActions.WIN, "The game is won", null);
@@ -205,7 +204,10 @@ public class Server {
 		System.out.println("Server take turn");
 		UserThread currUser = Server.users.poll();
 		try {
+			Server.broadcastMessage(ServerActions.WORD, Server.game.getHiddenWord(), null);
+			Server.broadcastMessage(ServerActions.WRONG, "" + Server.game.getIncorrectGuesses(), null);
 			currUser.sendMessage(ServerActions.TURN, "your turn");
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -214,7 +216,7 @@ public class Server {
 		}
 	}
 	
-	public static void retry() {
+	public static void restart() {
 		Server.users.clear();
 		Server.usernames.clear();
 		Server.gameOpen = true;

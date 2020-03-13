@@ -5,6 +5,8 @@ package viewmodel;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import client.Client;
 import javafx.application.Platform;
@@ -23,6 +25,7 @@ public class HangmanViewModel {
 	private static ListProperty<String> messages;
 	private static HangmanCodeBehind controller;
 	
+	private static boolean takenTurn = false;
 	private static String username;
 	
 	public HangmanViewModel(ListProperty<String> listProperty, HangmanCodeBehind codeBehind) {
@@ -69,7 +72,18 @@ public class HangmanViewModel {
 	}
 	
 	public static void enableTurn() {
+		ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+		
+		Runnable task = () -> {
+			if(!takenTurn) {
+				HangmanViewModel.controller.disableUntilTurn();
+				Client.sendMessage(ClientActions.TURN_END, "turn ended");
+			}
+			
+		};
 		HangmanViewModel.controller.enableTurn();
+		service.schedule(task, 15, TimeUnit.SECONDS);
+		
 	}
 	public static void updateWord(String word) {
 		HangmanViewModel.controller.updateWord(word);
@@ -124,7 +138,17 @@ public class HangmanViewModel {
 	public static String getUsername() {
 		return username;
 	}
-
+	
+	public static boolean getTakenTurn() {
+		return takenTurn;
+	}
+	/**
+	 * Sets taken turn
+	 * @param isTaken whether or not the turn has been taken
+	 */
+	public static void setTakenTurn(boolean isTaken) {
+		takenTurn = isTaken;
+	}
 
 	/**
 	 * Sets the username

@@ -76,7 +76,7 @@ public class UserThread extends Thread {
 					action = clientMessage[0];
 					String message = clientMessage[1];
 					if(action.equals(ClientActions.RETRY.toString())) {
-						Server.retry();
+						Server.restart();
 					}
 					if(action.equals(ClientActions.LOGIN.toString())) {
 						this.login(action, message);
@@ -104,7 +104,9 @@ public class UserThread extends Thread {
 		if (action.toString().equals(ClientActions.GUESS.toString())) {
 			Server.guess(message, this);
 		}
-
+		if(action.toString().equals(ClientActions.TURN_END.toString())) {
+			Server.takeTurn(this);
+		}
 	}
 	
 	private void login(String action, String message) {

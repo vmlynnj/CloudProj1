@@ -1,4 +1,5 @@
-/view/
-/util/
-/viewmodel/
+/application/
 /client/
+/util/
+/view/
+/viewmodel/

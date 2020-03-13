@@ -50,6 +50,11 @@
       </Label>
       <Label fx:id="lblFullRoom" layoutX="379.0" layoutY="480.0" text="The room is full please try again another time" textFill="#ff0c0c" visible="false" />
       <Label fx:id="lblGameStarted" layoutX="381.0" layoutY="521.0" text="The game has already begun." textFill="#ff0c0c" visible="false" />
-      <Button fx:id="btnRetry" layoutX="613.0" layoutY="371.0" mnemonicParsing="false" onAction="#btnRetryClick" text="Retry" />
+      <Button fx:id="btnRetry" layoutX="613.0" layoutY="371.0" mnemonicParsing="false" onAction="#btnRetryClick" text="Retry" visible="false" />
+      <Label fx:id="lblTurn" layoutX="151.0" layoutY="32.0" text="It's You turn!" textFill="RED" visible="false">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -76,7 +76,8 @@ public class HangmanCodeBehind {
 
     @FXML
     private Label lblWin;
-    
+    @FXML
+    private Label lblTurn;
 
     @FXML
     private Label lblFullRoom;
@@ -141,6 +142,8 @@ public class HangmanCodeBehind {
 		this.btnUsername.setDisable(true);
 		this.lblusernameError.setVisible(false);
 		
+		this.disableUntilTurn();
+		
 	}
 	
     public void fullRoom() {
@@ -163,6 +166,7 @@ public class HangmanCodeBehind {
 
     @FXML
     void btnGuessClick(ActionEvent event) {
+    	HangmanViewModel.setTakenTurn(true);
     	System.out.println(ClientActions.GUESS + "=" + this.guessComboBox.getValue());
     	this.viewmodel.sendMessage(ClientActions.GUESS, this.guessComboBox.getValue());
     	this.disableUntilTurn();
@@ -192,11 +196,13 @@ public class HangmanCodeBehind {
     }
     
     public void disableUntilTurn() {
+    	this.lblTurn.setVisible(false);
     	this.btnGuess.setDisable(true);
 		this.guessComboBox.setDisable(true);
     }
     
     public void enableTurn() {
+    	this.lblTurn.setVisible(true);
 		this.btnGuess.setDisable(false);
 		this.guessComboBox.setDisable(false);
     }

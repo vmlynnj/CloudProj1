@@ -8,6 +8,7 @@ public enum ClientActions {
 	QUIT("QUIT"),
 	GUESS("GUESS"),
 	RETRY("RETRY"),
+	TURN_END("TURNEND"),
 	LOGIN("LOGIN");
 	
     private String action;
