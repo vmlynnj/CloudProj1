@@ -60,7 +60,7 @@ public class Server {
 		Server.usernames = new ArrayList<String>();
 		Server.currentUsers = new ArrayList<UserThread>();
 		
-		this.gameOpen = true;
+		Server.gameOpen = true;
 		
 		
 		try (ServerSocket server = new ServerSocket(PORT)) {

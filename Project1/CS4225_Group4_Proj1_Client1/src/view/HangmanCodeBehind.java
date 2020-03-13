@@ -173,7 +173,7 @@ public class HangmanCodeBehind {
     void btnGuessClick(ActionEvent event) {
     	HangmanViewModel.setTakenTurn(true);
     	System.out.println(ClientActions.GUESS + "=" + this.guessComboBox.getValue());
-    	this.viewmodel.sendMessage(ClientActions.GUESS, this.guessComboBox.getValue());
+    	this.viewmodel.sendGuess(this.guessComboBox.getValue());
     	this.disableUntilTurn();
     }
     
@@ -204,6 +204,7 @@ public class HangmanCodeBehind {
     	this.lblTurn.setVisible(false);
     	this.btnGuess.setDisable(true);
 		this.guessComboBox.setDisable(true);
+		HangmanViewModel.setTakenTurn(false);
     }
     
     public void enableTurn() {
