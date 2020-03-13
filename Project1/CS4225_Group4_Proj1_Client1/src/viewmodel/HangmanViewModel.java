@@ -3,12 +3,17 @@
  */
 package viewmodel;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import client.Client;
+import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import util.ClientActions;
 import view.HangmanCodeBehind;
 
 /**
+ * Stores information for the HangmanViewModel class
  * @author jsmit124
  *
  * @version 1.0
@@ -28,14 +33,17 @@ public class HangmanViewModel {
 	
 	
 	public static void addMessage(String message) {
+		Runnable task = () -> {
+			Platform.runLater(() ->
+			  HangmanViewModel.messages.add(message));
+		};
 		
-		HangmanViewModel.messages.add(message);
+		ExecutorService service = Executors.newSingleThreadExecutor();
+		service.execute(task);
+		service.shutdown();
+
 	}
 
-
-	/**
-	 * @param text
-	 */
 	public void sendMessage(ClientActions action, String text) {
 		Client.sendMessage(action, text);
 	}

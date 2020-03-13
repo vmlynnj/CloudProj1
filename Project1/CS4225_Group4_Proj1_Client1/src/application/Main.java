@@ -2,7 +2,6 @@ package application;
 	
 import java.io.IOException;
 
-import client.Client;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -12,7 +11,7 @@ import javafx.scene.layout.Pane;
 
 public class Main extends Application {
 	private static final String WINDOW_TITLE = "Hangman by M'lynn Jenkins, Aaron Merrell, and Justin Smith";
-	private static final String GUI_FXML ="/view/Hangman.fxml";
+	private static final String GUI_FXML = "/view/Hangman.fxml";
 	
 	
 	public static void main(String[] args) {
