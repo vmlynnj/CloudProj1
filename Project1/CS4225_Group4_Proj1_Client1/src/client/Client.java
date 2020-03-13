@@ -19,12 +19,15 @@ public class Client {
 	private static final String HOST = "localhost";
 	private static final int PORT = 4225;
 	
-	private static Socket socket = null;
 	private static ListenThread listen;
 	private static WriteThread write;
 
 	/**
-	 * Starts the connection with the server
+	 * Starts the client connect to the server
+	 * 
+	 * @precondition none
+     * @postcondition none
+     * 
 	 */
 	public static void startConnection() {	
 		Socket clientSocket = null;
@@ -32,7 +35,6 @@ public class Client {
 		try {
 			clientSocket = new Socket(HOST, PORT);
 			System.out.println("Connected to server");
-			Client.socket = clientSocket;
 			
 			listen = new ListenThread(clientSocket);
 			listen.start();
@@ -51,36 +53,54 @@ public class Client {
 	}
 	
 	/**
-	 * Sends messag eto the server
-	 * @param action the action
-	 * @param message the message
+	 * Sends a client message to the server
+	 * 
+	 * @precondition none
+     * @postcondition none
+     * 
+	 * @param action
+	 * 		the action to be sent
+	 * @param message
+	 * 		the message to be sent
 	 */
 	public static void sendMessage(ClientActions action, String message) {
 		write.sendMessage(action, message);
 	}
-	
+
+
+
 	/**
-	 * Gets the socket
-	 * @return the socket
+	 * Returns the client listenThread
+	 * @return the listen
 	 */
-	public static Socket getSocket() {
-		return socket;
+	public static ListenThread getListen() {
+		return Client.listen;
 	}
-	
+
 	/**
-	 * Gets the listener
-	 * @return the listener 
+	 * Sets the client listenThread
+	 * @param listen the listen to set
 	 */
-	public static Socket getListen() {
-		return socket;
+	public static void setListen(ListenThread listen) {
+		Client.listen = listen;
 	}
-	
+
 	/**
-	 * Gets writer
-	 * @return
+	 * Gets the client write thread
+	 * 
+	 * @return the write
 	 */
-	public static Socket getWrite() {
-		return socket;
+	public static WriteThread getWrite() {
+		return Client.write;
+	}
+
+	/**
+	 * Sets the client writeThread
+	 * 
+	 * @param write the write to set
+	 */
+	public static void setWrite(WriteThread write) {
+		Client.write = write;
 	}
 
 }

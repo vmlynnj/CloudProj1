@@ -54,12 +54,12 @@ public class HangmanCodeBehind {
 
     @FXML
     private Line deadMouth;
+    
     @FXML
     private ListView<String> chatView;
 
     @FXML
     private Button btnQuit;
-
 
     @FXML
     private Button btnGuess;
@@ -75,11 +75,13 @@ public class HangmanCodeBehind {
 
     @FXML
     private Label lblWin;
+    
     @FXML
     private Label lblTurn;
 
     @FXML
     private Label lblFullRoom;
+    
     @FXML
     private Label lblGameStarted;
     
