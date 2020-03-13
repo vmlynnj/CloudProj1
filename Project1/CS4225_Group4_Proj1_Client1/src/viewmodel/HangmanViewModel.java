@@ -33,6 +33,8 @@ public class HangmanViewModel {
 	
 	
 	public static void addMessage(String message) {
+		HangmanViewModel.controller.addMessage(message);
+		/*
 		Runnable task = () -> {
 			Platform.runLater(() ->
 			  HangmanViewModel.messages.add(message));
@@ -41,6 +43,7 @@ public class HangmanViewModel {
 		ExecutorService service = Executors.newSingleThreadExecutor();
 		service.execute(task);
 		service.shutdown();
+		*/
 
 	}
 

@@ -79,16 +79,22 @@ public class UserThread extends Thread {
 			String inputMessage = "";
 			do {
 				inputMessage = this.reader.readLine();
-				String action = inputMessage.split(ACTION_SPLIT)[0];
-				String message = inputMessage.split(ACTION_SPLIT)[1];
-				this.handleInput(action, message);
+				String[] clientMessage = inputMessage.split(ACTION_SPLIT);
+				if(clientMessage.length >= 2) {
+					String action = clientMessage[0];
+					String message = clientMessage[1];
+					this.handleInput(action, message);
+				}
+
 			} while (!inputMessage.equals(ClientActions.QUIT.toString()));
 			
-			if (Server.getUsers().get(0) == this) {
+			if (Server.getUsers().peek() == this) {
 				Server.getUsers().remove(this);
 				Server.getUsernames().remove(this.getUserName());
 				Server.takeTurn(null);
 			}
+			Server.getUsers().remove(this);
+			Server.getUsernames().remove(this.getUserName());
 			System.exit(0);
 		} catch (IOException e) {
 		}

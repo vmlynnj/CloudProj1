@@ -94,6 +94,8 @@ public class HangmanCodeBehind {
     
     @FXML
     private Button btnUsername;
+    @FXML
+    private Button btnRetry;
     
     private String userName;
     
@@ -110,7 +112,6 @@ public class HangmanCodeBehind {
 		this.viewmodel = new HangmanViewModel(this.listProperty, this);
 		
 		this.btnGuess.setDisable(true);
-		this.btnQuit.setDisable(true);
 		
 		this.guessComboBox.itemsProperty().set(FXCollections.observableArrayList(new ArrayList<String>()));		
    		this.guessComboBox.getItems().addAll("A", "B", "C",
@@ -120,6 +121,7 @@ public class HangmanCodeBehind {
    		
    		this.guessComboBox.setDisable(true);
    		this.lblWord.setText("Welcome to Hangman by M'lynn, Aaron, and Justin. Please wait for your game to begin.");
+   		this.btnRetry.setDisable(true);
 	}
 	
 	public void userNameError() {
@@ -130,15 +132,16 @@ public class HangmanCodeBehind {
 	public void startGame() {
 
 		this.btnGuess.setDisable(false);
-		this.btnQuit.setDisable(false);
 		this.guessComboBox.setDisable(false);
 		this.disableUntilTurn();
 		
 	}
 	public void login() {
+		System.out.println("LOGGED IN");
 		this.txtBoxUserName.setDisable(true);
 		this.btnUsername.setDisable(true);
 		this.lblusernameError.setVisible(false);
+		
 	}
 	
     public void fullRoom() {
@@ -154,7 +157,7 @@ public class HangmanCodeBehind {
 	
     @FXML
     void btnQuitClick(ActionEvent event) {
-    	this.viewmodel.sendMessage(ClientActions.QUIT, "");
+    	this.viewmodel.sendMessage(ClientActions.QUIT, " quit");
     	System.exit(0);
     }
 
@@ -172,6 +175,15 @@ public class HangmanCodeBehind {
     	this.viewmodel.sendMessage(ClientActions.LOGIN, this.userName);
     }
     
+    @FXML
+    void btnRetryClick(ActionEvent event) {
+		this.txtBoxUserName.setDisable(false);
+		this.btnUsername.setDisable(false);
+		this.lblusernameError.setVisible(false);
+		
+		this.disableUntilTurn();
+    }
+    
     public void removeLetter(String letter) {
     	this.guessComboBox.getItems().remove(letter);
     	this.guessComboBox.valueProperty().set(null);
@@ -187,6 +199,10 @@ public class HangmanCodeBehind {
 		this.guessComboBox.setDisable(false);
     }
     
+    
+    public void addMessage(String message) {
+    	this.listProperty.add(message);
+    }
     public void gameLost() {
     	this.showHead();
     	this.showBody();
@@ -201,12 +217,15 @@ public class HangmanCodeBehind {
     	this.deadRightEye.setVisible(true);
     	this.deadMouth.setVisible(true);
     	
+    	this.btnRetry.setDisable(false);
+    	
 
     }
 
     public void gameWon() {
     	this.lblWin.setVisible(true);
     	this.disableUntilTurn();
+    	this.btnRetry.setDisable(false);
     }
     
     public void updateWord(String word) {

@@ -66,17 +66,18 @@ public class ListenThread extends Thread {
 	 * @param message the message the server sends
 	 */
 	public void handleMessages(String message) {
-		if (message.contains("Player: ")) {
-			HangmanViewModel.addMessage(message);
-		}
 		String[] messages = message.split(Client.ACTION_SPLIT);
-		String action = messages[0];
-		String serverMessage = messages[1];
-		this.handleLogin(action);
-		this.printPlayers(action, serverMessage);
-		this.printMessage(action, serverMessage);
-		this.handleTakingTurn(action, serverMessage);
-		this.determineWinLoss(action);
+		System.out.println("Client receives: " + message);
+		if(messages.length >= 2) {
+			String action = messages[0];
+			String serverMessage = messages[1];
+			this.handleLogin(action, serverMessage);
+			this.printPlayers(action, serverMessage);
+			this.printMessage(action, serverMessage);
+			this.handleTakingTurn(action, serverMessage);
+			this.determineWinLoss(action);
+		}
+
 	}
 	
 	
@@ -97,7 +98,7 @@ public class ListenThread extends Thread {
 		}
 	}
 	
-	private void handleLogin(String action) {
+	private void handleLogin(String action, String message) {
 		if (action.equals(ServerActions.USERNAMEERROR.toString())) {
 			HangmanViewModel.userNameError();
 		}
@@ -111,6 +112,7 @@ public class ListenThread extends Thread {
 			HangmanViewModel.gameStarted();
 		}
 
+
 		if (action.equals(ServerActions.START.toString())) {
 			HangmanViewModel.startGame();
 		}
@@ -118,6 +120,9 @@ public class ListenThread extends Thread {
 	
 	private void printPlayers(String action, String message) {
 		if (action.equals(ServerActions.PLAYER.toString()) || action.equals(ServerActions.PRINTUSERS.toString())) {
+			HangmanViewModel.addMessage(message);
+		}
+		if (action.equals(ServerActions.LISTPLAYERS.toString())) {
 			HangmanViewModel.addMessage(message);
 		}
 	}

@@ -20,6 +20,7 @@ public enum ServerActions {
 	REMOVELETTEROPTION("REMOVEOPTION"),
 	WIN("WIN"),
 	LOSE("LOSE"),
+	LISTPLAYERS("LIST"),
 	FULL_ROOM("FULL"),
 	WRONG("WRONG");
 	
