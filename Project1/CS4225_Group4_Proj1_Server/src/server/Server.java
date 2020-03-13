@@ -123,8 +123,9 @@ public class Server {
 	 * @param user the user to add
 	 */
 	public static synchronized  void deleteUser(UserThread user) {
-			
-		if (Server.getUsers().peek() == user && Server.getUsers().size() > 0) {
+		System.out.println("DELETE USER _________________________");
+		
+		if (Server.getUsers().toArray()[Server.getUsers().size()-1] == user && Server.getUsers().size() > 0) {
 			Server.getUsers().remove(user);
 			Server.getUsernames().remove(user.getUserName());
 			Server.takeTurn(null);
