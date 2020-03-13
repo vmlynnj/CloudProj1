@@ -63,6 +63,9 @@ public class ListenThread extends Thread{
 		if(messages[0].equals(ServerActions.USERNAMEERROR.toString())) {
 			HangmanViewModel.userNameError();
 		}
+		if(messages[0].equals(ServerActions.VALID_PLAYER.toString())) {
+			HangmanViewModel.login();
+		}
 		if(messages[0].equals(ServerActions.MESSAGE.toString()) || messages[0].equals(ServerActions.PLAYER.toString()) || messages[0].equals(ServerActions.PRINTUSERS.toString())) {
 			HangmanViewModel.addMessage(messages[1]);
 		}
@@ -85,6 +88,12 @@ public class ListenThread extends Thread{
 		}
 		if (messages[0].equals(ServerActions.WIN.toString())) {
 			HangmanViewModel.gameWon();
+		}
+		if (messages[0].equals(ServerActions.FULL_ROOM.toString())) {
+			HangmanViewModel.fullRoom();
+		}
+		if (messages[0].equals(ServerActions.GAME_STARTED.toString())) {
+			HangmanViewModel.gameStarted();
 		}
 		
 	}

@@ -23,8 +23,11 @@ public class UserThread extends Thread {
 	
 	private BufferedReader reader;
 	
-	public UserThread(Socket socket) {
+	private boolean canJoin;
+
+	public UserThread(Socket socket, boolean canJoin) {
 		this.socket = socket;
+		this.canJoin = canJoin;
 	}
 	
 	public void run() {
@@ -34,6 +37,10 @@ public class UserThread extends Thread {
 			OutputStream output = this.socket.getOutputStream();
 			this.writer = new PrintWriter(output, true);
 			System.out.println("USER THREAD");
+			if(!this.canJoin) {
+				this.sendMessage(ServerActions.GAME_STARTED, "Room is full");
+				return;
+			}
 		
 			String inputMessage = reader.readLine();
 			String username = inputMessage.split(ACTION_SPLIT)[1];

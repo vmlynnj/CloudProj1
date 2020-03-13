@@ -59,10 +59,18 @@ public class Server {
 		try (ServerSocket server = new ServerSocket(PORT)){
 			Socket clientSocket;
 			while(this.gameOpen) {
+				while(this.gameOpen) {
+					clientSocket = server.accept();
+					System.out.println("Connected to Client");
+					this.startTimer();
+
+					UserThread user = new UserThread(clientSocket, true);
+					user.start();
+				}
 				clientSocket = server.accept();
 				System.out.println("Connected to Client");
 				this.startTimer();
-				UserThread user = new UserThread(clientSocket);
+				UserThread user = new UserThread(clientSocket, false);
 				user.start();
 			}
 		} catch (IOException e) {
@@ -76,28 +84,29 @@ public class Server {
 		Runnable task = () -> {
 			this.gameOpen = false;
 			Server.broadcastMessage(ServerActions.START, "The game has begun", null);
+			Server.takeTurn(Server.users.get(0));
 			Server.broadcastMessage(ServerActions.WORD, Server.game.getHiddenWord(), null);
 		};
 		
-		service.schedule(task, 15, TimeUnit.SECONDS);
+		service.schedule(task, 10, TimeUnit.SECONDS);
 	}
 
 	
-	public synchronized static String AddUser(UserThread user) {
-		if (Server.users.size() < 4) {
-			Server.users.add(user);
-			Server.takeTurn(user);
-			Server.broadcastMessage(ServerActions.PLAYER,"A new player has joined: " + user.getUserName(), null);
+	public synchronized static void AddUser(UserThread user) {
+		try {
+			if (Server.users.size() < 4) {
+				Server.users.add(user);
 
-			try {
-				user.sendMessage(ServerActions.PRINTUSERS, Server.AllUsers());
-			} catch (IOException e) {
+				Server.broadcastMessage(ServerActions.PLAYER,"A new player has joined: " + user.getUserName(), null);
+
+					user.sendMessage(ServerActions.VALID_PLAYER, "");
+					user.sendMessage(ServerActions.PRINTUSERS, Server.AllUsers());
+			} else {
+				user.sendMessage(ServerActions.FULL_ROOM, "");
+			}
+		} catch (IOException e) {
 				e.printStackTrace();
 			}
-			return "Success";
-		} else {
-			return "";
-		}
 	}
 
 	public static void broadcastMessage(ServerActions action, String message, UserThread user) {

@@ -22,7 +22,6 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-		Client.startConnection();
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource(GUI_FXML));
