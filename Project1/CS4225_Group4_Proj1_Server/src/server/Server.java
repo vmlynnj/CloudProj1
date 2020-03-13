@@ -148,7 +148,7 @@ public class Server {
 		}
 		if(Server.game.isGameLost()) {
 			Server.broadcastMessage(ServerActions.LOSE, "The game is lost", null);
-			Server.broadcastMessage(ServerActions.WORD, Server.game.wordToGuess.toUpperCase(), null);
+			Server.broadcastMessage(ServerActions.WORD, "Your word was: " + Server.game.wordToGuess.toUpperCase(), null);
 		}
 		if(Server.game.isGameWon()) {
 			Server.broadcastMessage(ServerActions.WIN, "The game is won", null);
