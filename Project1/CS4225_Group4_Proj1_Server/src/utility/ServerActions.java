@@ -2,7 +2,7 @@ package utility;
 
 /**
  * Lists all the actions a server can take
- * @author Victoria Jenkins, Justing Smith, Aaron Merrel
+ * @author Victoria Jenkins, Justing Smith, Aaron Merrell
  *
  */
 public enum ServerActions {
@@ -28,6 +28,10 @@ public enum ServerActions {
 
     /**
      * Defines a server action
+     * 
+     * @precondition none
+     * @postcondition none
+     * 
      * @param action
      */
     ServerActions(String action) {
@@ -36,6 +40,10 @@ public enum ServerActions {
 
     /**
      * Returns the action as a string
+     * 
+     * @precondition none
+     * @postcondition none
+     * 
      * @return the action as a string
      */
     public String toString() {

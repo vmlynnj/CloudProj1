@@ -22,7 +22,7 @@ import java.net.ServerSocket;
  */
 public class Server {
 	private static final String ACTION_SPLIT = "=";
-	public static final String GAME_INSTRUCTIONS = "Hangman Enter Quit to leave";
+	public static final String GAME_INSTRUCTIONS = "Hangman Press Quit to leave";
 
 	private static List<String> usernames;
 
@@ -41,6 +41,9 @@ public class Server {
 	/**
 	 * Main entry point of server; must run this program first.
 	 * 
+	 * @precondition none
+     * @postcondition none
+	 * 
 	 * @param args not used
 	 */
 	public static void main(String[] args) {
@@ -52,6 +55,10 @@ public class Server {
 	
 	/**
 	 * Runs the application
+	 * 
+	 * @precondition none
+     * @postcondition none
+     * 
 	 */
 	public void run() {
 		Server.game = new HangmanGame();
@@ -102,9 +109,14 @@ public class Server {
 
 	/**
 	 * Adds the users to currently active users
-	 * @param user the user to add
+	 * 
+	 * @precondition none
+     * @postcondition user is added to the server's list of users
+	 * 
+	 * @param user 
+	 * 		the user to add
 	 */
-	public static synchronized  void addUser(UserThread user) {
+	public static synchronized void addUser(UserThread user) {
 
 		try {
 			if (Server.users.size() < 4) {
@@ -125,9 +137,14 @@ public class Server {
 	
 	/**
 	 * Adds the users to currently active users
+	 * 
+	 * @precondition none
+     * @postcondition none
+     * 
 	 * @param user the user to add
+	 * 
 	 */
-	public static synchronized  void deleteUser(UserThread user) {
+	public static synchronized void deleteUser(UserThread user) {
 		
 		if (Server.playingUser == user && Server.getUsers().size() > 0) {
 			Server.takeTurn(null);
@@ -143,9 +160,14 @@ public class Server {
 
 	/**
 	 * Broadcasts a message to all users
+	 * 
+	 * @precondition none
+     * @postcondition none
+     * 
 	 * @param action the server action taken
 	 * @param message the message to send to the clients
 	 * @param user the user that is sending the message if any
+	 * 
 	 */
 	public static void broadcastMessage(ServerActions action, String message, UserThread user) {
 		for (UserThread currUser : Server.currentUsers) {
@@ -163,7 +185,12 @@ public class Server {
 
 	/**
 	 * Gets all the users in play
+	 * 
+	 * @precondition none
+     * @postcondition none
+     * 
 	 * @return all of the users
+	 * 
 	 */
 	public static String allUsers() {
 		String output = "Current Players: " + System.lineSeparator();
@@ -175,8 +202,13 @@ public class Server {
 	
 	/**
 	 * Handles the user guessing a letter
+	 * 
+	 * @precondition none
+     * @postcondition none
+     * 
 	 * @param guess the guess the user makes
 	 * @param user the user that guessed it
+	 * 
 	 */
 	public static void guess(String guess, UserThread user) {
 		
@@ -201,7 +233,12 @@ public class Server {
 	
 	/**
 	 * user takes a turn
-	 * @param user the user 
+	 * 
+	 * @precondition none
+     * @postcondition none
+     * 
+	 * @param user 
+	 * 		the user 
 	 */
 	public static void takeTurn(UserThread user) {
 		
@@ -221,6 +258,13 @@ public class Server {
 		}
 	}
 	
+	/**
+	 * Restarts the game
+	 * 
+	 * @precondition none
+     * @postcondition none
+     * 
+	 */
 	public static void restart() {
 		Server.users.clear();
 		Server.usernames.clear();
@@ -228,6 +272,10 @@ public class Server {
 	}
 	/**
 	 * Gets the usernames currently in use
+	 * 
+	 * @precondition none
+     * @postcondition none
+     * 
 	 * @return the usernames
 	 */
 	public static List<String> getUsernames() {
@@ -236,31 +284,38 @@ public class Server {
 
 	/**
 	 * Gets the users currently in play
+	 * 
+	 * @precondition none
+     * @postcondition none
+     * 
 	 * @return the users
 	 */
 	public static Queue<UserThread> getUsers() {
-		return users;
+		return Server.users;
 	}
 	
 	/**
 	 * Gets the users currently in play
+	 * 
+	 * @precondition none
+     * @postcondition none
+     * 
 	 * @return the users
 	 */
 	public static List<UserThread> getCurrentUsers() {
-		return currentUsers;
+		return Server.currentUsers;
 	}
 	
 	/**
 	 * Gets the users currently in play
+	 * 
+	 * @precondition none
+     * @postcondition none
+     * 
 	 * @return the users
 	 */
 	public static boolean getGameOpen() {
-		return gameOpen;
+		return Server.gameOpen;
 	}
-
-
-
-
-
 
 }

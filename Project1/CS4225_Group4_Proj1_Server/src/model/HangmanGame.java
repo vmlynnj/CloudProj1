@@ -194,8 +194,5 @@ public class HangmanGame {
 	public void setGameLost(boolean gameLost) {
 		this.gameLost = gameLost;
 	}
-
-
-
-
+	
 }
