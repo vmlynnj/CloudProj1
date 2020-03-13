@@ -65,10 +65,11 @@ public class HangmanViewModel {
 	public static void removeLetterOption(String string) {
 		HangmanViewModel.controller.removeLetter(string);
 	}
-	
+
 	public static void gameLost() {
 		HangmanViewModel.controller.gameLost();
 	}
+
 	public static void gameWon() {
 		HangmanViewModel.controller.gameWon();
 	}

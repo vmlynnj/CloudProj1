@@ -2,6 +2,10 @@ package view;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -64,17 +68,6 @@ public class HangmanCodeBehind {
 
 
     @FXML
-    private Label lblWord;
-    
-    @FXML
-    private Label lblusernameError;
-    
-    @FXML
-    private TextField txtBoxUserName;
-    
-    @FXML
-    private Button btnUsername;
-    @FXML
     private Label lblLost;
 
     @FXML
@@ -85,6 +78,18 @@ public class HangmanCodeBehind {
     private Label lblFullRoom;
     @FXML
     private Label lblGameStarted;
+    
+    @FXML
+    private Label lblWord;
+    
+    @FXML
+    private Label lblusernameError;
+    
+    @FXML
+    private TextField txtBoxUserName;
+    
+    @FXML
+    private Button btnUsername;
     
     private String userName;
     
@@ -110,6 +115,7 @@ public class HangmanCodeBehind {
 				"V", "W", "X", "Y", "Z");
    		
    		this.guessComboBox.setDisable(true);
+   		this.lblWord.setText("test");
 	}
 	
 	public void userNameError() {
@@ -122,6 +128,7 @@ public class HangmanCodeBehind {
 		this.btnGuess.setDisable(false);
 		this.btnQuit.setDisable(false);
 		this.guessComboBox.setDisable(false);
+		//Eventually add back in
 		this.disableUntilTurn();
 		
 	}
@@ -141,6 +148,7 @@ public class HangmanCodeBehind {
     void btnGuess_Click(ActionEvent event) {
     	System.out.println(ClientActions.GUESS+"="+this.guessComboBox.getValue());
     	this.viewmodel.sendMessage(ClientActions.GUESS,this.guessComboBox.getValue());
+    	//TODO SERVER FUNC
     	this.disableUntilTurn();
     }
     
@@ -167,10 +175,6 @@ public class HangmanCodeBehind {
 		this.guessComboBox.setDisable(false);
     }
     
-    public void updateWord(String word) {
-    	this.lblWord.setText(word);
-    }
-    
     public void gameLost() {
     	this.lblLost.setVisible(true);
     	this.disableUntilTurn();
@@ -178,7 +182,7 @@ public class HangmanCodeBehind {
     	this.deadRightEye.setVisible(true);
     	this.deadMouth.setVisible(true);
     }
-    
+
     public void gameWon() {
     	this.lblWin.setVisible(true);
     	this.disableUntilTurn();
@@ -193,6 +197,19 @@ public class HangmanCodeBehind {
     	this.lblGameStarted.setVisible(true);
     	this.disableUntilTurn();
     	this.login();
+    }
+    public void updateWord(String word) {
+    	System.out.println("MADE IT TO UPDATE WORD: " + word + " Visibility: " + this.lblWord.isVisible());
+    	
+		Runnable task = () -> {
+			this.lblWord = new Label();
+			this.lblWord.setText(word);
+			System.out.println("LABEL WORD IS: " + this.lblWord.getText());
+		};
+		
+		ExecutorService service = Executors.newSingleThreadExecutor();
+		service.execute(task);
+		service.shutdown();
     }
 
 }
