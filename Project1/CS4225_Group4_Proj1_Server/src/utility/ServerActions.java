@@ -1,5 +1,10 @@
 package utility;
 
+/**
+ * Lists all the actions a server can take
+ * @author Victoria Jenkins, Justing Smith, Aaron Merrel
+ *
+ */
 public enum ServerActions {
 	MESSAGE("MESSAGE"),
 	PLAYER("PLAYER"),
@@ -8,7 +13,7 @@ public enum ServerActions {
 	USERNAMEERROR("USERNAMEERROR"),
 	PRINTUSERS("PRINTUSERS"),
 	WORD("WORD"),
-	START("WORD"),
+	START("START"),
 	TURN("TURN"),
 	INCORRECTGUESS("INCORRECT"),
 	CORRECTGUESS("CORRECT"),
@@ -20,11 +25,18 @@ public enum ServerActions {
 	
     private String action;
 
-    
+    /**
+     * Defines a server action
+     * @param action
+     */
     ServerActions(String action) {
         this.action = action;
     }
 
+    /**
+     * Returns the action as a string
+     * @return the action as a string
+     */
     public String toString() {
         return this.action;
     }

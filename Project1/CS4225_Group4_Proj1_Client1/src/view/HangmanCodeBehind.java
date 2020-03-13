@@ -101,8 +101,8 @@ public class HangmanCodeBehind {
     
 	@FXML
 	private void initialize() {
-		listProperty.set(FXCollections.observableArrayList(this.messages));
-		chatView.itemsProperty().bind(listProperty);
+		this.listProperty.set(FXCollections.observableArrayList(this.messages));
+		chatView.itemsProperty().bindBidirectional(this.listProperty);
 		this.viewmodel = new HangmanViewModel(this.listProperty, this);
 		
 		this.btnGuess.setDisable(true);
@@ -188,11 +188,20 @@ public class HangmanCodeBehind {
     }
     
     public void gameLost() {
+    	this.showHead();
+    	this.showBody();
+    	this.showLeftLeg();
+    	this.showRightLeg();
+    	this.showLeftArm();
+    	this.showRightArm();
+    	
     	this.lblLost.setVisible(true);
     	this.disableUntilTurn();
     	this.deadLeftEye.setVisible(true);
     	this.deadRightEye.setVisible(true);
     	this.deadMouth.setVisible(true);
+    	
+
     }
 
     public void gameWon() {

@@ -21,17 +21,15 @@ import java.net.ServerSocket;
  * @author Victoria Jenkins, Justin Smith, Aaron Merrell
  */
 public class Server {
-	
-
-	
 	public static final String GAME_INSTRUCTIONS = "Hangman Enter Quit to leave";
 
-	public static List<String> usernames;
-	public static ArrayList<UserThread> users;
+	private static List<String> usernames;
+
+	private static ArrayList<UserThread> users;
 	private boolean gameOpen;
 	
 	
-	public static HangmanGame game;
+	private static HangmanGame game;
 	
 	private static final int PORT = 4225;
 	
@@ -47,7 +45,10 @@ public class Server {
 		
 	}
 	
-	public void run () {
+	/**
+	 * Runs the application
+	 */
+	public void run() {
 		Server.game = new HangmanGame();
 		
 		Server.users = new ArrayList<UserThread>();
@@ -56,10 +57,10 @@ public class Server {
 		this.gameOpen = true;
 		
 		
-		try (ServerSocket server = new ServerSocket(PORT)){
+		try (ServerSocket server = new ServerSocket(PORT)) {
 			Socket clientSocket;
-			while(this.gameOpen) {
-				while(this.gameOpen) {
+			while (true) {
+				while (this.gameOpen) {
 					clientSocket = server.accept();
 					System.out.println("Connected to Client");
 					this.startTimer();
@@ -72,7 +73,6 @@ public class Server {
 				this.startTimer();
 				UserThread user = new UserThread(clientSocket, false);
 				user.start();
-
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -92,41 +92,54 @@ public class Server {
 		service.schedule(task, 10, TimeUnit.SECONDS);
 	}
 
-	
-	public synchronized static void AddUser(UserThread user) {
+	/**
+	 * Adds the users to currently active users
+	 * @param user the user to add
+	 */
+	public static synchronized  void addUser(UserThread user) {
 
 		try {
 			if (Server.users.size() < 4) {
 				Server.users.add(user);
 
-				Server.broadcastMessage(ServerActions.PLAYER,"A new player has joined: " + user.getUserName(), null);
+				Server.broadcastMessage(ServerActions.PLAYER, "A new player has joined: " + user.getUserName(), null);
 
-					user.sendMessage(ServerActions.VALID_PLAYER, "");
-					user.sendMessage(ServerActions.PRINTUSERS, Server.AllUsers());
+				user.sendMessage(ServerActions.VALID_PLAYER, "");
+				user.sendMessage(ServerActions.PRINTUSERS, Server.allUsers());
 			} else {
 				user.sendMessage(ServerActions.FULL_ROOM, "");
 
 			}
 		} catch (IOException e) {
-				e.printStackTrace();
-			}
+			e.printStackTrace();
+		}
 	}
 
+	/**
+	 * Broadcasts a message to all users
+	 * @param action the server action taken
+	 * @param message the message to send to the clients
+	 * @param user the user that is sending the message if any
+	 */
 	public static void broadcastMessage(ServerActions action, String message, UserThread user) {
-		for(UserThread currUser : Server.users) {
+		for (UserThread currUser : Server.users) {
 			try {
 				if (user == null) {
-					currUser.sendMessage(action,message);
+					currUser.sendMessage(action, message);
 				} else {
-					currUser.sendMessage(action,user.getUserName() + ": " + message);
+					currUser.sendMessage(action, user.getUserName() + ": " + message);
 				}
-			} catch(Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
-	public static String AllUsers() {
+	/**
+	 * Gets all the users in play
+	 * @return all of the users
+	 */
+	public static String allUsers() {
 		String output = "Current Players: " + System.lineSeparator();
 		for (UserThread currUser : Server.users) {
 			output += currUser.toString() + System.lineSeparator();
@@ -134,31 +147,37 @@ public class Server {
 		return output;
 	}
 	
-	public static void Guess(String guess, UserThread user) {
+	/**
+	 * Handles the user guessing a letter
+	 * @param guess the guess the user makes
+	 * @param user the user that guessed it
+	 */
+	public static void guess(String guess, UserThread user) {
 		
 		Server.broadcastMessage(ServerActions.MESSAGE, guess, user);
 		boolean correct = Server.game.guessLetter(guess);
 		Server.broadcastMessage(ServerActions.REMOVELETTEROPTION, guess, null);
 		
-		if(correct) {
-			Server.broadcastMessage(ServerActions.WORD, Server.game.hiddenWord, null);
+		if (correct) {
+			Server.broadcastMessage(ServerActions.WORD, Server.game.getHiddenWord(), null);
 		}
-		else {
-			//TODO HANDLE INCORRECT GUESS
-		}
-		if(Server.game.isGameLost()) {
+		if (Server.game.isGameLost()) {
 			Server.broadcastMessage(ServerActions.LOSE, "The game is lost", null);
-			Server.broadcastMessage(ServerActions.WORD, "Your word was: " + Server.game.wordToGuess.toUpperCase(), null);
+			Server.broadcastMessage(ServerActions.WORD, "Your word was: " + Server.game.getWordToGuess().toUpperCase(), null);
 		}
-		if(Server.game.isGameWon()) {
+		if (Server.game.isGameWon()) {
 			Server.broadcastMessage(ServerActions.WIN, "The game is won", null);
 		}
 		Server.takeTurn(user);
-		Server.broadcastMessage(ServerActions.WRONG, ""+Server.game.getIncorrectGuesses(), null);
+		Server.broadcastMessage(ServerActions.WRONG, "" + Server.game.getIncorrectGuesses(), null);
 		
 		
 	}
 	
+	/**
+	 * user takes a turn
+	 * @param user the user 
+	 */
 	public static void takeTurn(UserThread user) {
 		
 		System.out.println("Server take turn");
@@ -166,12 +185,31 @@ public class Server {
 		try {
 			currUser.sendMessage(ServerActions.TURN, "your turn");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Server.users.add(user);
-		
+		if (user != null) {
+			Server.users.add(user);
+		}
 	}
+	/**
+	 * Gets the usernames currently in use
+	 * @return the usernames
+	 */
+	public static List<String> getUsernames() {
+		return Server.usernames;
+	}
+
+	/**
+	 * Gets the users currently in play
+	 * @return the users
+	 */
+	public static ArrayList<UserThread> getUsers() {
+		return users;
+	}
+
+
+
+
 
 
 }

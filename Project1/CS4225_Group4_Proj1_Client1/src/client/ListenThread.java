@@ -68,6 +68,7 @@ public class ListenThread extends Thread{
 		}
 
 		if(messages[0].equals(ServerActions.MESSAGE.toString()) || messages[0].equals(ServerActions.PLAYER.toString()) || messages[0].equals(ServerActions.PRINTUSERS.toString())) {
+			HangmanViewModel.addMessage(messages[1]);
 		}
 		if(messages[0].equals(ServerActions.WORD.toString())) {
 			HangmanViewModel.updateWord(messages[1]);

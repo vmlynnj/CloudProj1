@@ -28,6 +28,7 @@ public class HangmanViewModel {
 	
 	
 	public static void addMessage(String message) {
+		
 		HangmanViewModel.messages.add(message);
 	}
 

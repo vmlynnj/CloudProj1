@@ -8,15 +8,16 @@ import java.util.Random;
 import io.FileReader;
 
 /**
+ * Controlls the hangman game
  * @author jsmit124
  *
  * @version 1.0
  */
 public class HangmanGame {
-	public String wordToGuess;
-	public String hiddenWord;
-	public boolean gameWon;
-	public boolean gameLost;
+	private String wordToGuess;
+	private String hiddenWord;
+	private boolean gameWon;
+	private boolean gameLost;
 	
 	private int incorrectGuesses;
 	
@@ -49,7 +50,7 @@ public class HangmanGame {
 		var randomWordNumber = randomGenerator.nextInt(words.size());
 		
 		this.wordToGuess = words.get(randomWordNumber);
-		this.hiddenWord = wordToGuess.replaceAll("[a-zA-Z]", "_");
+		this.hiddenWord = this.wordToGuess.replaceAll("[a-zA-Z]", "_");
 	}
 	
 	
@@ -152,4 +153,49 @@ public class HangmanGame {
 		return this.incorrectGuesses;
 	}
 	
+	/**
+	 * Sets the incorrect guesses
+	 * @param incorrectGuesses the amount of incorrect guesses
+	 */
+	public void setIncorrectGuesses(int incorrectGuesses) {
+		this.incorrectGuesses = incorrectGuesses;
+	}
+	/**
+	 * Sets the word that is being guessed
+	 * @param wordToGuess the word that is being guessed
+	 */
+	public void setWordToGuess(String wordToGuess) {
+		this.wordToGuess = wordToGuess;
+	}
+
+
+	/**
+	 * Sets the hidden word
+	 * @param hiddenWord sets the hidden word
+	 */
+	public void setHiddenWord(String hiddenWord) {
+		this.hiddenWord = hiddenWord;
+	}
+
+
+	/**
+	 * Sets if the game is won or not
+	 * @param gameWon whether or not the game is run
+	 */
+	public void setGameWon(boolean gameWon) {
+		this.gameWon = gameWon;
+	}
+
+
+	/**
+	 * Sets if the game is lost
+	 * @param gameLost whether or not the game is lost
+	 */
+	public void setGameLost(boolean gameLost) {
+		this.gameLost = gameLost;
+	}
+
+
+
+
 }
