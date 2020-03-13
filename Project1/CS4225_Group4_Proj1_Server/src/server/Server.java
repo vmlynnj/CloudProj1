@@ -115,6 +115,25 @@ public class Server {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Adds the users to currently active users
+	 * @param user the user to add
+	 */
+	public static synchronized  void deleteUser(UserThread user) {
+			
+		if (Server.getUsers().peek() == user && Server.getUsers().size() > 0) {
+			Server.getUsers().remove(user);
+			Server.getUsernames().remove(user.getUserName());
+			Server.takeTurn(null);
+		}
+		Server.getUsers().remove(user);
+		Server.getUsernames().remove(user.getUserName());
+		Server.broadcastMessage(ServerActions.MESSAGE, "server: "+user.getUserName()+" has left the game", null);
+		if (Server.users.size() <= 0) {
+			Server.retry();
+		}
+	}
 
 	/**
 	 * Broadcasts a message to all users

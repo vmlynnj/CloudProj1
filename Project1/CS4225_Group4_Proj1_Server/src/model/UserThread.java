@@ -67,12 +67,13 @@ public class UserThread extends Thread {
 	private void listenForInput() {
 		try {
 			String inputMessage = "";
+			String action = "";
 			do {
 				inputMessage = this.reader.readLine();
 				System.out.println("Server receives: "+ inputMessage);
 				String[] clientMessage = inputMessage.split(ACTION_SPLIT);
 				if(clientMessage.length >= 2) {
-					String action = clientMessage[0];
+					action = clientMessage[0];
 					String message = clientMessage[1];
 					if(action.equals(ClientActions.RETRY.toString())) {
 						Server.retry();
@@ -86,16 +87,10 @@ public class UserThread extends Thread {
 					
 				}
 
-			} while (!inputMessage.equals(ClientActions.QUIT.toString()));
+			} while (!action.equals(ClientActions.QUIT.toString()));
 			
-			if (Server.getUsers().peek() == this) {
-				Server.getUsers().remove(this);
-				Server.getUsernames().remove(this.getUserName());
-				Server.takeTurn(null);
-			}
-			Server.getUsers().remove(this);
-			Server.getUsernames().remove(this.getUserName());
-			System.exit(0);
+			
+			Server.deleteUser(this);
 		} catch (IOException e) {
 		}
 	}
