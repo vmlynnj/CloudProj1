@@ -174,13 +174,11 @@ public class HangmanCodeBehind {
     
     public void disableUntilTurn() {
     	this.btnGuess.setDisable(true);
-		this.btnQuit.setDisable(true);
 		this.guessComboBox.setDisable(true);
     }
     
     public void enableTurn() {
 		this.btnGuess.setDisable(false);
-		this.btnQuit.setDisable(false);
 		this.guessComboBox.setDisable(false);
     }
     
@@ -198,8 +196,6 @@ public class HangmanCodeBehind {
     }
     
     public void updateWord(String word) {
-    	System.out.println("MADE IT TO UPDATE WORD: " + word + " Visibility: " + this.lblWord.isVisible());
-    	
 		Runnable task = () -> {
 			Platform.runLater(() ->
 			  this.lblWord.setText(word));

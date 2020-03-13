@@ -3,7 +3,11 @@
  */
 package viewmodel;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import client.Client;
+import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import util.ClientActions;
 import view.HangmanCodeBehind;
@@ -29,7 +33,14 @@ public class HangmanViewModel {
 	
 	
 	public static void addMessage(String message) {
-		HangmanViewModel.messages.add(message);
+		Runnable task = () -> {
+			Platform.runLater(() ->
+			  HangmanViewModel.messages.add(message));
+		};
+		
+		ExecutorService service = Executors.newSingleThreadExecutor();
+		service.execute(task);
+		service.shutdown();
 	}
 
 	public void sendMessage(ClientActions action, String text) {
