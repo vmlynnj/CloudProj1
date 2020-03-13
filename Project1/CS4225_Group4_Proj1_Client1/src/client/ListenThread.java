@@ -9,6 +9,11 @@ import java.net.Socket;
 import util.ServerActions;
 import viewmodel.HangmanViewModel;
 
+/**
+ * Creates a thread to listen to the server
+ * @author Victoria Jenkins, Justin Smith, Aaron Merrell
+ *
+ */
 public class ListenThread extends Thread {
 
 	
@@ -18,8 +23,10 @@ public class ListenThread extends Thread {
 	
 	private BufferedReader reader;
 	
-	public static String MESSAGE = null;
-	
+	/**
+	 * Creates a listening thread
+	 * @param socket the socket to listen on
+	 */
 	public ListenThread(Socket socket) {
 		this.socket = socket;
 		
@@ -35,12 +42,14 @@ public class ListenThread extends Thread {
 	@Override
 	public void run() {
 		while (true) {
-			System.out.println("In listener 0");
 			this.read();
 
 		}
 	} 
 	
+	/**
+	 * Starts reading input from the server
+	 */
 	public void read() {
 		try {
 			String message = this.reader.readLine();
@@ -52,49 +61,79 @@ public class ListenThread extends Thread {
 		
 	}
 	
+	/**
+	 * Handles messages from the server
+	 * @param message the message the server sends
+	 */
 	public void handleMessages(String message) {
-
 		if (message.contains("Player: ")) {
 			HangmanViewModel.addMessage(message);
 		}
 		String[] messages = message.split(Client.ACTION_SPLIT);
-		if (messages[0].equals(ServerActions.USERNAMEERROR.toString())) {
-			HangmanViewModel.userNameError();
+		String action = messages[0];
+		String serverMessage = messages[1];
+		this.handleLogin(action);
+		this.printPlayers(action, serverMessage);
+		this.printMessage(action, serverMessage);
+		this.handleTakingTurn(action, serverMessage);
+		this.determineWinLoss(action);
+	}
+	
+	
+	private void handleTakingTurn(String action, String message) {
+		if (action.equals(ServerActions.WORD.toString())) {
+			HangmanViewModel.updateWord(message);
 		}
-		if (messages[0].equals(ServerActions.VALID_PLAYER.toString())) {
-			HangmanViewModel.login();
-		}
-		if (messages[0].equals(ServerActions.MESSAGE.toString()) || messages[0].equals(ServerActions.PLAYER.toString()) || messages[0].equals(ServerActions.PRINTUSERS.toString())) {
-			HangmanViewModel.addMessage(messages[1]);
-		}
-		if (messages[0].equals(ServerActions.WORD.toString())) {
-			HangmanViewModel.updateWord(messages[1]);
-		}
-		if (messages[0].equals(ServerActions.TURN.toString())) {
+		if (action.equals(ServerActions.TURN.toString())) {
 			HangmanViewModel.enableTurn();
 		}
-		if (messages[0].equals(ServerActions.START.toString())) {
-			HangmanViewModel.startGame();
+		if (action.equals(ServerActions.REMOVELETTEROPTION.toString())) {
+			HangmanViewModel.removeLetterOption(message);
 		}
-		if (messages[0].equals(ServerActions.REMOVELETTEROPTION.toString())) {
-			HangmanViewModel.removeLetterOption(messages[1]);
-		}
-		if (messages[0].equals(ServerActions.LOSE.toString())) {
-			HangmanViewModel.gameLost();
-		}
-		if (messages[0].equals(ServerActions.WIN.toString())) {
-			HangmanViewModel.gameWon();
-		}
-		if (messages[0].equals(ServerActions.FULL_ROOM.toString())) {
-			HangmanViewModel.fullRoom();
-		}
-		if (messages[0].equals(ServerActions.GAME_STARTED.toString())) {
-			HangmanViewModel.gameStarted();
-		}
-		if (messages[0].equals(ServerActions.WRONG.toString())) {
-			HangmanViewModel.showHangman(Integer.parseInt(messages[1]));
+
+
+		if (action.equals(ServerActions.WRONG.toString())) {
+			HangmanViewModel.showHangman(Integer.parseInt(message));
 		}
 	}
 	
+	private void handleLogin(String action) {
+		if (action.equals(ServerActions.USERNAMEERROR.toString())) {
+			HangmanViewModel.userNameError();
+		}
+		if (action.equals(ServerActions.VALID_PLAYER.toString())) {
+			HangmanViewModel.login();
+		}
+		if (action.equals(ServerActions.FULL_ROOM.toString())) {
+			HangmanViewModel.fullRoom();
+		}
+		if (action.equals(ServerActions.GAME_STARTED.toString())) {
+			HangmanViewModel.gameStarted();
+		}
+
+		if (action.equals(ServerActions.START.toString())) {
+			HangmanViewModel.startGame();
+		}
+	}
+	
+	private void printPlayers(String action, String message) {
+		if (action.equals(ServerActions.PLAYER.toString()) || action.equals(ServerActions.PRINTUSERS.toString())) {
+			HangmanViewModel.addMessage(message);
+		}
+	}
+	private void printMessage(String action, String message) {
+		if (action.equals(ServerActions.MESSAGE.toString())) {
+			HangmanViewModel.addMessage(message);
+		}
+	}
+	
+	private void determineWinLoss(String action) {
+		if (action.equals(ServerActions.LOSE.toString())) {
+			HangmanViewModel.gameLost();
+		}
+		if (action.equals(ServerActions.WIN.toString())) {
+			HangmanViewModel.gameWon();
+		}	
+	}
 
 }
