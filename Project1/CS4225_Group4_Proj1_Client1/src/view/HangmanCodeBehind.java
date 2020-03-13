@@ -131,11 +131,17 @@ public class HangmanCodeBehind {
    		this.btnRetry.setDisable(true);
 	}
 	
+	/**
+	 * Handles name error.
+	 */
 	public void userNameError() {
 		this.txtBoxUserName.clear();
 		this.lblusernameError.setVisible(true);
 	}
 	
+	/**
+	 * Handles start game.
+	 */
 	public void startGame() {
 
 		this.btnGuess.setDisable(false);
@@ -143,6 +149,10 @@ public class HangmanCodeBehind {
 		this.disableUntilTurn();
 		
 	}
+	
+	/**
+	 * Handles login.
+	 */
 	public void login() {
 		this.txtBoxUserName.setDisable(true);
 		this.btnUsername.setDisable(true);
@@ -152,11 +162,18 @@ public class HangmanCodeBehind {
 		
 	}
 	
+	/**
+	 * Handles full room.
+	 */
     public void fullRoom() {
     	this.lblFullRoom.setVisible(true);
     	this.disableUntilTurn();
     	this.login();
     }
+    
+    /**
+     * Handles game started.
+     */
     public void gameStarted() {
     	this.lblGameStarted.setVisible(true);
     	this.disableUntilTurn();
@@ -196,27 +213,46 @@ public class HangmanCodeBehind {
 		this.btnRetry.setDisable(true);
     }
     
+    /**
+     * Removes a letter from the combo box.
+     * 
+     * @param letter The leter to remove.
+     */
     public void removeLetter(String letter) {
     	this.guessComboBox.getItems().remove(letter);
     	this.guessComboBox.valueProperty().set(null);
     }
     
+    /**
+     * Disable UI until the players turn.
+     */
     public void disableUntilTurn() {
     	this.lblTurn.setVisible(false);
     	this.btnGuess.setDisable(true);
 		this.guessComboBox.setDisable(true);
     }
     
+    /**
+     * Enables UI for the player turn.
+     */
     public void enableTurn() {
     	this.lblTurn.setVisible(true);
 		this.btnGuess.setDisable(false);
 		this.guessComboBox.setDisable(false);
     }
     
-    
+    /**
+     * Adds a message to the UI.
+     * 
+     * @param message The message to add.
+     */
     public void addMessage(String message) {
     	this.listProperty.add(message);
     }
+    
+    /**
+     * Handles game lost for the UI.
+     */
     public void gameLost() {
     	this.showHead();
     	this.showBody();
@@ -236,12 +272,20 @@ public class HangmanCodeBehind {
 
     }
 
+    /**
+     * Handles game won for the UI.
+     */
     public void gameWon() {
     	this.lblWin.setVisible(true);
     	this.disableUntilTurn();
     	this.btnRetry.setDisable(false);
     }
     
+    /**
+     * Updates the word to guess.
+     * 
+     * @param word The word to update.
+     */
     public void updateWord(String word) {
 		Runnable task = () -> {
 			Platform.runLater(() ->
@@ -254,26 +298,44 @@ public class HangmanCodeBehind {
 		service.shutdown();
     }
     
+    /**
+     * Shows the hangman's head.
+     */
     public void showHead() {
 		this.head.setVisible(true);
 	}
 
+    /**
+     * Shows the hangman's body.
+     */
 	public void showBody() {
 		this.body.setVisible(true);
 	}
 
+	/**
+     * Shows the hangman's left leg.
+     */
 	public void showLeftLeg() {
 		this.leftLeg.setVisible(true);
 	}
 
+	/**
+     * Shows the hangman's right leg.
+     */
 	public void showRightLeg() {
 		this.rightLeg.setVisible(true);
 	}
 
+	/**
+     * Shows the hangman's left arm.
+     */
 	public void showLeftArm() {
 		this.leftArm.setVisible(true);
 	}
 
+	/**
+     * Shows the hangman's right arm.
+     */
 	public void showRightArm() {
 		this.rightArm.setVisible(true);
 	}
@@ -294,10 +356,16 @@ public class HangmanCodeBehind {
 		this.lblWord.setVisible(false);
 	}
 	
+	/**
+	 * Shows the warning label.
+	 */
 	public void showWarning() {
 		this.lblWarning.setVisible(true);
 	}
 	
+	/**
+	 * Show remove label.
+	 */
 	public void showRemove() {
 		this.lblRemvoed.setVisible(true);
 		this.disableUntilTurn();

@@ -144,22 +144,39 @@ public class HangmanViewModel {
 		HangmanViewModel.controller.removeLetter(string);
 	}
 
+	/**
+	 * Handles the gui for when the game is lost.
+	 */
 	public static void gameLost() {
 		HangmanViewModel.controller.gameLost();
 	}
 
+	/**
+	 * Handles the gui for when the game is won.
+	 */
 	public static void gameWon() {
 		HangmanViewModel.controller.gameWon();
 	}
 	
+	/**
+	 * Handles the room being full.
+	 */
 	public static void fullRoom() {
 		HangmanViewModel.controller.fullRoom();
 	}
 
+	/**
+	 * Handles the gui for game started.
+	 */
 	public static void gameStarted() {
 		HangmanViewModel.controller.gameStarted();
 	}
 	
+	/**
+	 * Handles the gui to show the hangman.
+	 * 
+	 * @param wrongGuesses The number of wrong guesses.
+	 */
 	public static void showHangman(int wrongGuesses) {
 		if (wrongGuesses >= 1) {
 			HangmanViewModel.controller.showHead();
@@ -190,6 +207,11 @@ public class HangmanViewModel {
 		return username;
 	}
 	
+	/**
+	 * True if player turn has been taken, false otherwise.
+	 * 
+	 * @return if the turn has been taken
+	 */
 	public static boolean getTakenTurn() {
 		return takenTurn;
 	}
